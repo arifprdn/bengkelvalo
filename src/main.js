@@ -781,11 +781,8 @@ document.addEventListener('DOMContentLoaded', () => {
     init()
     initCountUpAnimation()
     initTypewriterEffect()
-})
 
-// Hide preloader when page is fully loaded
-window.addEventListener('load', () => {
-    // Small delay to ensure smooth transition
+    // Hide preloader after short delay (don't wait for all images)
     setTimeout(() => {
         document.body.classList.add('loaded')
 
@@ -796,5 +793,5 @@ window.addEventListener('load', () => {
                 preloader.remove()
             }, 500) // Match CSS transition duration
         }
-    }, 800) // Allow logo animation to play a bit
+    }, 500) // Short delay for logo animation
 })
