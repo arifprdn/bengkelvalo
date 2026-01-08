@@ -5,15 +5,15 @@ import './style.css'
 // Immortal: 0-79 RR (Immo 1), 80-199 RR (Immo 2), 200-399 RR (Immo 3)
 // Radiant: 400-1000 RR (Premium pricing)
 const ranks = [
-    { id: 1, name: 'Iron', image: './assets/1 - IRON.webp', pricePerDivision: 20000 },
-    { id: 2, name: 'Bronze', image: './assets/2 - BRONZE.webp', pricePerDivision: 30000 },
-    { id: 3, name: 'Silver', image: './assets/3 - SILVER.webp', pricePerDivision: 40000 },
-    { id: 4, name: 'Gold', image: './assets/4 - GOLD.webp', pricePerDivision: 55000 },
-    { id: 5, name: 'Platinum', image: './assets/5 - PLATINUM.webp', pricePerDivision: 70000 },
-    { id: 6, name: 'Diamond', image: './assets/6 - DIAMOND.webp', pricePerDivision: [100000, 120000, 150000] },
-    { id: 7, name: 'Ascendant', image: './assets/7 - ASCENDANT.webp', pricePerDivision: [175000, 200000, 250000] },
-    { id: 8, name: 'Immortal', image: './assets/8 - IMMORTAL.webp', pricePerRR: [3000, 5000, 7000], rrTiers: [80, 200, 400], minRR: 0, maxRR: 399, usesRR: true },
-    { id: 9, name: 'Radiant', image: './assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [500, 700, 1000], minRR: 400, maxRR: 1000, usesRR: true, isRadiant: true }
+    { id: 1, name: 'Iron', image: '/assets/1 - IRON.webp', pricePerDivision: 20000 },
+    { id: 2, name: 'Bronze', image: '/assets/2 - BRONZE.webp', pricePerDivision: 30000 },
+    { id: 3, name: 'Silver', image: '/assets/3 - SILVER.webp', pricePerDivision: 40000 },
+    { id: 4, name: 'Gold', image: '/assets/4 - GOLD.webp', pricePerDivision: 55000 },
+    { id: 5, name: 'Platinum', image: '/assets/5 - PLATINUM.webp', pricePerDivision: 70000 },
+    { id: 6, name: 'Diamond', image: '/assets/6 - DIAMOND.webp', pricePerDivision: [100000, 120000, 150000] },
+    { id: 7, name: 'Ascendant', image: '/assets/7 - ASCENDANT.webp', pricePerDivision: [175000, 200000, 250000] },
+    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerRR: [3000, 5000, 7000], rrTiers: [80, 200, 400], minRR: 0, maxRR: 399, usesRR: true },
+    { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [500, 700, 1000], minRR: 400, maxRR: 1000, usesRR: true, isRadiant: true }
 ]
 
 // State
@@ -784,9 +784,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Preload critical images (visible rank icons)
     const criticalImages = [
-        './assets/1 - IRON.webp',
-        './assets/4 - GOLD.webp',
-        './assets/bg.webp'
+        '/assets/1 - IRON.webp',
+        '/assets/4 - GOLD.webp',
+        '/assets/bg.webp'
     ]
 
     let imagesLoaded = 0
