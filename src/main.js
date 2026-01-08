@@ -405,7 +405,7 @@ function updateOrderButton(price) {
         `Mohon informasi lebih lanjut. Terima kasih!`
     )
 
-    orderBtn.href = `https://wa.me/6281234567890?text=${message}`
+    orderBtn.href = `https://wa.me/6289524150075?text=${message}`
 }
 
 // Setup event listeners
