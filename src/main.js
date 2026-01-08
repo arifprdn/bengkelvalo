@@ -399,9 +399,9 @@ function updateOrderButton(price) {
 
     const message = encodeURIComponent(
         `Halo Valojoki, saya ingin order boosting:\n\n` +
-        `📍 Dari: ${fromText}\n` +
-        `🎯 Ke: ${toText}\n` +
-        `💰 Estimasi: Rp ${price.toLocaleString('id-ID')}\n\n` +
+        `Dari: ${fromText}\n` +
+        `Ke: ${toText}\n` +
+        `Estimasi: Rp ${price.toLocaleString('id-ID')}\n\n` +
         `Mohon informasi lebih lanjut. Terima kasih!`
     )
 
