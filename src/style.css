@@ -2180,3 +2180,91 @@ ul {
     text-align: center;
   }
 }
+
+/* ==========================================
+   WHY US SECTION FEATURES
+   ========================================== */
+.why-us-section {
+  padding: var(--spacing-xxl) 0;
+  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-dark) 100%);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--gradient-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  transition: var(--transition-base);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 70, 85, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 70, 85, 0.1);
+  border-radius: var(--border-radius-md);
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.feature-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.feature-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Mobile: Infinite horizontal scroll */
+@media (max-width: 768px) {
+  .features-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: hidden;
+  }
+
+  .features-grid.scroll-animation {
+    animation: scrollFeatures 25s linear infinite;
+  }
+
+  .features-grid:hover,
+  .features-grid:active {
+    animation-play-state: paused;
+  }
+
+  .feature-card {
+    min-width: 260px;
+    flex-shrink: 0;
+  }
+}
+
+@keyframes scrollFeatures {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}

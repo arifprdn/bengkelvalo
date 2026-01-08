@@ -814,4 +814,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fallback: hide after max 3 seconds no matter what
     setTimeout(hidePreloader, 3000)
+
+    // Init features scroll for mobile
+    initFeaturesScroll()
 })
+
+// Initialize infinite scroll for features on mobile
+function initFeaturesScroll() {
+    const featuresGrid = document.querySelector('.features-grid')
+    if (!featuresGrid) return
+
+    // Only apply on mobile
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+    if (!isMobile) return
+
+    // Clone all cards for seamless infinite scroll
+    const cards = featuresGrid.querySelectorAll('.feature-card')
+    cards.forEach(card => {
+        const clone = card.cloneNode(true)
+        featuresGrid.appendChild(clone)
+    })
+
+    // Apply animation class
+    featuresGrid.classList.add('scroll-animation')
+}
