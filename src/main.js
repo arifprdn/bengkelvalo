@@ -782,16 +782,36 @@ document.addEventListener('DOMContentLoaded', () => {
     initCountUpAnimation()
     initTypewriterEffect()
 
-    // Hide preloader after short delay (don't wait for all images)
-    setTimeout(() => {
-        document.body.classList.add('loaded')
+    // Preload critical images (visible rank icons)
+    const criticalImages = [
+        './assets/1 - IRON.webp',
+        './assets/4 - GOLD.webp',
+        './assets/bg.webp'
+    ]
 
-        // Remove preloader from DOM after transition
+    let imagesLoaded = 0
+    const totalImages = criticalImages.length
+
+    const hidePreloader = () => {
+        document.body.classList.add('loaded')
         const preloader = document.getElementById('preloader')
         if (preloader) {
-            setTimeout(() => {
-                preloader.remove()
-            }, 500) // Match CSS transition duration
+            setTimeout(() => preloader.remove(), 500)
         }
-    }, 500) // Short delay for logo animation
+    }
+
+    // Load critical images
+    criticalImages.forEach(src => {
+        const img = new Image()
+        img.onload = img.onerror = () => {
+            imagesLoaded++
+            if (imagesLoaded >= totalImages) {
+                setTimeout(hidePreloader, 300) // Short delay for animation
+            }
+        }
+        img.src = src
+    })
+
+    // Fallback: hide after max 3 seconds no matter what
+    setTimeout(hidePreloader, 3000)
 })
