@@ -1,0 +1,6 @@
+# Robots.txt for Valojoki
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://valojoki.com/sitemap.xml
