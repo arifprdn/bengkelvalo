@@ -40,10 +40,35 @@ const toRRContainer = document.getElementById('to-rr-container')
 const fromRRInput = document.getElementById('from-rr')
 const toRRInput = document.getElementById('to-rr')
 const priceValue = document.getElementById('price-value')
+const originalPriceEl = document.getElementById('original-price')
+const discountBadgeEl = document.getElementById('discount-badge')
+const priceInfoEl = document.querySelector('.price-info')
 const orderBtn = document.getElementById('order-btn')
 const navbar = document.getElementById('navbar')
 const mobileMenuBtn = document.getElementById('mobile-menu-btn')
 const mobileMenu = document.getElementById('mobile-menu')
+
+// Discount tiers configuration
+const DISCOUNT_TIERS = [
+    { minPrice: 500000, discount: 0.15 }, // 15% off for 500k+
+    { minPrice: 200000, discount: 0.10 }, // 10% off for 200k-499k
+    { minPrice: 100000, discount: 0.05 }, // 5% off for 100k-199k
+]
+
+// Get discount percentage based on price
+function getDiscountTier(price) {
+    for (const tier of DISCOUNT_TIERS) {
+        if (price >= tier.minPrice) {
+            return tier.discount
+        }
+    }
+    return 0 // No discount for orders under 100k
+}
+
+// Round price to nearest 1000
+function roundPrice(price) {
+    return Math.round(price / 1000) * 1000
+}
 
 // Initialize
 function init() {
@@ -346,12 +371,28 @@ function calculatePrice() {
         }
     }
 
+    // Calculate discount
+    const discountPercent = getDiscountTier(totalPrice)
+    const discountAmount = totalPrice * discountPercent
+    const finalPrice = roundPrice(totalPrice - discountAmount)
+
     // Format price with loading animation
     priceValue.classList.add('calculating')
 
     // Small delay for visual feedback
     setTimeout(() => {
-        const formattedPrice = totalPrice.toLocaleString('id-ID')
+        // Show original price (strikethrough) only if there's a discount
+        if (discountPercent > 0) {
+            originalPriceEl.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`
+            discountBadgeEl.textContent = `💰 Hemat ${Math.round(discountPercent * 100)}%`
+            priceInfoEl.classList.add('has-discount')
+        } else {
+            originalPriceEl.textContent = ''
+            discountBadgeEl.textContent = ''
+            priceInfoEl.classList.remove('has-discount')
+        }
+
+        const formattedPrice = finalPrice.toLocaleString('id-ID')
         priceValue.textContent = formattedPrice
         priceValue.classList.remove('calculating')
         priceValue.classList.add('calculated')
@@ -362,8 +403,8 @@ function calculatePrice() {
         }, 300)
     }, 150)
 
-    // Update order button with price
-    updateOrderButton(totalPrice)
+    // Update order button with final (discounted) price
+    updateOrderButton(finalPrice)
 }
 
 // Get total divisions from Iron 1 (ranks using RR don't count as divisions)
