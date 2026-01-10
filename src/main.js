@@ -847,12 +847,12 @@ document.addEventListener('DOMContentLoaded', () => {
         img.onload = img.onerror = () => {
             imagesLoaded++
             if (imagesLoaded >= totalImages) {
-                setTimeout(hidePreloader, 300) // Short delay for animation
+                setTimeout(hidePreloader, 1000) // Minimum 1 second delay for animation
             }
         }
         img.src = src
     })
 
-    // Fallback: hide after max 3 seconds no matter what
-    setTimeout(hidePreloader, 3000)
+    // Fallback: hide after max 5 seconds no matter what
+    setTimeout(hidePreloader, 5000)
 })
