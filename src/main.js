@@ -50,9 +50,9 @@ const mobileMenu = document.getElementById('mobile-menu')
 
 // Discount tiers configuration
 const DISCOUNT_TIERS = [
-    { minPrice: 500000, discount: 0.15 }, // 15% off for 500k+
-    { minPrice: 200000, discount: 0.10 }, // 10% off for 200k-499k
-    { minPrice: 100000, discount: 0.05 }, // 5% off for 100k-199k
+    { minPrice: 500000, discount: 0.30 }, // 30% off for 500k+
+    { minPrice: 200000, discount: 0.20 }, // 20% off for 200k-499k
+    { minPrice: 100000, discount: 0.15 }, // 15% off for 100k-199k
 ]
 
 // Get discount percentage based on price
