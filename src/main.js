@@ -12,7 +12,7 @@ const ranks = [
     { id: 5, name: 'Platinum', image: '/assets/5 - PLATINUM.webp', pricePerDivision: 55000 },
     { id: 6, name: 'Diamond', image: '/assets/6 - DIAMOND.webp', pricePerDivision: [70000, 80000, 90000] },
     { id: 7, name: 'Ascendant', image: '/assets/7 - ASCENDANT.webp', pricePerDivision: [120000, 140000, 160000] },
-    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerRR: [3000, 5000, 7000], rrTiers: [80, 200, 400], minRR: 0, maxRR: 399, usesRR: true },
+    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerRR: [5000, 6000, 7500], rrTiers: [80, 200, 400], minRR: 0, maxRR: 399, usesRR: true },
     { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [500, 700, 1000], minRR: 400, maxRR: 1000, usesRR: true, isRadiant: true }
 ]
 
