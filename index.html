@@ -291,140 +291,302 @@
         <span class="section-badge">Kalkulator Harga</span>
         <h2 class="section-title">Hitung Biaya <span class="gradient-text">Rank Up</span></h2>
         <p class="section-description">
-          Pilih rank awal dan rank tujuanmu untuk melihat estimasi harga
+          Pilih layanan dan hitung estimasi harga
         </p>
       </div>
 
-      <div class="calculator-card">
-        <div class="calculator-grid">
-          <!-- From Rank -->
-          <div class="rank-selector">
-            <h3 class="selector-title">
-              <span class="selector-icon">📍</span>
-              Rank Saat Ini
-            </h3>
-            <div class="rank-picker" id="from-rank-picker">
-              <div class="selected-rank" id="from-selected">
-                <img src="/assets/1 - IRON.webp" alt="Iron" class="selected-rank-img" />
-                <div class="selected-rank-info">
-                  <span class="selected-rank-name">Iron</span>
-                  <span class="selected-rank-division">Division 1</span>
+      <!-- Tab Toggle -->
+      <div class="calc-tabs">
+        <button class="calc-tab active" data-tab="reguler" id="tab-reguler">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+          Joki Reguler
+        </button>
+        <button class="calc-tab" data-tab="mabar" id="tab-mabar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          Joki Mabar
+        </button>
+      </div>
+
+      <!-- Tab Panel: Joki Reguler -->
+      <div class="calc-tab-panel active" id="panel-reguler">
+        <div class="calculator-card">
+          <div class="calculator-grid">
+            <!-- From Rank -->
+            <div class="rank-selector">
+              <h3 class="selector-title">
+                <span class="selector-icon">📍</span>
+                Rank Saat Ini
+              </h3>
+              <div class="rank-picker" id="from-rank-picker">
+                <div class="selected-rank" id="from-selected">
+                  <img src="/assets/1 - IRON.webp" alt="Iron" class="selected-rank-img" />
+                  <div class="selected-rank-info">
+                    <span class="selected-rank-name">Iron</span>
+                    <span class="selected-rank-division">Division 1</span>
+                  </div>
+                  <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
                 </div>
-                <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="2">
-                  <path d="M6 9l6 6 6-6" />
+                <div class="rank-dropdown" id="from-dropdown">
+                  <div class="rank-options" id="from-options"></div>
+                </div>
+              </div>
+              <div class="division-selector" id="from-division">
+                <button class="division-btn active" data-division="1">I</button>
+                <button class="division-btn" data-division="2">II</button>
+                <button class="division-btn" data-division="3">III</button>
+              </div>
+              <div class="rr-input-container" id="from-regular-rr-container">
+                <label class="rr-label">RR Saat Ini</label>
+                <div class="rr-input-wrapper">
+                  <input type="number" class="rr-input" id="from-regular-rr" min="0" max="99" value="0" placeholder="0">
+                  <span class="rr-suffix">RR</span>
+                </div>
+              </div>
+              <div class="rr-input-container" id="from-rr-container" style="display: none;">
+                <label class="rr-label">Rating Points (RR)</label>
+                <div class="rr-input-wrapper">
+                  <input type="number" class="rr-input" id="from-rr" min="400" max="1000" value="400" placeholder="400">
+                  <span class="rr-suffix">RR</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="calculator-arrow">
+              <div class="arrow-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </div>
-              <div class="rank-dropdown" id="from-dropdown">
-                <div class="rank-options" id="from-options"></div>
+            </div>
+
+            <!-- To Rank -->
+            <div class="rank-selector">
+              <h3 class="selector-title">
+                <span class="selector-icon">🎯</span>
+                Rank Tujuan
+              </h3>
+              <div class="rank-picker" id="to-rank-picker">
+                <div class="selected-rank" id="to-selected">
+                  <img src="/assets/4 - GOLD.webp" alt="Gold" class="selected-rank-img" />
+                  <div class="selected-rank-info">
+                    <span class="selected-rank-name">Gold</span>
+                    <span class="selected-rank-division">Division 1</span>
+                  </div>
+                  <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </div>
+                <div class="rank-dropdown" id="to-dropdown">
+                  <div class="rank-options" id="to-options"></div>
+                </div>
               </div>
-            </div>
-            <div class="division-selector" id="from-division">
-              <button class="division-btn active" data-division="1">I</button>
-              <button class="division-btn" data-division="2">II</button>
-              <button class="division-btn" data-division="3">III</button>
-            </div>
-            <div class="rr-input-container" id="from-rr-container" style="display: none;">
-              <label class="rr-label">Rating Points (RR)</label>
-              <div class="rr-input-wrapper">
-                <input type="number" class="rr-input" id="from-rr" min="400" max="1000" value="400" placeholder="400">
-                <span class="rr-suffix">RR</span>
+              <div class="division-selector" id="to-division">
+                <button class="division-btn active" data-division="1">I</button>
+                <button class="division-btn" data-division="2">II</button>
+                <button class="division-btn" data-division="3">III</button>
+              </div>
+              <div class="rr-input-container" id="to-rr-container" style="display: none;">
+                <label class="rr-label">Rating Points (RR)</label>
+                <div class="rr-input-wrapper">
+                  <input type="number" class="rr-input" id="to-rr" min="400" max="1000" value="500" placeholder="500">
+                  <span class="rr-suffix">RR</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Arrow -->
-          <div class="calculator-arrow">
-            <div class="arrow-circle">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
+          <!-- RR Info Display -->
+          <div class="rr-info-bar" id="rr-info-bar" style="display: none;">
+            <div class="rr-info-content">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
               </svg>
+              <span id="rr-info-text">RR Awal: 0 → RR Akhir: 0</span>
             </div>
           </div>
 
-          <!-- To Rank -->
-          <div class="rank-selector">
-            <h3 class="selector-title">
-              <span class="selector-icon">🎯</span>
-              Rank Tujuan
-            </h3>
-            <div class="rank-picker" id="to-rank-picker">
-              <div class="selected-rank" id="to-selected">
-                <img src="/assets/4 - GOLD.webp" alt="Gold" class="selected-rank-img" />
-                <div class="selected-rank-info">
-                  <span class="selected-rank-name">Gold</span>
-                  <span class="selected-rank-division">Division 1</span>
+          <!-- Add-ons -->
+          <div class="addons-section">
+            <h4 class="addons-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M2 12h20" />
+              </svg>
+              Add-ons
+            </h4>
+            <div class="addons-grid">
+              <label class="addon-item" for="addon-offline">
+                <input type="checkbox" id="addon-offline" class="addon-checkbox" />
+                <div class="addon-content">
+                  <div class="addon-info">
+                    <span class="addon-name">Offline Mode</span>
+                    <span class="addon-desc">Akun akan di-set offline selama proses</span>
+                  </div>
+                  <span class="addon-price">+Rp 15.000</span>
                 </div>
-                <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="2">
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </div>
-              <div class="rank-dropdown" id="to-dropdown">
-                <div class="rank-options" id="to-options"></div>
-              </div>
-            </div>
-            <div class="division-selector" id="to-division">
-              <button class="division-btn active" data-division="1">I</button>
-              <button class="division-btn" data-division="2">II</button>
-              <button class="division-btn" data-division="3">III</button>
-            </div>
-            <div class="rr-input-container" id="to-rr-container" style="display: none;">
-              <label class="rr-label">Rating Points (RR)</label>
-              <div class="rr-input-wrapper">
-                <input type="number" class="rr-input" id="to-rr" min="400" max="1000" value="500" placeholder="500">
-                <span class="rr-suffix">RR</span>
-              </div>
+              </label>
+              <label class="addon-item" for="addon-agent">
+                <input type="checkbox" id="addon-agent" class="addon-checkbox" />
+                <div class="addon-content">
+                  <div class="addon-info">
+                    <span class="addon-name">Request Agent</span>
+                    <span class="addon-desc">Pilih agent tertentu untuk digunakan</span>
+                  </div>
+                  <span class="addon-price">Gratis</span>
+                </div>
+              </label>
+              <label class="addon-item" for="addon-priority">
+                <input type="checkbox" id="addon-priority" class="addon-checkbox" />
+                <div class="addon-content">
+                  <div class="addon-info">
+                    <span class="addon-name">Prioritas</span>
+                    <span class="addon-desc">Pengerjaan diprioritaskan lebih dulu</span>
+                  </div>
+                  <span class="addon-price">+25%</span>
+                </div>
+              </label>
             </div>
           </div>
-        </div>
 
-        <!-- Price Display -->
-        <div class="price-display">
-          <div class="price-info">
-            <span class="price-label">Total Estimasi Harga</span>
-            <div class="original-price" id="original-price"></div>
-            <div class="price-amount">
-              <span class="currency">Rp</span>
-              <span class="price-value" id="price-value">80,000</span>
+          <!-- Price Display -->
+          <div class="price-display">
+            <div class="price-info">
+              <span class="price-label">Total Estimasi Harga</span>
+              <div class="original-price" id="original-price"></div>
+              <div class="price-amount">
+                <span class="currency">Rp</span>
+                <span class="price-value" id="price-value">80,000</span>
+              </div>
+              <div class="discount-badge" id="discount-badge"></div>
+              <span class="price-note">*Harga dapat berubah sesuai kondisi</span>
             </div>
-            <div class="discount-badge" id="discount-badge"></div>
-            <span class="price-note">*Harga dapat berubah sesuai kondisi</span>
+            <a href="https://wa.me/6289524150075?text=Halo%20Valojoki,%20saya%20ingin%20order%20rank%20up"
+              target="_blank" class="btn btn-primary btn-lg order-btn" id="order-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+              <span>Order via WhatsApp</span>
+            </a>
           </div>
-          <a href="https://wa.me/6289524150075?text=Halo%20Valojoki,%20saya%20ingin%20order%20rank%20up" target="_blank"
-            class="btn btn-primary btn-lg order-btn" id="order-btn"
-            onclick="return gtag_report_conversion('https://wa.me/6289524150075?text=Halo%20Valojoki,%20saya%20ingin%20order%20rank%20up');">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            <span>Order via WhatsApp</span>
-          </a>
-        </div>
 
-        <div class="calculator-features">
-          <div class="calc-feature">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <span>100% Aman</span>
-          </div>
-          <div class="calc-feature">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            <span>Proses Cepat</span>
-          </div>
-          <div class="calc-feature">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            <span>Garansi Rank</span>
+          <div class="calculator-features">
+            <div class="calc-feature">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+              <span>100% Aman</span>
+            </div>
+            <div class="calc-feature">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <span>Proses Cepat</span>
+            </div>
+            <div class="calc-feature">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span>Garansi Rank</span>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Tab Panel: Joki Mabar -->
+      <div class="calc-tab-panel" id="panel-mabar">
+        <div class="calculator-card duo-card">
+          <div class="duo-calculator-grid">
+            <!-- Rank Selector -->
+            <div class="rank-selector">
+              <h3 class="selector-title">
+                <span class="selector-icon">🎮</span>
+                Rank Saat Ini
+              </h3>
+              <div class="rank-picker" id="duo-rank-picker">
+                <div class="selected-rank" id="duo-selected">
+                  <img src="/assets/1 - IRON.webp" alt="Iron" class="selected-rank-img" />
+                  <div class="selected-rank-info">
+                    <span class="selected-rank-name">Iron</span>
+                    <span class="selected-rank-division">Division 1</span>
+                  </div>
+                  <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </div>
+                <div class="rank-dropdown" id="duo-dropdown">
+                  <div class="rank-options" id="duo-options"></div>
+                </div>
+              </div>
+              <div class="division-selector" id="duo-division">
+                <button class="division-btn active" data-division="1">I</button>
+                <button class="division-btn" data-division="2">II</button>
+                <button class="division-btn" data-division="3">III</button>
+              </div>
+            </div>
+
+            <!-- Win Count -->
+            <div class="rank-selector">
+              <h3 class="selector-title">
+                <span class="selector-icon">🎯</span>
+                Jumlah Win
+              </h3>
+              <div class="game-count-wrapper">
+                <button class="game-count-btn" id="duo-minus" aria-label="Kurangi jumlah win">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+                <input type="number" class="game-count-input" id="duo-games" min="1" max="6" value="1" />
+                <button class="game-count-btn" id="duo-plus" aria-label="Tambah jumlah win">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+              </div>
+              <div class="duo-price-per-game" id="duo-price-per-game">Rp 10.000 × 1 win</div>
+            </div>
+          </div>
+
+          <!-- Duo Price Display -->
+          <div class="price-display duo-price-display">
+            <div class="price-info">
+              <span class="price-label">Total Harga Joki Mabar</span>
+              <div class="price-amount">
+                <span class="currency" style="color: #818cf8;">Rp</span>
+                <span class="price-value" id="duo-price-value">10,000</span>
+              </div>
+              <span class="price-note">*Harga per win, garansi kalah diganti win</span>
+            </div>
+            <a href="#" target="_blank" class="btn btn-primary btn-lg order-btn" id="duo-order-btn"
+              style="background: linear-gradient(135deg, #6366f1, #8b5cf6); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+              <span>Order Mabar via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -439,26 +601,25 @@
         </p>
       </div>
 
-      <div class="service-showcase">
-        <div class="service-card featured single">
+      <div class="service-showcase service-duo-grid">
+        <!-- Card 1: Joki Reguler -->
+        <div class="service-card featured">
           <div class="featured-badge">Layanan Utama</div>
           <div class="service-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
           </div>
-          <h3 class="service-title">Rank Up Service</h3>
+          <h3 class="service-title">Joki Reguler</h3>
           <p class="service-description">
-            Player profesional akan menaikkan rank akun kamu ke tujuan yang diinginkan dengan cepat dan aman.
-            Dari Iron
-            sampai Radiant!
+            Player profesional akan menaikkan rank akun kamu ke tujuan yang diinginkan. Biaya dihitung per rank.
           </p>
           <ul class="service-features">
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              Proses 1-7 hari
+              Harga per rank / divisi
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -470,13 +631,63 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              Offline Mode
+              Offline Mode (+15k)
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              Garansi Rank
+              Request Agent
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Garansi Rank & Support 24/7
+            </li>
+          </ul>
+          <a href="#calculator" class="btn btn-primary service-btn">Hitung Harga Sekarang</a>
+        </div>
+
+        <!-- Card 2: Joki Mabar -->
+        <div class="service-card featured mabar-card">
+          <div class="featured-badge" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">Baru!</div>
+          <div class="service-icon" style="background: rgba(99, 102, 241, 0.1); color: #818cf8;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3 class="service-title">Joki Mabar / Gendong</h3>
+          <p class="service-description">
+            Main bareng dengan expert player! Kamu tetap main di akun sendiri, didampingi booster. Biaya per win.
+          </p>
+          <ul class="service-features">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Harga per win
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Main di akun sendiri
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Didampingi booster expert
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Garansi: kalah diganti win
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -485,11 +696,14 @@
               Support 24/7
             </li>
           </ul>
-          <a href="#calculator" class="btn btn-primary service-btn">Hitung Harga Sekarang</a>
+          <a href="#calculator-mabar" class="btn btn-primary service-btn"
+            style="background: linear-gradient(135deg, #6366f1, #8b5cf6); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);">Hitung
+            Harga Mabar</a>
         </div>
       </div>
     </div>
   </section>
+
 
   <!-- Why Us Section -->
   <section class="why-us-section" id="why-us">

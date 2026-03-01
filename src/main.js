@@ -16,6 +16,19 @@ const ranks = [
     { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [500, 700, 1000], minRR: 400, maxRR: 1000, usesRR: true, isRadiant: true }
 ]
 
+// Duo Boost (Joki Mabar) price data - per rank + division pricing
+const duoBoostRanks = [
+    { id: 1, name: 'Iron', image: '/assets/1 - IRON.webp', pricePerWin: 10000, hasDivisions: true },
+    { id: 2, name: 'Bronze', image: '/assets/2 - BRONZE.webp', pricePerWin: 10000, hasDivisions: true },
+    { id: 3, name: 'Silver', image: '/assets/3 - SILVER.webp', pricePerWin: 15000, hasDivisions: true },
+    { id: 4, name: 'Gold', image: '/assets/4 - GOLD.webp', pricePerWin: 20000, hasDivisions: true },
+    { id: 5, name: 'Platinum', image: '/assets/5 - PLATINUM.webp', pricePerWin: 25000, hasDivisions: true },
+    { id: 6, name: 'Diamond', image: '/assets/6 - DIAMOND.webp', pricePerWin: [30000, 35000, 40000], hasDivisions: true },
+    { id: 7, name: 'Ascendant', image: '/assets/7 - ASCENDANT.webp', pricePerWin: [50000, 60000, 70000], hasDivisions: true },
+    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerWin: [100000, 165000, 225000], hasDivisions: true },
+    { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerWin: 400000, hasDivisions: false }
+]
+
 // State
 let state = {
     fromRank: 1,
@@ -23,7 +36,17 @@ let state = {
     fromRR: 0,
     toRank: 4,
     toDivision: 1,
-    toRR: 50
+    toRR: 50,
+    offlineMode: false,
+    requestAgent: false,
+    priority: false,
+    regularRR: 0,
+}
+
+const duoState = {
+    selectedRank: 0,
+    selectedDivision: 1,
+    games: 1
 }
 
 // DOM Elements
@@ -47,6 +70,13 @@ const orderBtn = document.getElementById('order-btn')
 const navbar = document.getElementById('navbar')
 const mobileMenuBtn = document.getElementById('mobile-menu-btn')
 const mobileMenu = document.getElementById('mobile-menu')
+const addonOffline = document.getElementById('addon-offline')
+const addonAgent = document.getElementById('addon-agent')
+const addonPriority = document.getElementById('addon-priority')
+const rrInfoBar = document.getElementById('rr-info-bar')
+const rrInfoText = document.getElementById('rr-info-text')
+const fromRegularRRInput = document.getElementById('from-regular-rr')
+const fromRegularRRContainer = document.getElementById('from-regular-rr-container')
 
 // Discount tiers configuration
 const DISCOUNT_TIERS = [
@@ -77,6 +107,8 @@ function init() {
     updateDivisionVisibility()
     calculatePrice()
     setupEventListeners()
+    initDuoBoost()
+    setupCalcTabs()
 }
 
 // Render rank options in dropdowns
@@ -161,6 +193,7 @@ function updateDivisionVisibility() {
     if (fromRank && fromRank.usesRR) {
         fromDivisionSelector.style.display = 'none'
         fromRRContainer.style.display = 'block'
+        fromRegularRRContainer.style.display = 'none'
         fromRRInput.value = state.fromRR
         fromRRInput.min = fromRank.minRR
         fromRRInput.max = fromRank.maxRR
@@ -168,6 +201,8 @@ function updateDivisionVisibility() {
     } else {
         fromDivisionSelector.style.display = 'flex'
         fromRRContainer.style.display = 'none'
+        fromRegularRRContainer.style.display = 'block'
+        fromRegularRRInput.value = state.regularRR
         updateDivisionButtons('from')
     }
 
@@ -371,10 +406,24 @@ function calculatePrice() {
         }
     }
 
+    // Add offline mode cost
+    const OFFLINE_MODE_PRICE = 15000
+    if (state.offlineMode) {
+        totalPrice += OFFLINE_MODE_PRICE
+    }
+
+    // Add priority surcharge (25%)
+    if (state.priority) {
+        totalPrice = Math.round(totalPrice * 1.25)
+    }
+
     // Calculate discount
     const discountPercent = getDiscountTier(totalPrice)
     const discountAmount = totalPrice * discountPercent
     const finalPrice = roundPrice(totalPrice - discountAmount)
+
+    // Update RR info
+    updateRRInfo()
 
     // Format price with loading animation
     priceValue.classList.add('calculating')
@@ -405,6 +454,43 @@ function calculatePrice() {
 
     // Update order button with final (discounted) price
     updateOrderButton(finalPrice)
+}
+
+// Update RR Info display
+function updateRRInfo() {
+    const fromRank = ranks.find(r => r.id === state.fromRank)
+    const toRank = ranks.find(r => r.id === state.toRank)
+
+    // Only show RR info when there's a valid rank selection
+    if (!fromRank || !toRank) {
+        rrInfoBar.style.display = 'none'
+        return
+    }
+
+    let rrAwal, rrAkhir
+    let fromLabel, toLabel
+
+    // Determine RR Awal
+    if (fromRank.usesRR) {
+        rrAwal = state.fromRR
+        fromLabel = `${fromRank.name} ${rrAwal} RR`
+    } else {
+        rrAwal = state.regularRR
+        fromLabel = `${fromRank.name} ${state.fromDivision} (RR ${rrAwal})`
+    }
+
+    // Determine RR Akhir - same RR as awal but at the target rank
+    if (toRank.usesRR) {
+        rrAkhir = state.toRR
+        toLabel = `${toRank.name} ${rrAkhir} RR`
+    } else {
+        // For non-RR destination ranks, RR akhir ≥ RR awal at the target rank
+        rrAkhir = rrAwal
+        toLabel = `${toRank.name} ${state.toDivision} (RR ${rrAkhir})`
+    }
+
+    rrInfoBar.style.display = 'block'
+    rrInfoText.textContent = `RR Awal: ${fromLabel} → RR Akhir: akan sampai ke ${toLabel}`
 }
 
 // Get total divisions from Iron 1 (ranks using RR don't count as divisions)
@@ -438,10 +524,18 @@ function updateOrderButton(price) {
         toText = `${toRank.name} ${state.toDivision}`
     }
 
+    // Build add-ons text
+    let addonsText = ''
+    if (state.offlineMode) addonsText += '\n- Offline Mode (+Rp 15.000)'
+    if (state.requestAgent) addonsText += '\n- Request Agent'
+    if (state.priority) addonsText += '\n- Prioritas (+25%)'
+    const addonsSection = addonsText ? `\nAdd-ons:${addonsText}\n` : ''
+
     const message = encodeURIComponent(
-        `Halo Valojoki, saya ingin order boosting:\n\n` +
+        `Halo Valojoki, saya ingin order boosting (Joki Reguler):\n\n` +
         `Dari: ${fromText}\n` +
         `Ke: ${toText}\n` +
+        addonsSection +
         `Estimasi: Rp ${price.toLocaleString('id-ID')}\n\n` +
         `Mohon informasi lebih lanjut. Terima kasih!`
     )
@@ -700,6 +794,8 @@ function setupEventListeners() {
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            // Skip order buttons - they have dynamically updated hrefs
+            if (this.classList.contains('order-btn')) return
             e.preventDefault()
             const target = document.querySelector(this.getAttribute('href'))
             if (target) {
@@ -708,6 +804,256 @@ function setupEventListeners() {
                     block: 'start'
                 })
             }
+        })
+    })
+
+    // Add-ons event listeners
+    addonOffline.addEventListener('change', () => {
+        state.offlineMode = addonOffline.checked
+        calculatePrice()
+    })
+
+    addonAgent.addEventListener('change', () => {
+        state.requestAgent = addonAgent.checked
+        calculatePrice()
+    })
+
+    addonPriority.addEventListener('change', () => {
+        state.priority = addonPriority.checked
+        calculatePrice()
+    })
+
+    // Regular RR input
+    fromRegularRRInput.addEventListener('input', (e) => {
+        let value = parseInt(e.target.value) || 0
+        if (value < 0) value = 0
+        if (value > 99) value = 99
+        state.regularRR = value
+        updateRRInfo()
+    })
+}
+
+// ==========================================
+// DUO BOOST (JOKI MABAR) CALCULATOR
+// ==========================================
+function initDuoBoost() {
+    const duoRankPicker = document.getElementById('duo-rank-picker')
+    const duoSelected = document.getElementById('duo-selected')
+    const duoOptions = document.getElementById('duo-options')
+    const duoDivision = document.getElementById('duo-division')
+    const duoGamesInput = document.getElementById('duo-games')
+    const duoMinusBtn = document.getElementById('duo-minus')
+    const duoPlusBtn = document.getElementById('duo-plus')
+    const duoPriceValue = document.getElementById('duo-price-value')
+    const duoPricePerGame = document.getElementById('duo-price-per-game')
+    const duoOrderBtn = document.getElementById('duo-order-btn')
+
+    if (!duoRankPicker) return
+
+    // Get price for current rank + division
+    function getDuoPrice() {
+        const rank = duoBoostRanks[duoState.selectedRank]
+        if (Array.isArray(rank.pricePerWin)) {
+            return rank.pricePerWin[duoState.selectedDivision - 1]
+        }
+        return rank.pricePerWin
+    }
+
+    // Render duo rank options in dropdown
+    function renderDuoOptions() {
+        duoOptions.innerHTML = duoBoostRanks.map((rank, index) => `
+            <div class="rank-option ${duoState.selectedRank === index ? 'active' : ''}" data-rank="${index}">
+                <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
+                <span class="rank-option-name">${rank.name}</span>
+            </div>
+        `).join('')
+    }
+
+    // Update duo selected display
+    function updateDuoSelected() {
+        const rank = duoBoostRanks[duoState.selectedRank]
+        duoSelected.querySelector('.selected-rank-img').src = rank.image
+        duoSelected.querySelector('.selected-rank-img').alt = rank.name
+        duoSelected.querySelector('.selected-rank-name').textContent = rank.name
+        if (rank.hasDivisions) {
+            duoSelected.querySelector('.selected-rank-division').textContent = `Division ${duoState.selectedDivision}`
+        } else {
+            duoSelected.querySelector('.selected-rank-division').textContent = `Rp ${getDuoPrice().toLocaleString('id-ID')} / win`
+        }
+    }
+
+    // Update division visibility
+    function updateDuoDivisionVisibility() {
+        const rank = duoBoostRanks[duoState.selectedRank]
+        if (rank.hasDivisions) {
+            duoDivision.style.display = 'flex'
+        } else {
+            duoDivision.style.display = 'none'
+        }
+    }
+
+    // Calculate duo price
+    function calculateDuoPrice() {
+        const rank = duoBoostRanks[duoState.selectedRank]
+        const pricePerWin = getDuoPrice()
+        const total = pricePerWin * duoState.games
+
+        duoPricePerGame.textContent = `Rp ${pricePerWin.toLocaleString('id-ID')} × ${duoState.games} win`
+
+        duoPriceValue.classList.add('calculating')
+        setTimeout(() => {
+            duoPriceValue.textContent = total.toLocaleString('id-ID')
+            duoPriceValue.classList.remove('calculating')
+            duoPriceValue.classList.add('calculated')
+            setTimeout(() => duoPriceValue.classList.remove('calculated'), 300)
+        }, 150)
+
+        // Update WA order button
+        const rankName = rank.hasDivisions ? `${rank.name} ${duoState.selectedDivision}` : rank.name
+        const message = encodeURIComponent(
+            `Halo Valojoki, saya ingin order Joki Mabar / Gendong:\n\n` +
+            `Rank: ${rankName}\n` +
+            `Jumlah Win: ${duoState.games}\n` +
+            `Harga per win: Rp ${pricePerWin.toLocaleString('id-ID')}\n` +
+            `Total: Rp ${total.toLocaleString('id-ID')}\n\n` +
+            `Mohon informasi lebih lanjut. Terima kasih!`
+        )
+        duoOrderBtn.href = `https://wa.me/6289524150075?text=${message}`
+    }
+
+    // Event: Toggle dropdown
+    duoSelected.addEventListener('click', () => {
+        duoRankPicker.classList.toggle('open')
+    })
+
+    // Event: Select rank
+    duoOptions.addEventListener('click', (e) => {
+        const option = e.target.closest('.rank-option')
+        if (option) {
+            duoState.selectedRank = parseInt(option.dataset.rank)
+            duoState.selectedDivision = 1
+            duoRankPicker.classList.remove('open')
+
+            // Reset division buttons
+            duoDivision.querySelectorAll('.division-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === 0)
+            })
+
+            renderDuoOptions()
+            updateDuoSelected()
+            updateDuoDivisionVisibility()
+            clampGames()
+            calculateDuoPrice()
+        }
+    })
+
+    // Event: Division buttons
+    duoDivision.querySelectorAll('.division-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            duoDivision.querySelectorAll('.division-btn').forEach(b => b.classList.remove('active'))
+            btn.classList.add('active')
+            duoState.selectedDivision = parseInt(btn.dataset.division)
+            updateDuoSelected()
+            clampGames()
+            calculateDuoPrice()
+        })
+    })
+
+    // Event: Close dropdown on outside click
+    document.addEventListener('click', (e) => {
+        if (!duoRankPicker.contains(e.target)) {
+            duoRankPicker.classList.remove('open')
+        }
+    })
+
+    // Get max wins based on rank
+    function getMaxWins() {
+        const rank = duoBoostRanks[duoState.selectedRank]
+        // Immortal 3 (index 7, division 3) and Radiant (index 8) have no 6-win cap
+        if (duoState.selectedRank === 8) return 50
+        if (duoState.selectedRank === 7 && duoState.selectedDivision === 3) return 50
+        return 6
+    }
+
+    // Clamp games to max
+    function clampGames() {
+        const max = getMaxWins()
+        if (duoState.games > max) {
+            duoState.games = max
+            duoGamesInput.value = max
+        }
+        duoGamesInput.max = max
+    }
+
+    // Event: Game count buttons
+    duoMinusBtn.addEventListener('click', () => {
+        if (duoState.games > 1) {
+            duoState.games--
+            duoGamesInput.value = duoState.games
+            calculateDuoPrice()
+        }
+    })
+
+    duoPlusBtn.addEventListener('click', () => {
+        if (duoState.games < getMaxWins()) {
+            duoState.games++
+            duoGamesInput.value = duoState.games
+            calculateDuoPrice()
+        }
+    })
+
+    // Event: Game count input
+    duoGamesInput.addEventListener('input', () => {
+        let val = parseInt(duoGamesInput.value) || 1
+        if (val < 1) val = 1
+        const max = getMaxWins()
+        if (val > max) val = max
+        duoState.games = val
+        calculateDuoPrice()
+    })
+
+    // Initialize
+    renderDuoOptions()
+    updateDuoSelected()
+    updateDuoDivisionVisibility()
+    calculateDuoPrice()
+}
+
+// ==========================================
+// CALCULATOR TAB SWITCHING
+// ==========================================
+function setupCalcTabs() {
+    const tabs = document.querySelectorAll('.calc-tab')
+    const panels = document.querySelectorAll('.calc-tab-panel')
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab
+
+            // Update tab active states
+            tabs.forEach(t => t.classList.remove('active'))
+            tab.classList.add('active')
+
+            // Update panel visibility
+            panels.forEach(p => p.classList.remove('active'))
+            const targetPanel = document.getElementById(`panel-${targetTab}`)
+            if (targetPanel) {
+                targetPanel.classList.add('active')
+            }
+        })
+    })
+
+    // Handle service card links that switch to mabar tab
+    document.querySelectorAll('a[href="#calculator-mabar"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault()
+            // Switch to mabar tab
+            tabs.forEach(t => t.classList.remove('active'))
+            document.getElementById('tab-mabar').classList.add('active')
+            panels.forEach(p => p.classList.remove('active'))
+            document.getElementById('panel-mabar').classList.add('active')
+            // Scroll to calculator
+            document.getElementById('calculator').scrollIntoView({ behavior: 'smooth', block: 'start' })
         })
     })
 }
