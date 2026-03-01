@@ -1023,12 +1023,19 @@ function initDuoBoost() {
 // CALCULATOR TAB SWITCHING
 // ==========================================
 function setupCalcTabs() {
+    const tabsContainer = document.querySelector('.calc-tabs')
     const tabs = document.querySelectorAll('.calc-tab')
     const panels = document.querySelectorAll('.calc-tab-panel')
+
+    // Set initial data-active
+    tabsContainer.dataset.active = 'reguler'
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetTab = tab.dataset.tab
+
+            // Update sliding pill
+            tabsContainer.dataset.active = targetTab
 
             // Update tab active states
             tabs.forEach(t => t.classList.remove('active'))
@@ -1048,6 +1055,7 @@ function setupCalcTabs() {
         link.addEventListener('click', (e) => {
             e.preventDefault()
             // Switch to mabar tab
+            tabsContainer.dataset.active = 'mabar'
             tabs.forEach(t => t.classList.remove('active'))
             document.getElementById('tab-mabar').classList.add('active')
             panels.forEach(p => p.classList.remove('active'))
