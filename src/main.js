@@ -1,4 +1,5 @@
 import './style.css'
+import { initLang, toggleLang, getLang, typewriterWords, waMessages, dynamicText } from './i18n.js'
 
 // Rank data with prices (based on competitor research - updated)
 // Immortal and Radiant use RR system instead of divisions
@@ -80,9 +81,9 @@ const fromRegularRRContainer = document.getElementById('from-regular-rr-containe
 
 // Discount tiers configuration
 const DISCOUNT_TIERS = [
-    { minPrice: 500000, discount: 0.30 }, // 30% off for 500k+
-    { minPrice: 200000, discount: 0.20 }, // 20% off for 200k-499k
-    { minPrice: 100000, discount: 0.15 }, // 15% off for 100k-199k
+    { minPrice: 500000, discount: 0.20 }, // 20% off for 500k+
+    { minPrice: 200000, discount: 0.15 }, // 15% off for 200k-499k
+    { minPrice: 100000, discount: 0.1 }, // 10% off for 100k-199k
 ]
 
 // Get discount percentage based on price
@@ -108,6 +109,8 @@ function init() {
     calculatePrice()
     setupEventListeners()
     initDuoBoost()
+    initDuoPerRank()
+    setupDuoSubtabs()
     setupCalcTabs()
 }
 
@@ -433,7 +436,7 @@ function calculatePrice() {
         // Show original price (strikethrough) only if there's a discount
         if (discountPercent > 0) {
             originalPriceEl.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`
-            discountBadgeEl.textContent = `💰 Hemat ${Math.round(discountPercent * 100)}%`
+            discountBadgeEl.textContent = dynamicText[getLang()].discountBadge(Math.round(discountPercent * 100))
             priceInfoEl.classList.add('has-discount')
         } else {
             originalPriceEl.textContent = ''
@@ -454,6 +457,9 @@ function calculatePrice() {
 
     // Update order button with final (discounted) price
     updateOrderButton(finalPrice)
+
+    // Update rank preview bar
+    updateRankPreview()
 }
 
 // Update RR Info display
@@ -490,7 +496,7 @@ function updateRRInfo() {
     }
 
     rrInfoBar.style.display = 'block'
-    rrInfoText.textContent = `RR Awal: ${fromLabel} → RR Akhir: akan sampai ke ${toLabel}`
+    rrInfoText.textContent = dynamicText[getLang()].rrInfo(fromLabel, toLabel)
 }
 
 // Get total divisions from Iron 1 (ranks using RR don't count as divisions)
@@ -525,19 +531,20 @@ function updateOrderButton(price) {
     }
 
     // Build add-ons text
+    const wa = waMessages[getLang()]
     let addonsText = ''
-    if (state.offlineMode) addonsText += '\n- Offline Mode (+Rp 15.000)'
-    if (state.requestAgent) addonsText += '\n- Request Agent'
-    if (state.priority) addonsText += '\n- Prioritas (+25%)'
-    const addonsSection = addonsText ? `\nAdd-ons:${addonsText}\n` : ''
+    if (state.offlineMode) addonsText += `\n- ${wa.offlineMode}`
+    if (state.requestAgent) addonsText += `\n- ${wa.requestAgent}`
+    if (state.priority) addonsText += `\n- ${wa.priority}`
+    const addonsSection = addonsText ? `\n${wa.addons}:${addonsText}\n` : ''
 
     const message = encodeURIComponent(
-        `Halo Valojoki, saya ingin order boosting (Joki Reguler):\n\n` +
-        `Dari: ${fromText}\n` +
-        `Ke: ${toText}\n` +
+        `${wa.regulerGreeting}\n\n` +
+        `${wa.from}: ${fromText}\n` +
+        `${wa.to}: ${toText}\n` +
         addonsSection +
-        `Estimasi: Rp ${price.toLocaleString('id-ID')}\n\n` +
-        `Mohon informasi lebih lanjut. Terima kasih!`
+        `${wa.estimate}: Rp ${price.toLocaleString('id-ID')}\n\n` +
+        wa.closing
     )
 
     orderBtn.href = `https://wa.me/6289524150075?text=${message}`
@@ -831,6 +838,12 @@ function setupEventListeners() {
         state.regularRR = value
         updateRRInfo()
     })
+
+    // Re-render on language change
+    window.addEventListener('langchange', () => {
+        updateSelectedRanks()
+        calculatePrice()
+    })
 }
 
 // ==========================================
@@ -876,9 +889,9 @@ function initDuoBoost() {
         duoSelected.querySelector('.selected-rank-img').alt = rank.name
         duoSelected.querySelector('.selected-rank-name').textContent = rank.name
         if (rank.hasDivisions) {
-            duoSelected.querySelector('.selected-rank-division').textContent = `Division ${duoState.selectedDivision}`
+            duoSelected.querySelector('.selected-rank-division').textContent = dynamicText[getLang()].division(duoState.selectedDivision)
         } else {
-            duoSelected.querySelector('.selected-rank-division').textContent = `Rp ${getDuoPrice().toLocaleString('id-ID')} / win`
+            duoSelected.querySelector('.selected-rank-division').textContent = dynamicText[getLang()].perWin(getDuoPrice().toLocaleString('id-ID'))
         }
     }
 
@@ -898,7 +911,7 @@ function initDuoBoost() {
         const pricePerWin = getDuoPrice()
         const total = pricePerWin * duoState.games
 
-        duoPricePerGame.textContent = `Rp ${pricePerWin.toLocaleString('id-ID')} × ${duoState.games} win`
+        duoPricePerGame.textContent = dynamicText[getLang()].duoPricePerGame(pricePerWin.toLocaleString('id-ID'), duoState.games)
 
         duoPriceValue.classList.add('calculating')
         setTimeout(() => {
@@ -909,14 +922,15 @@ function initDuoBoost() {
         }, 150)
 
         // Update WA order button
+        const wa = waMessages[getLang()]
         const rankName = rank.hasDivisions ? `${rank.name} ${duoState.selectedDivision}` : rank.name
         const message = encodeURIComponent(
-            `Halo Valojoki, saya ingin order Joki Mabar / Gendong:\n\n` +
-            `Rank: ${rankName}\n` +
-            `Jumlah Win: ${duoState.games}\n` +
-            `Harga per win: Rp ${pricePerWin.toLocaleString('id-ID')}\n` +
-            `Total: Rp ${total.toLocaleString('id-ID')}\n\n` +
-            `Mohon informasi lebih lanjut. Terima kasih!`
+            `${wa.duoGreeting}\n\n` +
+            `${wa.rank}: ${rankName}\n` +
+            `${wa.winsCount}: ${duoState.games}\n` +
+            `${wa.pricePerWin}: Rp ${pricePerWin.toLocaleString('id-ID')}\n` +
+            `${wa.total}: Rp ${total.toLocaleString('id-ID')}\n\n` +
+            wa.closing
         )
         duoOrderBtn.href = `https://wa.me/6289524150075?text=${message}`
     }
@@ -1012,11 +1026,311 @@ function initDuoBoost() {
         calculateDuoPrice()
     })
 
+    // Listen for language changes to update duo calculator text
+    window.addEventListener('langchange', () => {
+        updateDuoSelected()
+        calculateDuoPrice()
+    })
+
     // Initialize
     renderDuoOptions()
     updateDuoSelected()
     updateDuoDivisionVisibility()
     calculateDuoPrice()
+}
+
+// ==========================================
+// DUO BOOST PER RANK (GENDONG PER RANK)
+// Price = 2x Regular Boost (after discount)
+// ==========================================
+function initDuoPerRank() {
+    const dprFromPicker = document.getElementById('duo-pr-from-picker')
+    const dprToPicker = document.getElementById('duo-pr-to-picker')
+    const dprFromSelected = document.getElementById('duo-pr-from-selected')
+    const dprToSelected = document.getElementById('duo-pr-to-selected')
+    const dprFromOptions = document.getElementById('duo-pr-from-options')
+    const dprToOptions = document.getElementById('duo-pr-to-options')
+    const dprFromDivision = document.getElementById('duo-pr-from-division')
+    const dprToDivision = document.getElementById('duo-pr-to-division')
+    const dprFromRegularRRContainer = document.getElementById('duo-pr-from-regular-rr-container')
+    const dprFromRRContainer = document.getElementById('duo-pr-from-rr-container')
+    const dprToRRContainer = document.getElementById('duo-pr-to-rr-container')
+    const dprFromRegularRR = document.getElementById('duo-pr-from-regular-rr')
+    const dprFromRR = document.getElementById('duo-pr-from-rr')
+    const dprToRR = document.getElementById('duo-pr-to-rr')
+    const dprPriceValue = document.getElementById('duo-pr-price-value')
+    const dprOriginalPrice = document.getElementById('duo-pr-original-price')
+    const dprDiscountBadge = document.getElementById('duo-pr-discount-badge')
+    const dprOrderBtn = document.getElementById('duo-pr-order-btn')
+    const dprRRInfoBar = document.getElementById('duo-pr-rr-info-bar')
+    const dprRRInfoText = document.getElementById('duo-pr-rr-info-text')
+
+    if (!dprFromPicker) return
+
+    const dprState = {
+        fromRank: 1, fromDivision: 1, fromRR: 0,
+        toRank: 4, toDivision: 1, toRR: 50,
+        regularRR: 0
+    }
+
+    function dprRenderRankOptions() {
+        ;[dprFromOptions, dprToOptions].forEach((container, i) => {
+            const selectedId = i === 0 ? dprState.fromRank : dprState.toRank
+            container.innerHTML = ranks.map(rank => `
+                <div class="rank-option ${rank.id === selectedId ? 'active' : ''}" data-rank="${rank.id}">
+                    <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
+                    <span class="rank-option-name">${rank.name}</span>
+                </div>
+            `).join('')
+        })
+    }
+
+    function dprUpdateSelected() {
+        ;[
+            { el: dprFromSelected, rankId: dprState.fromRank, div: dprState.fromDivision, rr: dprState.fromRR },
+            { el: dprToSelected, rankId: dprState.toRank, div: dprState.toDivision, rr: dprState.toRR }
+        ].forEach(({ el, rankId, div, rr }) => {
+            const rank = ranks.find(r => r.id === rankId)
+            el.querySelector('.selected-rank-img').src = rank.image
+            el.querySelector('.selected-rank-img').alt = rank.name
+            el.querySelector('.selected-rank-name').textContent = rank.name
+            el.querySelector('.selected-rank-division').textContent = rank.usesRR ? `${rr} RR` : dynamicText[getLang()].division(div)
+        })
+    }
+
+    function dprUpdateDivisionVisibility() {
+        const fromRank = ranks.find(r => r.id === dprState.fromRank)
+        const toRank = ranks.find(r => r.id === dprState.toRank)
+        dprFromDivision.style.display = fromRank.usesRR ? 'none' : 'flex'
+        dprFromRegularRRContainer.style.display = fromRank.usesRR ? 'none' : 'block'
+        dprFromRRContainer.style.display = fromRank.usesRR ? 'block' : 'none'
+        if (fromRank.usesRR) { dprFromRR.min = fromRank.minRR; dprFromRR.max = fromRank.maxRR; dprFromRR.value = dprState.fromRR }
+        dprToDivision.style.display = toRank.usesRR ? 'none' : 'flex'
+        dprToRRContainer.style.display = toRank.usesRR ? 'block' : 'none'
+        if (toRank.usesRR) { dprToRR.min = toRank.minRR; dprToRR.max = toRank.maxRR; dprToRR.value = dprState.toRR }
+        dprUpdateDivBtns('from'); dprUpdateDivBtns('to')
+    }
+
+    function dprUpdateDivBtns(type) {
+        const container = type === 'from' ? dprFromDivision : dprToDivision
+        const activeDiv = type === 'from' ? dprState.fromDivision : dprState.toDivision
+        container.querySelectorAll('.division-btn').forEach((btn, i) => btn.classList.toggle('active', i + 1 === activeDiv))
+    }
+
+    // Reuse reguler's helper functions but on dprState
+    function dprGetDivisionPrice(rank, division) {
+        return Array.isArray(rank.pricePerDivision) ? rank.pricePerDivision[division - 1] : rank.pricePerDivision
+    }
+
+    function dprGetRRPrice(fromRR, toRR, rank) {
+        if (toRR <= fromRR) return 0
+        const tiers = rank.rrTiers
+        const prices = rank.pricePerRR
+        let price = 0, currentRR = fromRR
+        for (let i = 0; i < tiers.length; i++) {
+            if (currentRR >= toRR) break
+            if (currentRR >= tiers[i]) continue
+            const tierEnd = Math.min(toRR, tiers[i])
+            price += (tierEnd - currentRR) * prices[i]
+            currentRR = tierEnd
+        }
+        // Minimum RR boost: 10 RR
+        const MIN_RR = 10
+        if ((toRR - fromRR) < MIN_RR && (toRR - fromRR) > 0) {
+            let tierIdx = 0
+            for (let i = 0; i < tiers.length; i++) { if (fromRR >= tiers[i]) tierIdx = i + 1 }
+            if (tierIdx >= prices.length) tierIdx = prices.length - 1
+            price = Math.max(price, MIN_RR * prices[tierIdx])
+        }
+        return price
+    }
+
+    function calcDuoPrPrice() {
+        let totalPrice = 0
+        const fromRank = ranks.find(r => r.id === dprState.fromRank)
+        const toRank = ranks.find(r => r.id === dprState.toRank)
+
+        // Case 1: Both use RR
+        if (fromRank.usesRR && toRank.usesRR) {
+            if (toRank.id < fromRank.id || (toRank.id === fromRank.id && dprState.toRR <= dprState.fromRR)) {
+                totalPrice = 0
+            } else if (fromRank.id === toRank.id) {
+                totalPrice = dprGetRRPrice(dprState.fromRR, dprState.toRR, fromRank)
+            } else {
+                totalPrice += dprGetRRPrice(dprState.fromRR, fromRank.maxRR + 1, fromRank)
+                if (dprState.toRR > toRank.minRR) totalPrice += dprGetRRPrice(toRank.minRR, dprState.toRR, toRank)
+            }
+        }
+        // Case 2: From RR, To division (invalid)
+        else if (fromRank.usesRR && !toRank.usesRR) { totalPrice = 0 }
+        // Case 3: From division, To RR
+        else if (!fromRank.usesRR && toRank.usesRR) {
+            const immortalRank = ranks.find(r => r.id === 8)
+            const fromTotalDiv = getTotalDivisions(dprState.fromRank, dprState.fromDivision)
+            const immortalStartDiv = getTotalDivisions(8, 1)
+            if (immortalStartDiv > fromTotalDiv) {
+                let cr = dprState.fromRank, cd = dprState.fromDivision
+                while (getTotalDivisions(cr, cd) < immortalStartDiv) {
+                    const r = ranks.find(rr => rr.id === cr)
+                    if (r && !r.usesRR) totalPrice += dprGetDivisionPrice(r, cd)
+                    cd++; if (cd > 3) { cd = 1; cr++ }
+                }
+            }
+            if (toRank.id === 8) {
+                totalPrice += dprGetRRPrice(immortalRank.minRR, dprState.toRR, immortalRank)
+            } else if (toRank.id === 9) {
+                totalPrice += dprGetRRPrice(immortalRank.minRR, immortalRank.maxRR + 1, immortalRank)
+                if (dprState.toRR > toRank.minRR) totalPrice += dprGetRRPrice(toRank.minRR, dprState.toRR, toRank)
+            }
+        }
+        // Case 4: Both use divisions
+        else {
+            const fromTD = getTotalDivisions(dprState.fromRank, dprState.fromDivision)
+            const toTD = getTotalDivisions(dprState.toRank, dprState.toDivision)
+            if (toTD > fromTD) {
+                let cr = dprState.fromRank, cd = dprState.fromDivision
+                while (getTotalDivisions(cr, cd) < toTD) {
+                    const r = ranks.find(rr => rr.id === cr)
+                    if (r) totalPrice += dprGetDivisionPrice(r, cd)
+                    cd++; if (cd > 3) { cd = 1; cr++ }
+                }
+            }
+        }
+
+        // Apply same discount as reguler
+        const discountPercent = getDiscountTier(totalPrice)
+        const discountAmount = totalPrice * discountPercent
+        const afterDiscount = totalPrice - discountAmount
+
+        // × 2 for gendong
+        const duoOriginal = roundPrice(totalPrice * 2)
+        const duoFinal = roundPrice(afterDiscount * 2)
+
+        // Update price display
+        dprPriceValue.classList.add('calculating')
+        setTimeout(() => {
+            dprPriceValue.textContent = duoFinal.toLocaleString('id-ID')
+            dprPriceValue.classList.remove('calculating')
+            dprPriceValue.classList.add('calculated')
+            setTimeout(() => dprPriceValue.classList.remove('calculated'), 300)
+        }, 150)
+
+        const lang = getLang()
+        if (discountPercent > 0) {
+            dprOriginalPrice.textContent = `Rp ${duoOriginal.toLocaleString('id-ID')}`
+            dprOriginalPrice.style.display = 'block'
+            dprDiscountBadge.textContent = dynamicText[lang].discountBadge(Math.round(discountPercent * 100))
+            dprDiscountBadge.style.display = 'inline-block'
+        } else {
+            dprOriginalPrice.textContent = ''
+            dprOriginalPrice.style.display = 'none'
+            dprDiscountBadge.textContent = ''
+            dprDiscountBadge.style.display = 'none'
+        }
+
+        // RR Info
+        if (!fromRank.usesRR && dprState.fromRank < 8) {
+            dprRRInfoBar.style.display = 'block'
+            const fromLabel = `${fromRank.name} ${dprState.fromDivision} (RR ${dprState.regularRR})`
+            const toLabel = toRank.usesRR ? `${toRank.name} ${dprState.toRR} RR` : `${toRank.name} ${dprState.toDivision} (RR ${dprState.regularRR})`
+            dprRRInfoText.textContent = dynamicText[lang].rrInfo(fromLabel, toLabel)
+        } else {
+            dprRRInfoBar.style.display = 'none'
+        }
+
+        // WA button
+        const fText = fromRank.usesRR ? `${fromRank.name} ${dprState.fromRR} RR` : `${fromRank.name} ${dprState.fromDivision}`
+        const tText = toRank.usesRR ? `${toRank.name} ${dprState.toRR} RR` : `${toRank.name} ${dprState.toDivision}`
+        const wa = waMessages[lang]
+        dprOrderBtn.href = `https://wa.me/6289524150075?text=${encodeURIComponent(`${wa.duoGreeting} (Per Rank)\n\n${wa.from}: ${fText}\n${wa.to}: ${tText}\n${wa.estimate}: Rp ${duoFinal.toLocaleString('id-ID')}\n\n${wa.closing}`)}`
+    }
+
+    // Auto-adjust to rank
+    function dprAdjustTo() {
+        const fr = ranks.find(r => r.id === dprState.fromRank)
+        const tr = ranks.find(r => r.id === dprState.toRank)
+        if (fr.usesRR && tr.usesRR) {
+            if (dprState.toRank < dprState.fromRank || (dprState.toRank === dprState.fromRank && dprState.toRR <= dprState.fromRR)) {
+                if (dprState.fromRR + 50 <= fr.maxRR) { dprState.toRank = dprState.fromRank; dprState.toRR = dprState.fromRR + 50 }
+                else { const n = ranks.find(r => r.id === dprState.fromRank + 1); if (n) { dprState.toRank = n.id; dprState.toRR = n.minRR + 50 } }
+            }
+        } else if (fr.usesRR && !tr.usesRR) {
+            dprState.toRank = dprState.fromRank; dprState.toRR = Math.min(dprState.fromRR + 50, fr.maxRR)
+        } else if (!fr.usesRR && !tr.usesRR) {
+            if (getTotalDivisions(dprState.toRank, dprState.toDivision) <= getTotalDivisions(dprState.fromRank, dprState.fromDivision)) {
+                if (dprState.fromDivision < 3) { dprState.toRank = dprState.fromRank; dprState.toDivision = dprState.fromDivision + 1 }
+                else {
+                    const n = ranks.find(r => r.id === dprState.fromRank + 1)
+                    if (n) { dprState.toRank = n.id; if (n.usesRR) { dprState.toRR = n.minRR + 50 } else { dprState.toDivision = 1 } }
+                }
+            }
+        }
+    }
+
+    // Events
+    dprFromSelected.addEventListener('click', () => { dprFromPicker.classList.toggle('open'); dprToPicker.classList.remove('open') })
+    dprToSelected.addEventListener('click', () => { dprToPicker.classList.toggle('open'); dprFromPicker.classList.remove('open') })
+
+    dprFromOptions.addEventListener('click', e => {
+        const opt = e.target.closest('.rank-option'); if (!opt) return
+        const r = ranks.find(rr => rr.id === parseInt(opt.dataset.rank)); dprState.fromRank = r.id
+        if (r.usesRR) dprState.fromRR = r.minRR; else dprState.fromDivision = 1
+        dprAdjustTo(); dprFromPicker.classList.remove('open')
+        dprRenderRankOptions(); dprUpdateSelected(); dprUpdateDivisionVisibility(); calcDuoPrPrice()
+    })
+    dprToOptions.addEventListener('click', e => {
+        const opt = e.target.closest('.rank-option'); if (!opt) return
+        const r = ranks.find(rr => rr.id === parseInt(opt.dataset.rank)); dprState.toRank = r.id
+        if (r.usesRR) dprState.toRR = r.minRR + 50; else dprState.toDivision = 1
+        dprToPicker.classList.remove('open')
+        dprRenderRankOptions(); dprUpdateSelected(); dprUpdateDivisionVisibility(); calcDuoPrPrice()
+    })
+
+    dprFromDivision.addEventListener('click', e => { const b = e.target.closest('.division-btn'); if (!b) return; dprState.fromDivision = parseInt(b.dataset.division); dprAdjustTo(); dprUpdateSelected(); dprUpdateDivBtns('from'); dprUpdateDivisionVisibility(); calcDuoPrPrice() })
+    dprToDivision.addEventListener('click', e => { const b = e.target.closest('.division-btn'); if (!b) return; dprState.toDivision = parseInt(b.dataset.division); dprUpdateSelected(); dprUpdateDivBtns('to'); calcDuoPrPrice() })
+
+    dprFromRR.addEventListener('input', e => {
+        const cr = ranks.find(r => r.id === dprState.fromRank); let v = parseInt(e.target.value) || cr.minRR
+        if (cr.id === 8 && v >= 400) { dprState.fromRank = 9; dprState.fromRR = Math.min(v, 1000) }
+        else if (cr.id === 9 && v < 400) { dprState.fromRank = 8; dprState.fromRR = v }
+        else dprState.fromRR = Math.max(cr.minRR, Math.min(v, cr.maxRR))
+        dprRenderRankOptions(); dprUpdateSelected(); dprUpdateDivisionVisibility(); calcDuoPrPrice()
+    })
+    dprToRR.addEventListener('input', e => {
+        const cr = ranks.find(r => r.id === dprState.toRank); let v = parseInt(e.target.value) || cr.minRR
+        if (cr.id === 8 && v >= 400) { dprState.toRank = 9; dprState.toRR = Math.min(v, 1000) }
+        else if (cr.id === 9 && v < 400) { dprState.toRank = 8; dprState.toRR = v }
+        else dprState.toRR = Math.max(cr.minRR, Math.min(v, cr.maxRR))
+        dprRenderRankOptions(); dprUpdateSelected(); dprUpdateDivisionVisibility(); calcDuoPrPrice()
+    })
+    dprFromRegularRR.addEventListener('input', e => { dprState.regularRR = Math.max(0, Math.min(99, parseInt(e.target.value) || 0)); calcDuoPrPrice() })
+
+    document.addEventListener('click', e => { if (!dprFromPicker.contains(e.target)) dprFromPicker.classList.remove('open'); if (!dprToPicker.contains(e.target)) dprToPicker.classList.remove('open') })
+    window.addEventListener('langchange', () => { dprUpdateSelected(); calcDuoPrPrice() })
+
+    // Init
+    dprRenderRankOptions(); dprUpdateSelected(); dprUpdateDivisionVisibility(); calcDuoPrPrice()
+}
+
+// ==========================================
+// DUO SUB-TAB SWITCHING
+// ==========================================
+function setupDuoSubtabs() {
+    const subtabsContainer = document.querySelector('.duo-subtabs')
+    const subtabs = document.querySelectorAll('.duo-subtab')
+    const subpanels = document.querySelectorAll('.duo-subpanel')
+
+    // Set initial data-active
+    subtabsContainer.dataset.active = 'perwin'
+
+    subtabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.duotab
+            subtabsContainer.dataset.active = target
+            subtabs.forEach(t => t.classList.toggle('active', t === tab))
+            subpanels.forEach(p => p.classList.toggle('active', p.id === `duo-panel-${target}`))
+        })
+    })
 }
 
 // ==========================================
@@ -1121,39 +1435,41 @@ function initTypewriterEffect() {
     const typewriterElement = document.getElementById('typewriter')
     if (!typewriterElement) return
 
-    const words = ['profesional !', 'cepat !', 'aman !', 'terpercaya !']
+    let words = typewriterWords[getLang()]
     let wordIndex = 0
     let charIndex = 0
     let isDeleting = false
     let isPaused = false
+    let generation = 0  // Track language changes to cancel stale callbacks
 
-    const typingSpeed = 100      // Speed of typing each character
-    const deletingSpeed = 60     // Speed of deleting each character
-    const pauseAfterWord = 2000  // Pause after completing a word
-    const pauseBeforeDelete = 1500 // Pause before starting to delete
+    const typingSpeed = 100
+    const deletingSpeed = 60
+    const pauseAfterWord = 2000
+    const pauseBeforeDelete = 1500
 
-    function type() {
+    function type(gen) {
+        // Bail out if a newer generation started (language was changed)
+        if (gen !== generation) return
+
         const currentWord = words[wordIndex]
 
         if (isPaused) {
             isPaused = false
-            setTimeout(type, isDeleting ? pauseBeforeDelete : pauseAfterWord)
+            setTimeout(() => type(gen), isDeleting ? pauseBeforeDelete : pauseAfterWord)
             return
         }
 
         if (isDeleting) {
-            // Deleting characters
             typewriterElement.textContent = currentWord.substring(0, charIndex - 1)
             charIndex--
 
             if (charIndex === 0) {
                 isDeleting = false
                 wordIndex = (wordIndex + 1) % words.length
-                setTimeout(type, 500) // Small pause before typing new word
+                setTimeout(() => type(gen), 500)
                 return
             }
         } else {
-            // Typing characters
             typewriterElement.textContent = currentWord.substring(0, charIndex + 1)
             charIndex++
 
@@ -1164,18 +1480,138 @@ function initTypewriterEffect() {
         }
 
         const speed = isDeleting ? deletingSpeed : typingSpeed
-        setTimeout(type, speed)
+        setTimeout(() => type(gen), speed)
     }
 
     // Start the typewriter effect
-    setTimeout(type, 1000) // Initial delay before starting
+    setTimeout(() => type(generation), 1000)
+
+    // Listen for language changes to update typewriter words
+    window.addEventListener('langchange', (e) => {
+        words = typewriterWords[e.detail.lang]
+        charIndex = 0
+        wordIndex = 0
+        isDeleting = false
+        isPaused = false
+        generation++  // Invalidate old callbacks
+        typewriterElement.textContent = ''
+        setTimeout(() => type(generation), 500)
+    })
+}
+
+// FAQ Accordion
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item')
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question')
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active')
+            // Close all
+            faqItems.forEach(i => {
+                i.classList.remove('active')
+                i.querySelector('.faq-question').setAttribute('aria-expanded', 'false')
+            })
+            // Open clicked (if it wasn't already open)
+            if (!isActive) {
+                item.classList.add('active')
+                question.setAttribute('aria-expanded', 'true')
+            }
+        })
+    })
+}
+
+// Update rank preview bar (Before → After visual)
+function updateRankPreview() {
+    const previewBar = document.getElementById('rank-preview-bar')
+    if (!previewBar) return
+
+    const fromRank = ranks.find(r => r.id === state.fromRank)
+    const toRank = ranks.find(r => r.id === state.toRank)
+    if (!fromRank || !toRank) return
+
+    const fromDetail = fromRank.usesRR
+        ? `RR ${state.fromRR}`
+        : `Division ${state.fromDivision}`
+    const toDetail = toRank.usesRR
+        ? `RR ${state.toRR}`
+        : `Division ${state.toDivision}`
+
+    previewBar.innerHTML = `
+        <div class="rank-preview-item">
+            <img src="${fromRank.image}" alt="${fromRank.name}" class="rank-preview-icon" />
+            <div class="rank-preview-info">
+                <span class="rank-preview-name">${fromRank.name}</span>
+                <span class="rank-preview-detail">${fromDetail}</span>
+            </div>
+        </div>
+        <div class="rank-preview-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="rank-preview-item">
+            <img src="${toRank.image}" alt="${toRank.name}" class="rank-preview-icon" />
+            <div class="rank-preview-info">
+                <span class="rank-preview-name">${toRank.name}</span>
+                <span class="rank-preview-detail">${toDetail}</span>
+            </div>
+        </div>
+    `
+}
+
+// Payment Marquee - clone items for seamless infinite loop
+function initPaymentMarquee() {
+    const track = document.getElementById('payment-track')
+    if (!track) return
+    // Clone all children and append to track for seamless loop
+    const items = Array.from(track.children)
+    items.forEach(item => {
+        track.appendChild(item.cloneNode(true))
+    })
 }
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize language system FIRST so getLang() returns correct value
+    initLang()
+
     init()
     initCountUpAnimation()
     initTypewriterEffect()
+    initFAQ()
+    initPaymentMarquee()
+
+    // Language dropdown handler
+    const langDropdown = document.getElementById('lang-dropdown')
+    const langToggle = document.getElementById('lang-toggle')
+    if (langDropdown && langToggle) {
+        // Toggle dropdown open/close
+        langToggle.addEventListener('click', (e) => {
+            e.stopPropagation()
+            langDropdown.classList.toggle('open')
+        })
+
+        // Handle option selection
+        document.querySelectorAll('.lang-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                const lang = opt.dataset.lang
+                if (lang !== getLang()) {
+                    // Use setLang to switch to the selected language
+                    if (lang === 'en' && getLang() === 'id') toggleLang()
+                    else if (lang === 'id' && getLang() === 'en') toggleLang()
+                    // Recalculate to update all dynamic text
+                    calculatePrice()
+                    updateRRInfo()
+                }
+                langDropdown.classList.remove('open')
+            })
+        })
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('open')
+            }
+        })
+    }
 
     // Preload critical images (visible rank icons)
     const criticalImages = [
