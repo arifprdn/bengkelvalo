@@ -1,6 +1,6 @@
-# Robots.txt for Valojoki
+# Robots.txt for BengkelValo
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://valojoki.com/sitemap.xml
+Sitemap: https://bengkelvalo.com/sitemap.xml

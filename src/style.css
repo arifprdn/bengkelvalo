@@ -1,5 +1,5 @@
 /* ==========================================
-   VALOJOKI - Valorant Boosting Service
+   BENGKELVALO - Valorant Boosting Service
    CSS Design System
    ========================================== */
 
@@ -91,8 +91,8 @@
 }
 
 .preloader-logo {
-  width: 120px;
-  height: 120px;
+  width: 300px;
+  height: 60px;
   animation: preloaderPulse 1.5s ease-in-out infinite;
   filter: drop-shadow(0 0 30px rgba(255, 70, 85, 0.5));
 }

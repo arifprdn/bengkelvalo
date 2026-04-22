@@ -96,7 +96,7 @@ const translations = {
 
     // --- Why Us Section ---
     'why.badge': { id: 'Mengapa Kami', en: 'Why Us' },
-    'why.title': { id: 'Kenapa Pilih <span class="gradient-text">Valojoki</span>?', en: 'Why Choose <span class="gradient-text">Valojoki</span>?' },
+    'why.title': { id: 'Kenapa Pilih <span class="gradient-text">BengkelValo</span>?', en: 'Why Choose <span class="gradient-text">BengkelValo</span>?' },
     'why.description': { id: 'Kami berkomitmen memberikan layanan terbaik untuk kamu', en: 'We are committed to providing the best service for you' },
     'why.fast.title': { id: 'Proses Cepat', en: 'Fast Process' },
     'why.fast.desc': { id: 'Pengerjaan rank up cepat dengan estimasi waktu yang jelas', en: 'Fast rank up with clear time estimates' },
@@ -113,7 +113,7 @@ const translations = {
 
     // --- CTA Section ---
     'cta.title': { id: 'Siap Naik Rank?', en: 'Ready to Rank Up?' },
-    'cta.description': { id: 'Jangan tunggu lagi! Hubungi kami sekarang dan raih rank impianmu bersama Valojoki. Proses cepat, aman, dan terpercaya.', en: "Don't wait any longer! Contact us now and achieve your dream rank with Valojoki. Fast, safe, and trusted." },
+    'cta.description': { id: 'Jangan tunggu lagi! Hubungi kami sekarang dan raih rank impianmu bersama BengkelValo. Proses cepat, aman, dan terpercaya.', en: "Don't wait any longer! Contact us now and achieve your dream rank with BengkelValo. Fast, safe, and trusted." },
     'cta.wa': { id: 'Chat WhatsApp', en: 'Chat WhatsApp' },
     'cta.discord': { id: 'Join Discord', en: 'Join Discord' },
 
@@ -127,7 +127,7 @@ const translations = {
     'footer.legal': { id: 'Legal', en: 'Legal' },
     'footer.tos': { id: 'Syarat & Ketentuan', en: 'Terms & Conditions' },
     'footer.privacy': { id: 'Kebijakan Privasi', en: 'Privacy Policy' },
-    'footer.disclaimer': { id: 'Valojoki tidak berafiliasi dengan Riot Games.', en: 'Valojoki is not affiliated with Riot Games.' },
+    'footer.disclaimer': { id: 'BengkelValo tidak berafiliasi dengan Riot Games.', en: 'BengkelValo is not affiliated with Riot Games.' },
 
     // --- Accessibility ---
     'a11y.skip': { id: 'Langsung ke konten utama', en: 'Skip to main content' },
@@ -174,8 +174,8 @@ export const typewriterWords = {
 // WA message templates
 export const waMessages = {
     id: {
-        regulerGreeting: 'Halo Valojoki, saya ingin order boosting (Joki Reguler):',
-        duoGreeting: 'Halo Valojoki, saya ingin order Joki Gendong:',
+        regulerGreeting: 'Halo BengkelValo, saya ingin order boosting (Joki Reguler):',
+        duoGreeting: 'Halo BengkelValo, saya ingin order Joki Gendong:',
         from: 'Dari',
         to: 'Ke',
         rank: 'Rank',
@@ -190,8 +190,8 @@ export const waMessages = {
         closing: 'Mohon informasi lebih lanjut. Terima kasih!',
     },
     en: {
-        regulerGreeting: 'Hi Valojoki, I want to order boosting (Regular Boost):',
-        duoGreeting: 'Hi Valojoki, I want to order Duo Boost Carry:',
+        regulerGreeting: 'Hi BengkelValo, I want to order boosting (Regular Boost):',
+        duoGreeting: 'Hi BengkelValo, I want to order Duo Boost Carry:',
         from: 'From',
         to: 'To',
         rank: 'Rank',
@@ -239,7 +239,7 @@ export function getLang() {
  * Initialize language from localStorage or browser detection
  */
 export function initLang() {
-    const saved = localStorage.getItem('valojoki-lang')
+    const saved = localStorage.getItem('bengkelvalo-lang')
     if (saved && (saved === 'id' || saved === 'en')) {
         currentLang = saved
     } else {
@@ -256,7 +256,7 @@ export function initLang() {
  */
 export function toggleLang() {
     currentLang = currentLang === 'id' ? 'en' : 'id'
-    localStorage.setItem('valojoki-lang', currentLang)
+    localStorage.setItem('bengkelvalo-lang', currentLang)
     applyTranslations()
     updateToggleButton()
     // Dispatch event so other modules can react
