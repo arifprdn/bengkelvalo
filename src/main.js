@@ -1,10 +1,10 @@
 import './style.css'
-import { initLang, toggleLang, getLang, typewriterWords, waMessages, dynamicText } from './i18n.js'
+import { initLang, toggleLang, getLang, typewriterWords, waMessages, dynamicText, t } from './i18n.js'
 
 // Rank data with prices (based on competitor research - updated)
 // Immortal and Radiant use RR system instead of divisions
-// Immortal: 0-79 RR (Immo 1), 80-199 RR (Immo 2), 200-399 RR (Immo 3)
-// Radiant: 400-1000 RR (Premium pricing)
+// Immortal: 0-100 RR (Immo 1), 100-199 RR (Immo 2), 200-299 RR (Immo 3)
+// Radiant: 300-1000 RR (Premium pricing)
 const ranks = [
     { id: 1, name: 'Iron', image: '/assets/1 - IRON.webp', pricePerDivision: 10000 },
     { id: 2, name: 'Bronze', image: '/assets/2 - BRONZE.webp', pricePerDivision: 20000 },
@@ -13,8 +13,8 @@ const ranks = [
     { id: 5, name: 'Platinum', image: '/assets/5 - PLATINUM.webp', pricePerDivision: 55000 },
     { id: 6, name: 'Diamond', image: '/assets/6 - DIAMOND.webp', pricePerDivision: [70000, 80000, 90000] },
     { id: 7, name: 'Ascendant', image: '/assets/7 - ASCENDANT.webp', pricePerDivision: [120000, 140000, 160000] },
-    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerRR: [5000, 6000, 7500], rrTiers: [80, 200, 400], minRR: 0, maxRR: 399, usesRR: true },
-    { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [500, 700, 1000], minRR: 400, maxRR: 1000, usesRR: true, isRadiant: true }
+    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerRR: [5000, 6000, 7500], rrTiers: [100, 200, 299], minRR: 0, maxRR: 299, usesRR: true },
+    { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [300, 500, 800], minRR: 300, maxRR: 1000, usesRR: true, isRadiant: true }
 ]
 
 // Duo Boost (Joki Mabar) price data - per rank + division pricing
@@ -81,9 +81,8 @@ const fromRegularRRContainer = document.getElementById('from-regular-rr-containe
 
 // Discount tiers configuration
 const DISCOUNT_TIERS = [
-    { minPrice: 500000, discount: 0.20 }, // 20% off for 500k+
-    { minPrice: 200000, discount: 0.15 }, // 15% off for 200k-499k
-    { minPrice: 100000, discount: 0.1 }, // 10% off for 100k-199k
+    { minPrice: 500000, discount: 0.10 }, // 10% off for 500k+
+    { minPrice: 100000, discount: 0.05 }, // 5% off for 100k-499k
 ]
 
 // Get discount percentage based on price
@@ -149,7 +148,7 @@ function getRRDisplayText(rankId, rr) {
             return `${rr} RR`
         } else {
             // Immortal - show tier name
-            if (rr < 80) return `Imm 1 (${rr} RR)`
+            if (rr < 100) return `Imm 1 (${rr} RR)`
             if (rr < 200) return `Imm 2 (${rr} RR)`
             return `Imm 3 (${rr} RR)`
         }
@@ -197,10 +196,11 @@ function updateDivisionVisibility() {
         fromDivisionSelector.style.display = 'none'
         fromRRContainer.style.display = 'block'
         fromRegularRRContainer.style.display = 'none'
-        fromRRInput.value = state.fromRR
-        fromRRInput.min = fromRank.minRR
+        const fromMinRR = fromRank.id === 8 ? 10 : fromRank.minRR
+        fromRRInput.value = Math.max(state.fromRR, fromMinRR)
+        fromRRInput.min = fromMinRR
         fromRRInput.max = fromRank.maxRR
-        fromRRInput.placeholder = fromRank.minRR
+        fromRRInput.placeholder = fromMinRR
     } else {
         fromDivisionSelector.style.display = 'flex'
         fromRRContainer.style.display = 'none'
@@ -213,10 +213,11 @@ function updateDivisionVisibility() {
     if (toRank && toRank.usesRR) {
         toDivisionSelector.style.display = 'none'
         toRRContainer.style.display = 'block'
-        toRRInput.value = state.toRR
-        toRRInput.min = toRank.minRR
+        const toMinRR = toRank.id === 8 ? 10 : toRank.minRR
+        toRRInput.value = Math.max(state.toRR, toMinRR)
+        toRRInput.min = toMinRR
         toRRInput.max = toRank.maxRR
-        toRRInput.placeholder = toRank.minRR
+        toRRInput.placeholder = toMinRR
     } else {
         toDivisionSelector.style.display = 'flex'
         toRRContainer.style.display = 'none'
@@ -250,9 +251,6 @@ function calculatePrice() {
         return rank.pricePerDivision
     }
 
-    // Minimum RR per boost (1 win gives ~15-20 RR, so minimum boost = 15 RR)
-    const MIN_RR_PER_BOOST = 15
-
     // Helper function to calculate RR price with tiers (for Immortal/Radiant)
     function getRRPrice(fromRR, toRR, rank) {
         // Clamp values - allow toRR to be 1 above maxRR for boundary calculations
@@ -261,12 +259,10 @@ function calculatePrice() {
 
         if (toRR <= fromRR) return 0
 
-        const actualRRDiff = toRR - fromRR
+        const rrDiff = toRR - fromRR
 
         if (!Array.isArray(rank.pricePerRR)) {
-            // For non-tiered pricing, apply minimum RR
-            const effectiveRR = Math.max(actualRRDiff, MIN_RR_PER_BOOST)
-            return effectiveRR * rank.pricePerRR
+            return rrDiff * rank.pricePerRR
         }
 
         let price = 0
@@ -301,21 +297,6 @@ function calculatePrice() {
             }
         }
 
-        // Apply minimum price: if RR diff is less than MIN_RR_PER_BOOST, 
-        // calculate what MIN_RR_PER_BOOST would cost at the starting tier rate
-        if (actualRRDiff < MIN_RR_PER_BOOST) {
-            // Get the tier rate at fromRR position
-            let tierIndex = 0
-            for (let i = 0; i < tiers.length; i++) {
-                if (fromRR >= tiers[i]) {
-                    tierIndex = i + 1
-                }
-            }
-            if (tierIndex >= prices.length) tierIndex = prices.length - 1
-            const minPrice = MIN_RR_PER_BOOST * prices[tierIndex]
-            price = Math.max(price, minPrice)
-        }
-
         return price
     }
 
@@ -329,10 +310,10 @@ function calculatePrice() {
             totalPrice = getRRPrice(state.fromRR, state.toRR, fromRank)
         } else {
             // Different ranks (Immortal -> Radiant)
-            // Calculate Immortal portion: from current RR to end of Immortal (399)
+            // Calculate Immortal portion: from current RR to end of Immortal (299)
             // We use maxRR + 1 to include the boundary RR in calculation
             totalPrice += getRRPrice(state.fromRR, fromRank.maxRR + 1, fromRank)
-            // Calculate Radiant portion: from start of Radiant (400) to target
+            // Calculate Radiant portion: from start of Radiant (300) to target
             // Only charge if target is above minRR
             if (state.toRR > toRank.minRR) {
                 totalPrice += getRRPrice(toRank.minRR, state.toRR, toRank)
@@ -375,9 +356,9 @@ function calculatePrice() {
             totalPrice += getRRPrice(immortalRank.minRR, state.toRR, immortalRank)
         } else if (toRank.id === 9) {
             // Destination is Radiant - must go through ALL of Immortal first
-            // Immortal: 0 to 400 (using maxRR + 1 for boundary)
+            // Immortal: 0 to 300 (using maxRR + 1 for boundary)
             totalPrice += getRRPrice(immortalRank.minRR, immortalRank.maxRR + 1, immortalRank)
-            // Then add Radiant RR from 400 to target
+            // Then add Radiant RR from 300 to target
             if (state.toRR > toRank.minRR) {
                 totalPrice += getRRPrice(toRank.minRR, state.toRR, toRank)
             }
@@ -415,9 +396,26 @@ function calculatePrice() {
         totalPrice += OFFLINE_MODE_PRICE
     }
 
+    // Add request agent surcharge (25% if target rank is Immortal/Radiant)
+    if (state.requestAgent && state.toRank >= 8) {
+        totalPrice = Math.round(totalPrice * 1.25)
+    }
+
     // Add priority surcharge (25%)
     if (state.priority) {
         totalPrice = Math.round(totalPrice * 1.25)
+    }
+
+    // Update Request Agent price text based on target rank
+    const addonAgentPriceEl = document.querySelector('label[for="addon-agent"] .addon-price')
+    if (addonAgentPriceEl) {
+        if (state.toRank >= 8) {
+            addonAgentPriceEl.setAttribute('data-i18n', 'addon.agent.price.paid')
+            addonAgentPriceEl.textContent = '+25%'
+        } else {
+            addonAgentPriceEl.setAttribute('data-i18n', 'addon.agent.price.free')
+            addonAgentPriceEl.textContent = getLang() === 'en' ? 'Free' : 'Gratis'
+        }
     }
 
     // Calculate discount
@@ -534,7 +532,13 @@ function updateOrderButton(price) {
     const wa = waMessages[getLang()]
     let addonsText = ''
     if (state.offlineMode) addonsText += `\n- ${wa.offlineMode}`
-    if (state.requestAgent) addonsText += `\n- ${wa.requestAgent}`
+    if (state.requestAgent) {
+        if (state.toRank >= 8) {
+            addonsText += `\n- ${wa.requestAgent} (+25%)`
+        } else {
+            addonsText += `\n- ${wa.requestAgent}`
+        }
+    }
     if (state.priority) addonsText += `\n- ${wa.priority}`
     const addonsSection = addonsText ? `\n${wa.addons}:${addonsText}\n` : ''
 
@@ -698,8 +702,8 @@ function setupEventListeners() {
         const currentRank = ranks.find(r => r.id === state.fromRank)
         let value = parseInt(e.target.value) || currentRank.minRR
 
-        // Auto-switch: Immortal -> Radiant when RR >= 400
-        if (currentRank.id === 8 && value >= 400) {
+        // Auto-switch: Immortal -> Radiant when RR >= 300
+        if (currentRank.id === 8 && value >= 300) {
             const radiantRank = ranks.find(r => r.id === 9)
             state.fromRank = 9  // Switch to Radiant
             state.fromRR = Math.min(value, radiantRank.maxRR)  // Clamp to max
@@ -709,8 +713,8 @@ function setupEventListeners() {
             calculatePrice()
             return
         }
-        // Auto-switch: Radiant -> Immortal when RR < 400
-        if (currentRank.id === 9 && value < 400) {
+        // Auto-switch: Radiant -> Immortal when RR < 300
+        if (currentRank.id === 9 && value < 300) {
             state.fromRank = 8  // Switch to Immortal
             state.fromRR = value
             renderRankOptions()
@@ -720,7 +724,9 @@ function setupEventListeners() {
             return
         }
 
-        if (value < currentRank.minRR) value = currentRank.minRR
+        // Immortal auto-grants 10 RR on rank up, so minimum is 10
+        const minRR = currentRank.id === 8 ? 10 : currentRank.minRR
+        if (value < minRR) value = minRR
         if (value > currentRank.maxRR) value = currentRank.maxRR
         state.fromRR = value
         updateSelectedRanks()
@@ -731,8 +737,8 @@ function setupEventListeners() {
         const currentRank = ranks.find(r => r.id === state.toRank)
         let value = parseInt(e.target.value) || currentRank.minRR
 
-        // Auto-switch: Immortal -> Radiant when RR >= 400
-        if (currentRank.id === 8 && value >= 400) {
+        // Auto-switch: Immortal -> Radiant when RR >= 300
+        if (currentRank.id === 8 && value >= 300) {
             const radiantRank = ranks.find(r => r.id === 9)
             state.toRank = 9  // Switch to Radiant
             state.toRR = Math.min(value, radiantRank.maxRR)  // Clamp to max
@@ -742,8 +748,8 @@ function setupEventListeners() {
             calculatePrice()
             return
         }
-        // Auto-switch: Radiant -> Immortal when RR < 400
-        if (currentRank.id === 9 && value < 400) {
+        // Auto-switch: Radiant -> Immortal when RR < 300
+        if (currentRank.id === 9 && value < 300) {
             state.toRank = 8  // Switch to Immortal
             state.toRR = value
             renderRankOptions()
@@ -753,7 +759,9 @@ function setupEventListeners() {
             return
         }
 
-        if (value < currentRank.minRR) value = currentRank.minRR
+        // Immortal auto-grants 10 RR on rank up, so minimum is 10
+        const minRR = currentRank.id === 8 ? 10 : currentRank.minRR
+        if (value < minRR) value = minRR
         if (value > currentRank.maxRR) value = currentRank.maxRR
         state.toRR = value
         updateSelectedRanks()
