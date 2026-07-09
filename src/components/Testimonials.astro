@@ -1,0 +1,37 @@
+---
+import { testimonials } from '../data/testimonials.js'
+const { lang = 'id' } = Astro.props
+
+const s = lang === 'id' ? {
+    badge: 'Testimoni',
+    title: 'Kata <span class="gradient-text">Pelanggan</span> Kami',
+    desc: 'Bukti order asli dari pelanggan BengkelValo — lihat lebih banyak di Instagram @bengkelvalo.',
+} : {
+    badge: 'Testimonials',
+    title: 'What Our <span class="gradient-text">Customers</span> Say',
+    desc: 'Real completed orders from BengkelValo customers — see more on Instagram @bengkelvalo.',
+}
+---
+{testimonials.length > 0 && (
+<section class="testimonials-section" id="testimoni">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">{s.badge}</span>
+            <h2 class="section-title" set:html={s.title} />
+            <p class="section-description">{s.desc}</p>
+        </div>
+        <div class="testimonials-grid">
+            {testimonials.map((t) => (
+                <figure class="testimonial-card">
+                    {t.image && <img src={t.image} alt={`Testimoni ${t.name}`} loading="lazy" decoding="async" class="testimonial-img" />}
+                    <figcaption>
+                        <p class="testimonial-rank">{t.from} → <strong>{t.to}</strong></p>
+                        {t.quote && <blockquote class="testimonial-quote">“{t.quote}”</blockquote>}
+                        <p class="testimonial-meta">{t.name} · {t.service} · {t.date}</p>
+                    </figcaption>
+                </figure>
+            ))}
+        </div>
+    </div>
+</section>
+)}

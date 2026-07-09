@@ -3318,3 +3318,167 @@ ul {
     bottom: 1rem;
   }
 }
+
+/* ==========================================
+   TESTIMONIALS (renders only when data exists)
+   ========================================== */
+.testimonials-section {
+  padding: var(--spacing-xxl) 0;
+  background: var(--color-dark);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  background: var(--color-dark-light);
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--color-primary);
+  padding: 1.5rem;
+  margin: 0;
+}
+
+.testimonial-img {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.testimonial-rank {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-rank strong {
+  color: var(--color-primary-light);
+}
+
+.testimonial-quote {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-meta {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   CEK PESANAN (order tracking)
+   ========================================== */
+.track-form {
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.track-input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.track-input {
+  flex: 1;
+  background: var(--color-dark-light);
+  border: 1px solid var(--border-color);
+  padding: 0.875rem 1rem;
+  text-transform: uppercase;
+}
+
+.track-input:focus {
+  border-color: var(--color-primary);
+}
+
+.track-result {
+  max-width: 640px;
+  background: var(--color-dark-light);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.track-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.track-step {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-top: 3px solid rgba(236, 232, 225, 0.15);
+  padding-top: 0.6rem;
+}
+
+.track-step.done {
+  color: var(--text-primary);
+  border-top-color: var(--color-primary);
+}
+
+.track-step.current {
+  color: var(--color-primary-light);
+}
+
+.track-dot {
+  display: none;
+}
+
+.track-detail {
+  margin: 0;
+}
+
+.track-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(236, 232, 225, 0.06);
+  font-size: var(--font-size-sm);
+}
+
+.track-row:last-child {
+  border-bottom: none;
+}
+
+.track-row dt {
+  color: var(--text-muted);
+}
+
+.track-row dd {
+  color: var(--text-primary);
+  margin: 0;
+  text-align: right;
+}
+
+.track-message {
+  max-width: 640px;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  background: rgba(255, 70, 85, 0.06);
+  border-left: 3px solid var(--color-primary);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 600px) {
+  .track-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}

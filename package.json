@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "promo": "node scripts/make-promo.mjs"
   },
   "dependencies": {
     "@astrojs/partytown": "^2.1.4",

@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/cara-naik-rank-valorant/#article`,
+        headline: 'Cara Naik Rank Valorant dengan Cepat (Panduan 2026)',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/cara-naik-rank-valorant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Cara Naik Rank Valorant dengan Cepat (Panduan 2026) | BengkelValo"
+    description="Panduan lengkap naik rank Valorant: cara kerja RR, kesalahan yang bikin hardstuck, tips per role, estimasi waktu per rank, dan kapan jasa joki masuk akal."
+    path="/blog/cara-naik-rank-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Panduan Rank</p>
+                <h1 class="section-title">Cara Naik Rank <span class="gradient-text">Valorant</span> dengan Cepat</h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Naik rank di Valorant bukan cuma soal aim. Sistem matchmaking-nya menilai konsistensi, dan satu
+                    kebiasaan buruk bisa membuatmu hardstuck berbulan-bulan di rank yang sama. Panduan ini merangkum
+                    cara kerja sistem rank, kesalahan paling umum, dan cara tercepat keluar dari "elo hell" — termasuk
+                    kapan pakai jasa joki Valorant itu keputusan yang masuk akal, dan kapan tidak.
+                </p>
+
+                <h3>Cara kerja rank dan RR di Valorant</h3>
+                <p>
+                    Valorant punya 25 tingkat rank: Iron, Bronze, Silver, Gold, Platinum, Diamond, Ascendant (masing-masing
+                    3 divisi), lalu Immortal dan Radiant. Progresmu diukur dengan <strong>RR (Rank Rating)</strong>:
+                    menang menambah RR (biasanya 10–25), kalah menguranginya. Kumpulkan 100 RR untuk naik satu divisi.
+                    Di balik RR ada MMR tersembunyi — kalau MMR-mu lebih tinggi dari rank tampilanmu, kamu dapat RR
+                    besar tiap menang. Itu sebabnya pemain yang win streak dari rank rendah bisa naik sangat cepat,
+                    dan sebaliknya pemain yang sering AFK atau turun performa "dihukum" RR kecil.
+                </p>
+
+                <h3>5 kesalahan yang bikin hardstuck</h3>
+                <p>
+                    <strong>1. Instalock duelist tanpa bisa entry.</strong> Duelist yang mati duluan tanpa trade adalah
+                    penyebab kekalahan paling umum di bawah Platinum. Kalau ambil Jett/Reyna, tugasmu membuka site —
+                    bukan farming kill di ronde ke-20.
+                    <br /><strong>2. Main tilt.</strong> Dua kekalahan beruntun menurunkan kualitas keputusanmu secara
+                    drastis. Aturan sederhana: kalah 2x berturut-turut, berhenti. RR yang kamu selamatkan lebih berharga
+                    daripada "satu game balas dendam".
+                    <br /><strong>3. Tidak punya role tetap.</strong> Ganti-ganti agent tiap game berarti kamu selalu
+                    setengah belajar. Kuasai 2–3 agent dalam satu role (mis. controller: Omen + Brimstone) dan winrate-mu
+                    naik sendiri.
+                    <br /><strong>4. Mengabaikan ekonomi.</strong> Force-buy setiap ronde membuat tim kalah di ronde yang
+                    seharusnya bisa dimenangkan. Ikuti buy call tim — eco bareng, full buy bareng.
+                    <br /><strong>5. Solo queue di jam ramai troll.</strong> Kualitas teammate larut malam berbeda jauh.
+                    Kalau serius push rank, main di jam sore–malam awal dan pakai party 2–3 orang yang komunikatif.
+                </p>
+
+                <h3>Berapa lama naik rank kalau main sendiri?</h3>
+                <p>
+                    Dengan winrate 55% (sudah tergolong bagus), satu divisi butuh ±15–20 game efektif, atau sekitar
+                    10–15 jam. Artinya dari Iron ke Gold saja bisa memakan 90–130 jam. Dari Silver ke Ascendant?
+                    Ratusan jam — dan itu dengan asumsi kamu tidak pernah tilt. Untuk pemain dengan jam main terbatas,
+                    matematika inilah yang membuat jasa joki masuk akal: <a href="/harga-joki-valorant/">harga joki
+                    Valorant</a> dari Silver ke Gold setara dengan beberapa jam kerja, dibanding puluhan jam grinding.
+                </p>
+
+                <h3>Kapan jasa joki masuk akal — dan kapan tidak</h3>
+                <p>
+                    Joki masuk akal kalau: kamu mengejar reward akhir season, ingin lepas dari rank yang tidak
+                    mencerminkan skill-mu (misalnya turun jauh setelah lama tidak main), atau ingin main di lobby
+                    teman-temanmu yang ranknya lebih tinggi. Joki <em>tidak</em> masuk akal kalau tujuanmu memang murni
+                    belajar — rank tinggi tanpa skill hanya membuat game berikutnya terasa lebih berat. Untuk kasus itu,
+                    <strong>joki gendong (duo carry)</strong> adalah jalan tengah terbaik: kamu tetap main di akunmu
+                    sendiri, di-carry pemain Immortal–Radiant, dan bisa mencuri ilmu dari cara mereka membaca game —
+                    tanpa berbagi akun sama sekali.
+                </p>
+
+                <h3>Kalau mau jalur cepat: begini cara kami mengerjakannya</h3>
+                <p>
+                    Di BengkelValo, joki reguler dikerjakan pemain peak Immortal–Radiant tanpa cheat atau script —
+                    murni skill, dengan mode offline supaya akunmu tidak terlihat online oleh teman. Harga dihitung
+                    transparan per divisi (mulai Rp 10.000) atau per RR untuk Immortal ke atas, dan bisa kamu hitung
+                    sendiri di <a href="/#calculator">kalkulator harga</a> sebelum chat siapa pun. Ada garansi rank:
+                    target tercapai, atau untuk joki gendong — kalah diganti sampai menang.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Joki Kamu</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+import { ORDER_SHEET_CSV_URL, WA_NUMBER } from '../data/config.js'
+
+const lang = 'id'
+const waHref = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo BengkelValo, saya mau cek status pesanan saya')}`
+---
+<Base lang={lang} title="Cek Pesanan - Status Order Joki | BengkelValo"
+    description="Lacak status pesanan joki Valorant kamu di BengkelValo dengan kode order — dari antrian sampai rank tercapai."
+    path="/cek-pesanan/">
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page track-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Cek Pesanan</span>
+                <h1 class="section-title">Status <span class="gradient-text">Order Kamu</span></h1>
+                <p class="section-description">
+                    Masukkan kode order yang kamu terima via WhatsApp (contoh: BV-001) untuk melihat progres joki kamu.
+                </p>
+            </div>
+
+            <form id="track-form" class="track-form" data-sheet={ORDER_SHEET_CSV_URL}>
+                <label class="rr-label" for="track-code">Kode Order</label>
+                <div class="track-input-row">
+                    <input type="text" id="track-code" class="rr-input track-input" placeholder="BV-001"
+                        autocomplete="off" spellcheck="false" />
+                    <button type="submit" class="btn btn-primary">Lacak</button>
+                </div>
+            </form>
+
+            <div id="track-result" class="track-result" hidden>
+                <div class="track-steps" id="track-steps">
+                    <div class="track-step" data-step="Menunggu Pembayaran"><span class="track-dot"></span>Menunggu
+                        Pembayaran</div>
+                    <div class="track-step" data-step="Dalam Antrian"><span class="track-dot"></span>Dalam Antrian</div>
+                    <div class="track-step" data-step="Dikerjakan"><span class="track-dot"></span>Dikerjakan</div>
+                    <div class="track-step" data-step="Selesai"><span class="track-dot"></span>Selesai</div>
+                </div>
+                <dl class="track-detail" id="track-detail"></dl>
+            </div>
+
+            <p id="track-message" class="track-message" hidden></p>
+
+            <p class="price-table-note">
+                Tidak menemukan kode order kamu, atau belum punya kode? Hubungi kami langsung —
+                <a href={waHref} target="_blank" rel="noopener">chat WhatsApp</a>, biasanya dibalas dalam hitungan
+                menit.
+            </p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/track.js"></script>
+</Base>
