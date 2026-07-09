@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
 import { ranks, duoBoostRanks, DISCOUNT_TIERS, OFFLINE_MODE_PRICE } from '../data/pricing.js'
 
 const lang = 'id'
@@ -136,6 +137,7 @@ const jsonLd = [
     </main>
 
     <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
 
     <script src="../scripts/main.js"></script>
 </Base>

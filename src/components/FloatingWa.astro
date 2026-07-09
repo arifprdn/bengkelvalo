@@ -1,0 +1,14 @@
+---
+import WaIcon from './WaIcon.astro'
+const { lang = 'id' } = Astro.props
+
+const waHref = 'https://wa.me/6289524150075?text=' + encodeURIComponent(
+    lang === 'id'
+        ? 'Halo BengkelValo, saya mau tanya-tanya dulu'
+        : 'Hi BengkelValo, I have a question'
+)
+---
+<a href={waHref} target="_blank" rel="noopener" class="wa-float"
+    aria-label={lang === 'id' ? 'Chat WhatsApp BengkelValo' : 'Chat BengkelValo on WhatsApp'}>
+    <WaIcon size={28} />
+</a>

@@ -1515,6 +1515,26 @@ function initNavBasics() {
             })
         })
     })
+
+    // GA4 conversion events (gtag is forwarded to the Partytown worker)
+    const track = (name, params) => {
+        try {
+            if (typeof window.gtag === 'function') window.gtag('event', name, params)
+        } catch (_) { /* analytics must never break the page */ }
+    }
+    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+        link.addEventListener('click', () => {
+            track('wa_click', {
+                source: link.id || link.className || 'link',
+                page: location.pathname,
+            })
+        })
+    })
+    document.querySelectorAll('a[href*="discord.gg"]').forEach(link => {
+        link.addEventListener('click', () => {
+            track('discord_click', { page: location.pathname })
+        })
+    })
 }
 
 // Initialize on DOM ready
