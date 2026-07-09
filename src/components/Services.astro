@@ -1,0 +1,76 @@
+---
+import { t } from '../data/i18n.js'
+const { lang = 'id' } = Astro.props
+
+const extra = lang === 'id' ? {
+    reguler: 'Cocok untuk kamu yang ingin naik rank Valorant cepat tanpa harus main sendiri. Booster berpengalaman mengerjakan akunmu dengan aman — bisa mode offline agar tidak terlihat teman.',
+    mabar: 'Alternatif joki paling aman: kamu tidak perlu berbagi akun sama sekali. Duo bareng booster, menang terus, dan rank naik dari permainanmu sendiri.',
+} : {
+    reguler: 'Perfect if you want to rank up fast without grinding. An experienced booster works on your account safely — offline mode available so friends never see it.',
+    mabar: 'The safest boosting option: no account sharing at all. Queue with our booster, stack wins, and climb from your own gameplay.',
+}
+---
+<section class="services-section" id="services">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">{t('svc.badge', lang)}</span>
+            <h2 class="section-title" set:html={t('svc.title', lang)} />
+            <p class="section-description">{t('svc.description', lang)}</p>
+        </div>
+
+        <div class="service-showcase service-duo-grid">
+            <!-- Card 1: Joki Reguler -->
+            <div class="service-card featured">
+                <div class="featured-badge">{t('svc.reguler.badge', lang)}</div>
+                <div class="service-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3 class="service-title">{t('svc.reguler.title', lang)}</h3>
+                <p class="service-description">{t('svc.reguler.desc', lang)} {extra.reguler}</p>
+                <ul class="service-features">
+                    {['f1', 'f2', 'f3', 'f4', 'f5'].map((f) => (
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            <span>{t(`svc.reguler.${f}`, lang)}</span>
+                        </li>
+                    ))}
+                </ul>
+                <a href="#calculator" class="btn btn-primary service-btn">{t('svc.reguler.btn', lang)}</a>
+            </div>
+
+            <!-- Card 2: Joki Mabar -->
+            <div class="service-card featured mabar-card">
+                <div class="featured-badge">{t('svc.mabar.badge', lang)}</div>
+                <div class="service-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <h3 class="service-title">{t('svc.mabar.title', lang)}</h3>
+                <p class="service-description">{t('svc.mabar.desc', lang)} {extra.mabar}</p>
+                <ul class="service-features">
+                    {['f1', 'f2', 'f3', 'f4', 'f5'].map((f) => (
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            <span>{t(`svc.mabar.${f}`, lang)}</span>
+                        </li>
+                    ))}
+                </ul>
+                <a href="#calculator-mabar" class="btn btn-primary service-btn">{t('svc.mabar.btn', lang)}</a>
+            </div>
+        </div>
+    </div>
+</section>

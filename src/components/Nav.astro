@@ -1,0 +1,60 @@
+---
+import { t } from '../data/i18n.js'
+const { lang = 'id', onHome = true } = Astro.props
+const home = lang === 'id' ? '/' : '/en/'
+// Anchor links must point back to the home page when rendered on subpages
+const a = (hash) => (onHome ? hash : `${home}${hash}`)
+---
+<nav class="navbar" id="navbar">
+    <div class="container nav-container">
+        <a href={home} class="logo">
+            <img src="/assets/logoheader.webp" alt="BengkelValo" class="logo-header-img" width="254" height="70" />
+        </a>
+        <ul class="nav-links">
+            <li><a href={a('#home')}>Home</a></li>
+            <li><a href={a('#calculator')}>Pricing</a></li>
+        </ul>
+        <div class="lang-dropdown" id="lang-dropdown">
+            <button type="button" class="lang-current" id="lang-toggle" aria-haspopup="true" aria-expanded="false"
+                aria-controls="lang-menu" aria-label={lang === 'id' ? 'ID - Ganti bahasa' : 'EN - Switch language'}>
+                <svg class="lang-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                <span class="lang-code" id="lang-code">{lang.toUpperCase()}</span>
+                <svg class="lang-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </button>
+            <div class="lang-menu" id="lang-menu">
+                <a class:list={['lang-option', { active: lang === 'id' }]} href="/">
+                    <span class="lang-option-code">ID</span>
+                    <span class="lang-label">Indonesia</span>
+                </a>
+                <a class:list={['lang-option', { active: lang === 'en' }]} href="/en/">
+                    <span class="lang-option-code">EN</span>
+                    <span class="lang-label">English</span>
+                </a>
+            </div>
+        </div>
+        <a href={a('#calculator')} class="btn btn-primary nav-cta">{t('nav.order', lang)}</a>
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label={t('a11y.menuOpen', lang)}
+            aria-expanded="false" aria-controls="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menu navigasi" aria-hidden="true">
+    <ul class="mobile-nav-links">
+        <li><a href={a('#home')}>Home</a></li>
+        <li><a href={a('#calculator')}>Pricing</a></li>
+        <li><a href={a('#calculator')} class="btn btn-primary">{t('mobile.order', lang)}</a></li>
+    </ul>
+</div>

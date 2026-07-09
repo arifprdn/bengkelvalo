@@ -1,0 +1,81 @@
+---
+const { lang = 'id' } = Astro.props
+
+const s = lang === 'id' ? {
+    badge: 'Keamanan & Garansi',
+    title: 'Joki Valorant <span class="gradient-text">Aman</span>, Akun Terjaga',
+    desc: 'Keamanan akun adalah alasan utama pelanggan memilih BengkelValo. Ini yang kami lakukan — dan yang perlu kamu siapkan.',
+    weTitle: 'Yang kami jamin',
+    we: [
+        'Tanpa cheat, script, atau program ilegal apapun — murni skill booster',
+        'Mode offline tersedia: status akunmu tidak terlihat online oleh teman',
+        'Booster tidak menyentuh inventory, skin, atau VP di akunmu',
+        'Data login tidak disimpan permanen dan tidak dibagikan ke pihak ketiga',
+        'Garansi rank: target tercapai, atau win diganti untuk Joki Gendong yang kalah',
+    ],
+    youTitle: 'Checklist sebelum order (Joki Reguler)',
+    you: [
+        'Nonaktifkan verifikasi dua langkah (2FA) sementara, atau siapkan kode saat booster login',
+        'Jangan login ke akun selama proses joki berlangsung',
+        'Setelah selesai, segera ganti password akunmu',
+    ],
+} : {
+    badge: 'Safety & Guarantee',
+    title: '<span class="gradient-text">Safe</span> Valorant Boosting, Account Protected',
+    desc: 'Account safety is the number one reason customers pick BengkelValo. Here is what we do — and what you should prepare.',
+    weTitle: 'What we guarantee',
+    we: [
+        'No cheats, scripts, or illegal programs of any kind — pure booster skill',
+        'Offline mode available: your account never shows online to friends',
+        'Boosters never touch your inventory, skins, or VP',
+        'Login details are never stored permanently or shared with third parties',
+        'Rank guarantee: target reached, or lost Duo Carry games replaced with wins',
+    ],
+    youTitle: 'Pre-order checklist (Regular Boost)',
+    you: [
+        'Temporarily disable two-factor authentication (2FA), or be ready to share the code at login',
+        'Do not log in to the account while the boost is in progress',
+        'Change your password as soon as the order is complete',
+    ],
+}
+---
+<section class="safety-section" id="keamanan">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">{s.badge}</span>
+            <h2 class="section-title" set:html={s.title} />
+            <p class="section-description">{s.desc}</p>
+        </div>
+        <div class="safety-grid">
+            <div class="safety-card">
+                <h3 class="safety-card-title">{s.weTitle}</h3>
+                <ul class="safety-list">
+                    {s.we.map((item) => (
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            <span>{item}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div class="safety-card safety-card-checklist">
+                <h3 class="safety-card-title">{s.youTitle}</h3>
+                <ul class="safety-list">
+                    {s.you.map((item) => (
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <path d="M9 11l3 3L22 4" />
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                            </svg>
+                            <span>{item}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

@@ -10,10 +10,9 @@ const translations = {
     'mobile.order': { id: 'Order Sekarang', en: 'Order Now' },
 
     // --- Hero Section ---
-    'hero.badge': { id: '#1 Valorant Rank Up Service', en: '#1 Valorant Rank Up Service' },
+    'hero.badge': { id: 'Jasa Joki Valorant No.1 Indonesia', en: '#1 Valorant Boosting Service in Indonesia' },
     'hero.title': { id: 'Naikan <span class="gradient-text">Rank Valorant</span> Kamu Sekarang', en: 'Boost Your <span class="gradient-text">Valorant Rank</span> Now' },
-    'hero.description': { id: 'Layanan Rank Up Valorant yang ', en: 'A Valorant Rank Up Service that is ' },
-    'hero.description2': { id: 'Dapatkan rank impianmu dengan bantuan expert player berpengalaman.', en: 'Get your dream rank with the help of experienced expert players.' },
+    'hero.description': { id: 'Serahkan akunmu ke bengkel. Joki aman, cepat, dan profesional oleh expert player — garansi rank tercapai.', en: 'Bring your account to the workshop. Safe, fast, professional boosting by expert players — rank guaranteed.' },
     'hero.cta': { id: 'Hitung Harga', en: 'Calculate Price' },
     'hero.cta2': { id: 'Lihat Layanan', en: 'View Services' },
     'hero.stat.orders': { id: 'Order Selesai', en: 'Orders Done' },
@@ -112,6 +111,7 @@ const translations = {
     'why.guarantee.desc': { id: 'Garansi rank tercapai atau uang kembali', en: 'Rank guarantee or money back' },
 
     // --- CTA Section ---
+    'cta.eyebrow': { id: 'Buka 24 Jam', en: 'Open 24 Hours' },
     'cta.title': { id: 'Siap Naik Rank?', en: 'Ready to Rank Up?' },
     'cta.description': { id: 'Jangan tunggu lagi! Hubungi kami sekarang dan raih rank impianmu bersama BengkelValo. Proses cepat, aman, dan terpercaya.', en: "Don't wait any longer! Contact us now and achieve your dream rank with BengkelValo. Fast, safe, and trusted." },
     'cta.wa': { id: 'Chat WhatsApp', en: 'Chat WhatsApp' },
@@ -165,12 +165,6 @@ const translations = {
     'payment.description': { id: 'Kami menerima berbagai metode pembayaran untuk kemudahan transaksi', en: 'We accept various payment methods for your convenience' },
 }
 
-// Typewriter words per language
-export const typewriterWords = {
-    id: ['profesional !', 'cepat !', 'aman !', 'terpercaya !'],
-    en: ['professional !', 'fast !', 'safe !', 'trusted !']
-}
-
 // WA message templates
 export const waMessages = {
     id: {
@@ -211,94 +205,28 @@ export const waMessages = {
 export const dynamicText = {
     id: {
         rrInfo: (fromLabel, toLabel) => `RR Awal: ${fromLabel} → RR Akhir: akan sampai ke ${toLabel}`,
-        discountBadge: (percent) => `💰 Hemat ${percent}%`,
+        discountBadge: (percent) => `Hemat ${percent}%`,
         duoPricePerGame: (price, games) => `Rp ${price} × ${games} win`,
         division: (num) => `Division ${num}`,
         perWin: (price) => `Rp ${price} / win`,
     },
     en: {
         rrInfo: (fromLabel, toLabel) => `Starting RR: ${fromLabel} → Target RR: will reach ${toLabel}`,
-        discountBadge: (percent) => `💰 Save ${percent}%`,
+        discountBadge: (percent) => `Save ${percent}%`,
         duoPricePerGame: (price, games) => `Rp ${price} × ${games} win(s)`,
         division: (num) => `Division ${num}`,
         perWin: (price) => `Rp ${price} / win`,
     }
 }
 
-// Current language
-let currentLang = 'id'
-
 /**
- * Get the current language
+ * Get a translation string for a language (build-time and client use).
+ * Both languages are pre-rendered as separate pages (/ and /en/),
+ * so there is no runtime DOM translation.
  */
-export function getLang() {
-    return currentLang
-}
-
-/**
- * Initialize language from localStorage or browser detection
- */
-export function initLang() {
-    const saved = localStorage.getItem('bengkelvalo-lang')
-    if (saved && (saved === 'id' || saved === 'en')) {
-        currentLang = saved
-    } else {
-        // Auto-detect from browser language
-        currentLang = navigator.language.startsWith('id') ? 'id' : 'en'
-    }
-    applyTranslations()
-    updateToggleButton()
-    return currentLang
-}
-
-/**
- * Toggle between languages
- */
-export function toggleLang() {
-    currentLang = currentLang === 'id' ? 'en' : 'id'
-    localStorage.setItem('bengkelvalo-lang', currentLang)
-    applyTranslations()
-    updateToggleButton()
-    // Dispatch event so other modules can react
-    window.dispatchEvent(new CustomEvent('langchange', { detail: { lang: currentLang } }))
-}
-
-/**
- * Apply all translations to DOM elements with data-i18n attribute
- */
-function applyTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n')
-        const t = translations[key]
-        if (t) {
-            // Check if translation contains HTML (spans etc.)
-            if (t[currentLang].includes('<')) {
-                el.innerHTML = t[currentLang]
-            } else {
-                el.textContent = t[currentLang]
-            }
-        }
-    })
-    // Update html lang attribute
-    document.documentElement.lang = currentLang
-}
-
-/**
- * Update the toggle button visual
- */
-function updateToggleButton() {
-    const code = document.getElementById('lang-code')
-    if (code) code.textContent = currentLang === 'id' ? 'ID' : 'EN'
-    // Update active option
-    document.querySelectorAll('.lang-option').forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.lang === currentLang)
-    })
-}
-
-/**
- * Get a specific translation string
- */
-export function t(key) {
+export function t(key, lang = 'id') {
     const entry = translations[key]
-    return entry ? entry[currentLang] : key
+    return entry ? entry[lang] : key
 }
+
+export { translations }

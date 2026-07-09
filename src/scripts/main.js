@@ -1,34 +1,9 @@
-import './style.css'
-import { initLang, toggleLang, getLang, typewriterWords, waMessages, dynamicText, t } from './i18n.js'
+import { waMessages, dynamicText } from '../data/i18n.js'
+import { ranks, duoBoostRanks, DISCOUNT_TIERS } from '../data/pricing.js'
 
-// Rank data with prices (based on competitor research - updated)
-// Immortal and Radiant use RR system instead of divisions
-// Immortal: 0-100 RR (Immo 1), 100-199 RR (Immo 2), 200-299 RR (Immo 3)
-// Radiant: 300-1000 RR (Premium pricing)
-const ranks = [
-    { id: 1, name: 'Iron', image: '/assets/1 - IRON.webp', pricePerDivision: 10000 },
-    { id: 2, name: 'Bronze', image: '/assets/2 - BRONZE.webp', pricePerDivision: 20000 },
-    { id: 3, name: 'Silver', image: '/assets/3 - SILVER.webp', pricePerDivision: 30000 },
-    { id: 4, name: 'Gold', image: '/assets/4 - GOLD.webp', pricePerDivision: 40000 },
-    { id: 5, name: 'Platinum', image: '/assets/5 - PLATINUM.webp', pricePerDivision: 55000 },
-    { id: 6, name: 'Diamond', image: '/assets/6 - DIAMOND.webp', pricePerDivision: [70000, 80000, 90000] },
-    { id: 7, name: 'Ascendant', image: '/assets/7 - ASCENDANT.webp', pricePerDivision: [120000, 140000, 160000] },
-    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerRR: [5000, 6000, 7500], rrTiers: [100, 200, 299], minRR: 0, maxRR: 299, usesRR: true },
-    { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerRR: [15000, 25000, 50000], rrTiers: [300, 500, 800], minRR: 300, maxRR: 1000, usesRR: true, isRadiant: true }
-]
-
-// Duo Boost (Joki Mabar) price data - per rank + division pricing
-const duoBoostRanks = [
-    { id: 1, name: 'Iron', image: '/assets/1 - IRON.webp', pricePerWin: 10000, hasDivisions: true },
-    { id: 2, name: 'Bronze', image: '/assets/2 - BRONZE.webp', pricePerWin: 10000, hasDivisions: true },
-    { id: 3, name: 'Silver', image: '/assets/3 - SILVER.webp', pricePerWin: 15000, hasDivisions: true },
-    { id: 4, name: 'Gold', image: '/assets/4 - GOLD.webp', pricePerWin: 20000, hasDivisions: true },
-    { id: 5, name: 'Platinum', image: '/assets/5 - PLATINUM.webp', pricePerWin: 25000, hasDivisions: true },
-    { id: 6, name: 'Diamond', image: '/assets/6 - DIAMOND.webp', pricePerWin: [30000, 35000, 40000], hasDivisions: true },
-    { id: 7, name: 'Ascendant', image: '/assets/7 - ASCENDANT.webp', pricePerWin: [50000, 60000, 70000], hasDivisions: true },
-    { id: 8, name: 'Immortal', image: '/assets/8 - IMMORTAL.webp', pricePerWin: [100000, 165000, 225000], hasDivisions: true },
-    { id: 9, name: 'Radiant', image: '/assets/9 - RADIANT.webp', pricePerWin: 400000, hasDivisions: false }
-]
+// Language is fixed per page (/ = id, /en/ = en); no runtime switching
+const LANG = document.documentElement.lang === 'en' ? 'en' : 'id'
+const getLang = () => LANG
 
 // State
 let state = {
@@ -79,12 +54,6 @@ const rrInfoText = document.getElementById('rr-info-text')
 const fromRegularRRInput = document.getElementById('from-regular-rr')
 const fromRegularRRContainer = document.getElementById('from-regular-rr-container')
 
-// Discount tiers configuration
-const DISCOUNT_TIERS = [
-    { minPrice: 500000, discount: 0.10 }, // 10% off for 500k+
-    { minPrice: 100000, discount: 0.05 }, // 5% off for 100k-499k
-]
-
 // Get discount percentage based on price
 function getDiscountTier(price) {
     for (const tier of DISCOUNT_TIERS) {
@@ -117,7 +86,7 @@ function init() {
 function renderRankOptions() {
     const createOptions = (container, type) => {
         container.innerHTML = ranks.map(rank => `
-      <div class="rank-option ${state[type + 'Rank'] === rank.id ? 'active' : ''}" data-rank="${rank.id}">
+      <div class="rank-option ${state[type + 'Rank'] === rank.id ? 'active' : ''}" data-rank="${rank.id}" role="button" tabindex="0">
         <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
         <span class="rank-option-name">${rank.name}</span>
       </div>
@@ -778,50 +747,6 @@ function setupEventListeners() {
         }
     })
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled')
-        } else {
-            navbar.classList.remove('scrolled')
-        }
-    })
-
-    // Mobile menu toggle with ARIA support
-    mobileMenuBtn.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.toggle('active')
-        mobileMenuBtn.classList.toggle('active')
-
-        // Update ARIA attributes for accessibility
-        mobileMenuBtn.setAttribute('aria-expanded', isOpen)
-        mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi')
-        mobileMenu.setAttribute('aria-hidden', !isOpen)
-    })
-
-    // Close mobile menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active')
-            mobileMenuBtn.classList.remove('active')
-        })
-    })
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            // Skip order buttons - they have dynamically updated hrefs
-            if (this.classList.contains('order-btn')) return
-            e.preventDefault()
-            const target = document.querySelector(this.getAttribute('href'))
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                })
-            }
-        })
-    })
-
     // Add-ons event listeners
     addonOffline.addEventListener('change', () => {
         state.offlineMode = addonOffline.checked
@@ -883,7 +808,7 @@ function initDuoBoost() {
     // Render duo rank options in dropdown
     function renderDuoOptions() {
         duoOptions.innerHTML = duoBoostRanks.map((rank, index) => `
-            <div class="rank-option ${duoState.selectedRank === index ? 'active' : ''}" data-rank="${index}">
+            <div class="rank-option ${duoState.selectedRank === index ? 'active' : ''}" data-rank="${index}" role="button" tabindex="0">
                 <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
                 <span class="rank-option-name">${rank.name}</span>
             </div>
@@ -1085,7 +1010,7 @@ function initDuoPerRank() {
         ;[dprFromOptions, dprToOptions].forEach((container, i) => {
             const selectedId = i === 0 ? dprState.fromRank : dprState.toRank
             container.innerHTML = ranks.map(rank => `
-                <div class="rank-option ${rank.id === selectedId ? 'active' : ''}" data-rank="${rank.id}">
+                <div class="rank-option ${rank.id === selectedId ? 'active' : ''}" data-rank="${rank.id}" role="button" tabindex="0">
                     <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
                     <span class="rank-option-name">${rank.name}</span>
                 </div>
@@ -1335,7 +1260,10 @@ function setupDuoSubtabs() {
         tab.addEventListener('click', () => {
             const target = tab.dataset.duotab
             subtabsContainer.dataset.active = target
-            subtabs.forEach(t => t.classList.toggle('active', t === tab))
+            subtabs.forEach(t => {
+                t.classList.toggle('active', t === tab)
+                t.setAttribute('aria-selected', t === tab ? 'true' : 'false')
+            })
             subpanels.forEach(p => p.classList.toggle('active', p.id === `duo-panel-${target}`))
         })
     })
@@ -1352,36 +1280,28 @@ function setupCalcTabs() {
     // Set initial data-active
     tabsContainer.dataset.active = 'reguler'
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const targetTab = tab.dataset.tab
-
-            // Update sliding pill
-            tabsContainer.dataset.active = targetTab
-
-            // Update tab active states
-            tabs.forEach(t => t.classList.remove('active'))
-            tab.classList.add('active')
-
-            // Update panel visibility
-            panels.forEach(p => p.classList.remove('active'))
-            const targetPanel = document.getElementById(`panel-${targetTab}`)
-            if (targetPanel) {
-                targetPanel.classList.add('active')
-            }
+    const activateTab = (activeTab) => {
+        tabsContainer.dataset.active = activeTab.dataset.tab
+        tabs.forEach(t => {
+            t.classList.toggle('active', t === activeTab)
+            t.setAttribute('aria-selected', t === activeTab ? 'true' : 'false')
         })
+        panels.forEach(p => p.classList.remove('active'))
+        const targetPanel = document.getElementById(`panel-${activeTab.dataset.tab}`)
+        if (targetPanel) {
+            targetPanel.classList.add('active')
+        }
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => activateTab(tab))
     })
 
     // Handle service card links that switch to mabar tab
     document.querySelectorAll('a[href="#calculator-mabar"]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault()
-            // Switch to mabar tab
-            tabsContainer.dataset.active = 'mabar'
-            tabs.forEach(t => t.classList.remove('active'))
-            document.getElementById('tab-mabar').classList.add('active')
-            panels.forEach(p => p.classList.remove('active'))
-            document.getElementById('panel-mabar').classList.add('active')
+            activateTab(document.getElementById('tab-mabar'))
             // Scroll to calculator
             document.getElementById('calculator').scrollIntoView({ behavior: 'smooth', block: 'start' })
         })
@@ -1435,75 +1355,6 @@ function initCountUpAnimation() {
 
     countUpElements.forEach(element => {
         observer.observe(element)
-    })
-}
-
-// Typewriter effect with delete animation
-function initTypewriterEffect() {
-    const typewriterElement = document.getElementById('typewriter')
-    if (!typewriterElement) return
-
-    let words = typewriterWords[getLang()]
-    let wordIndex = 0
-    let charIndex = 0
-    let isDeleting = false
-    let isPaused = false
-    let generation = 0  // Track language changes to cancel stale callbacks
-
-    const typingSpeed = 100
-    const deletingSpeed = 60
-    const pauseAfterWord = 2000
-    const pauseBeforeDelete = 1500
-
-    function type(gen) {
-        // Bail out if a newer generation started (language was changed)
-        if (gen !== generation) return
-
-        const currentWord = words[wordIndex]
-
-        if (isPaused) {
-            isPaused = false
-            setTimeout(() => type(gen), isDeleting ? pauseBeforeDelete : pauseAfterWord)
-            return
-        }
-
-        if (isDeleting) {
-            typewriterElement.textContent = currentWord.substring(0, charIndex - 1)
-            charIndex--
-
-            if (charIndex === 0) {
-                isDeleting = false
-                wordIndex = (wordIndex + 1) % words.length
-                setTimeout(() => type(gen), 500)
-                return
-            }
-        } else {
-            typewriterElement.textContent = currentWord.substring(0, charIndex + 1)
-            charIndex++
-
-            if (charIndex === currentWord.length) {
-                isDeleting = true
-                isPaused = true
-            }
-        }
-
-        const speed = isDeleting ? deletingSpeed : typingSpeed
-        setTimeout(() => type(gen), speed)
-    }
-
-    // Start the typewriter effect
-    setTimeout(() => type(generation), 1000)
-
-    // Listen for language changes to update typewriter words
-    window.addEventListener('langchange', (e) => {
-        words = typewriterWords[e.detail.lang]
-        charIndex = 0
-        wordIndex = 0
-        isDeleting = false
-        isPaused = false
-        generation++  // Invalidate old callbacks
-        typewriterElement.textContent = ''
-        setTimeout(() => type(generation), 500)
     })
 }
 
@@ -1576,81 +1427,105 @@ function initPaymentMarquee() {
     })
 }
 
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize language system FIRST so getLang() returns correct value
-    initLang()
+// Nav basics run on every page (home + subpages without the calculator)
+function initNavBasics() {
+    // Navbar scroll effect
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled')
+            } else {
+                navbar.classList.remove('scrolled')
+            }
+        })
+    }
 
-    init()
-    initCountUpAnimation()
-    initTypewriterEffect()
-    initFAQ()
-    initPaymentMarquee()
+    // Mobile menu toggle with ARIA support
+    if (mobileMenuBtn && mobileMenu) {
+        const menuLabels = LANG === 'en'
+            ? { open: 'Open navigation menu', close: 'Close navigation menu' }
+            : { open: 'Buka menu navigasi', close: 'Tutup menu navigasi' }
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('active')
+            mobileMenuBtn.classList.toggle('active')
 
-    // Language dropdown handler
+            // Update ARIA attributes for accessibility
+            mobileMenuBtn.setAttribute('aria-expanded', isOpen)
+            mobileMenuBtn.setAttribute('aria-label', isOpen ? menuLabels.close : menuLabels.open)
+            mobileMenu.setAttribute('aria-hidden', !isOpen)
+        })
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active')
+                mobileMenuBtn.classList.remove('active')
+            })
+        })
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            // Skip order buttons - they have dynamically updated hrefs
+            if (this.classList.contains('order-btn')) return
+            e.preventDefault()
+            const target = document.querySelector(this.getAttribute('href'))
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
+            }
+        })
+    })
+
+    // Language dropdown: options are plain links (/ and /en/), only open/close here
     const langDropdown = document.getElementById('lang-dropdown')
     const langToggle = document.getElementById('lang-toggle')
     if (langDropdown && langToggle) {
-        // Toggle dropdown open/close
         langToggle.addEventListener('click', (e) => {
             e.stopPropagation()
-            langDropdown.classList.toggle('open')
+            const open = langDropdown.classList.toggle('open')
+            langToggle.setAttribute('aria-expanded', open)
         })
-
-        // Handle option selection
-        document.querySelectorAll('.lang-option').forEach(opt => {
-            opt.addEventListener('click', () => {
-                const lang = opt.dataset.lang
-                if (lang !== getLang()) {
-                    // Use setLang to switch to the selected language
-                    if (lang === 'en' && getLang() === 'id') toggleLang()
-                    else if (lang === 'id' && getLang() === 'en') toggleLang()
-                    // Recalculate to update all dynamic text
-                    calculatePrice()
-                    updateRRInfo()
-                }
-                langDropdown.classList.remove('open')
-            })
-        })
-
-        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!langDropdown.contains(e.target)) {
                 langDropdown.classList.remove('open')
+                langToggle.setAttribute('aria-expanded', 'false')
             }
         })
     }
 
-    // Preload critical images (visible rank icons)
-    const criticalImages = [
-        '/assets/1 - IRON.webp',
-        '/assets/4 - GOLD.webp',
-        '/assets/bg.webp'
-    ]
-
-    let imagesLoaded = 0
-    const totalImages = criticalImages.length
-
-    const hidePreloader = () => {
-        document.body.classList.add('loaded')
-        const preloader = document.getElementById('preloader')
-        if (preloader) {
-            setTimeout(() => preloader.remove(), 500)
+    // Keyboard support for the custom rank pickers (divs acting as buttons)
+    document.addEventListener('keydown', (e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target.matches &&
+            e.target.matches('.selected-rank, .rank-option')) {
+            e.preventDefault()
+            e.target.click()
         }
-    }
-
-    // Load critical images
-    criticalImages.forEach(src => {
-        const img = new Image()
-        img.onload = img.onerror = () => {
-            imagesLoaded++
-            if (imagesLoaded >= totalImages) {
-                setTimeout(hidePreloader, 1000) // Minimum 1 second delay for animation
-            }
-        }
-        img.src = src
     })
 
-    // Fallback: hide after max 5 seconds no matter what
-    setTimeout(hidePreloader, 5000)
+    // Keep aria-expanded of pickers in sync after any interaction
+    document.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.rank-picker').forEach(picker => {
+                const sel = picker.querySelector('.selected-rank')
+                if (sel) sel.setAttribute('aria-expanded', picker.classList.contains('open'))
+            })
+        })
+    })
+}
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    initNavBasics()
+    initFAQ()
+    initPaymentMarquee()
+
+    // Calculator only exists on the home pages
+    if (document.getElementById('from-rank-picker')) {
+        init()
+        initCountUpAnimation()
+    }
 })

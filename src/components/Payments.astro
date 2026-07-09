@@ -1,0 +1,32 @@
+---
+import { t } from '../data/i18n.js'
+const { lang = 'id' } = Astro.props
+
+const logos = [
+    { src: '/payments/qris.svg', alt: 'QRIS' },
+    { src: '/payments/dana.webp', alt: 'DANA' },
+    { src: '/payments/gopay.webp', alt: 'GoPay' },
+    { src: '/payments/ovo.webp', alt: 'OVO' },
+    { src: '/payments/mandiri.webp', alt: 'Bank Mandiri' },
+    { src: '/payments/crypto1.webp', alt: 'Crypto' },
+    { src: '/payments/crypto2.svg', alt: 'Crypto' },
+]
+---
+<section class="payment-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">{t('payment.badge', lang)}</span>
+            <h2 class="section-title" set:html={t('payment.title', lang)} />
+            <p class="section-description">{t('payment.description', lang)}</p>
+        </div>
+        <div class="payment-marquee">
+            <div class="payment-track" id="payment-track">
+                {logos.map((logo) => (
+                    <div class="payment-logo-item">
+                        <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" height="36" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>

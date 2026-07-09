@@ -1,0 +1,69 @@
+---
+import { ranks, duoBoostRanks, DISCOUNT_TIERS } from '../data/pricing.js'
+
+const { lang = 'id' } = Astro.props
+
+const fmt = (n) => n.toLocaleString('id-ID')
+const range = (v) => Array.isArray(v) ? `Rp ${fmt(Math.min(...v))} – Rp ${fmt(Math.max(...v))}` : `Rp ${fmt(v)}`
+
+const rows = ranks.map((r) => {
+    const duo = duoBoostRanks.find((d) => d.id === r.id)
+    return {
+        name: r.name,
+        unit: r.usesRR ? (lang === 'id' ? 'per RR' : 'per RR') : (lang === 'id' ? 'per divisi' : 'per division'),
+        regular: r.usesRR ? range(r.pricePerRR) : range(r.pricePerDivision),
+        duoWin: range(duo.pricePerWin),
+    }
+})
+
+const s = lang === 'id' ? {
+    badge: 'Tabel Harga',
+    title: 'Harga <span class="gradient-text">Joki Valorant</span> per Rank',
+    desc: 'Daftar harga joki rank Valorant terbaru — Joki Reguler dihitung per divisi/RR, Joki Gendong dihitung per win. Hitung total pastinya di kalkulator.',
+    thRank: 'Rank',
+    thRegular: 'Joki Reguler',
+    thDuo: 'Joki Gendong (per win)',
+    note: `Diskon otomatis: 5% untuk order di atas Rp ${fmt(DISCOUNT_TIERS[1].minPrice)}, 10% untuk order di atas Rp ${fmt(DISCOUNT_TIERS[0].minPrice)}. Harga Joki Gendong per rank = 2x harga Joki Reguler.`,
+    cta: 'Hitung Harga Pastinya',
+} : {
+    badge: 'Price Table',
+    title: '<span class="gradient-text">Valorant Boost</span> Prices per Rank',
+    desc: 'Latest Valorant rank boosting prices — Regular Boost is charged per division/RR, Duo Carry per win. Get your exact total in the calculator.',
+    thRank: 'Rank',
+    thRegular: 'Regular Boost',
+    thDuo: 'Duo Carry (per win)',
+    note: `Automatic discounts: 5% for orders above Rp ${fmt(DISCOUNT_TIERS[1].minPrice)}, 10% above Rp ${fmt(DISCOUNT_TIERS[0].minPrice)}. Duo Carry per rank = 2x the Regular Boost price.`,
+    cta: 'Calculate Exact Price',
+}
+---
+<section class="price-table-section" id="harga">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">{s.badge}</span>
+            <h2 class="section-title" set:html={s.title} />
+            <p class="section-description">{s.desc}</p>
+        </div>
+        <div class="price-table-wrapper">
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>{s.thRank}</th>
+                        <th>{s.thRegular}</th>
+                        <th>{s.thDuo}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr>
+                            <td class="price-table-rank">{row.name}</td>
+                            <td>{row.regular} <span class="price-table-unit">{row.unit}</span></td>
+                            <td>{row.duoWin}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+        <p class="price-table-note">{s.note}</p>
+        <a href="#calculator" class="btn btn-primary price-table-cta">{s.cta}</a>
+    </div>
+</section>

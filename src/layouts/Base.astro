@@ -1,0 +1,80 @@
+---
+import '@fontsource/inter/latin-400.css'
+import '@fontsource/inter/latin-600.css'
+import '@fontsource/barlow-condensed/latin-600.css'
+import '@fontsource/barlow-condensed/latin-700.css'
+import '../styles/global.css'
+
+const SITE = 'https://bengkelvalo.com'
+
+const {
+    lang = 'id',
+    title,
+    description,
+    path = '/',
+    ogImage = `${SITE}/og-image.png`,
+    hreflang = false,
+    jsonLd = [],
+} = Astro.props
+
+const canonical = `${SITE}${path}`
+
+const gaInline = `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7SL63XWHB6');`
+---
+
+<html lang={lang}>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {hreflang && (
+        <>
+            <link rel="alternate" hreflang="id" href={`${SITE}/`} />
+            <link rel="alternate" hreflang="en" href={`${SITE}/en/`} />
+            <link rel="alternate" hreflang="x-default" href={`${SITE}/`} />
+        </>
+    )}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/logo192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/logo512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo192.png" />
+    <meta name="theme-color" content="#0f1923" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="BengkelValo" />
+    <meta property="og:locale" content={lang === 'id' ? 'id_ID' : 'en_US'} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {jsonLd.map((block) => (
+        <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+
+    <!-- Google Analytics via Partytown (runs in a web worker, off the main thread) -->
+    <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-7SL63XWHB6"></script>
+    <script type="text/partytown" set:html={gaInline} />
+</head>
+
+<body>
+    <slot />
+</body>
+
+</html>

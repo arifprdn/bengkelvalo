@@ -1,0 +1,40 @@
+---
+import Base from './Base.astro'
+const { title, description, path, heading, updated } = Astro.props
+---
+<Base lang="id" title={title} description={description} path={path}>
+    <header class="legal-header">
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/assets/logoheader.webp" alt="BengkelValo" class="logo-header-img" width="254" height="70" />
+            </a>
+            <a href="/" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Kembali
+            </a>
+        </div>
+    </header>
+
+    <main class="legal-page">
+        <div class="container">
+            <div class="legal-content">
+                <h1>{heading}</h1>
+                <p class="last-updated">Terakhir diperbarui: {updated}</p>
+                <slot />
+            </div>
+        </div>
+    </main>
+
+    <footer class="legal-footer">
+        <div class="container">
+            <p>&copy; 2026 BengkelValo. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="/tos/">Syarat & Ketentuan</a>
+                <a href="/privacy/">Kebijakan Privasi</a>
+            </div>
+        </div>
+    </footer>
+</Base>

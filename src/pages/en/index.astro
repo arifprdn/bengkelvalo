@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Hero from '../../components/Hero.astro'
+import Calculator from '../../components/Calculator.astro'
+import PriceTable from '../../components/PriceTable.astro'
+import Services from '../../components/Services.astro'
+import CaraOrder from '../../components/CaraOrder.astro'
+import WhyUs from '../../components/WhyUs.astro'
+import Safety from '../../components/Safety.astro'
+import Cta from '../../components/Cta.astro'
+import Payments from '../../components/Payments.astro'
+import Faq from '../../components/Faq.astro'
+import SeoArticle from '../../components/SeoArticle.astro'
+import Footer from '../../components/Footer.astro'
+
+const lang = 'en'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        '@id': `${SITE}/#website`,
+        name: 'BengkelValo',
+        alternateName: 'Bengkel Valo',
+        url: `${SITE}/`,
+        inLanguage: ['id', 'en'],
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'OnlineBusiness',
+        '@id': `${SITE}/#org`,
+        name: 'BengkelValo',
+        url: `${SITE}/`,
+        logo: `${SITE}/assets/logoheader.png`,
+        image: `${SITE}/assets/logoheader.png`,
+        description: 'Trusted Valorant rank boosting service in Indonesia - fast, safe, and professional.',
+        priceRange: 'Rp10.000 - Rp1.000.000',
+        contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+62-895-2415-0075',
+            contactType: 'customer service',
+            availableLanguage: ['Indonesian', 'English'],
+        },
+        sameAs: ['https://instagram.com/bengkelvalo', 'https://discord.gg/e2PAmRE2Xe'],
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${SITE}/#service`,
+        serviceType: 'Valorant Rank Boosting Service',
+        name: 'BengkelValo Valorant Boosting',
+        provider: { '@id': `${SITE}/#org` },
+        areaServed: { '@type': 'Country', name: 'Indonesia' },
+        inLanguage: 'en',
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Valorant Boosting Services',
+            itemListElement: [
+                {
+                    '@type': 'Offer',
+                    itemOffered: { '@type': 'Service', name: 'Regular Boost (Rank Up per Division)' },
+                    price: '10000',
+                    priceCurrency: 'IDR',
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: { '@type': 'Service', name: 'Duo Carry (per Win)' },
+                    price: '10000',
+                    priceCurrency: 'IDR',
+                },
+            ],
+        },
+    },
+]
+---
+<Base lang={lang} title="Valorant Rank Boosting Indonesia - Fast & Safe | BengkelValo"
+    description="Trusted Valorant boosting service. Regular Boost per rank, Duo Carry per win. Pay with QRIS, DANA, GoPay, OVO. Order via WhatsApp, online 24 hours."
+    path="/en/" hreflang={true} jsonLd={jsonLd}>
+
+    <a href="#calculator" class="skip-link">Skip to main content</a>
+
+    <Nav lang={lang} />
+    <Hero lang={lang} />
+    <Calculator lang={lang} />
+    <PriceTable lang={lang} />
+    <Services lang={lang} />
+    <CaraOrder lang={lang} />
+    <WhyUs lang={lang} />
+    <Safety lang={lang} />
+    <Cta lang={lang} />
+    <Payments lang={lang} />
+    <Faq lang={lang} />
+    <SeoArticle lang={lang} />
+    <Footer lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

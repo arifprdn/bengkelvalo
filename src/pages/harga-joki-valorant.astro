@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import { ranks, duoBoostRanks, DISCOUNT_TIERS, OFFLINE_MODE_PRICE } from '../data/pricing.js'
+
+const lang = 'id'
+const fmt = (n) => n.toLocaleString('id-ID')
+
+// Detailed regular rows: one row per division for division ranks, per RR tier for Immortal/Radiant
+const regularRows = ranks.flatMap((r) => {
+    if (r.usesRR) {
+        const tierLabels = r.isRadiant
+            ? ['Radiant 300–499 RR', 'Radiant 500–799 RR', 'Radiant 800+ RR']
+            : ['Immortal 1 (0–99 RR)', 'Immortal 2 (100–199 RR)', 'Immortal 3 (200–299 RR)']
+        return r.pricePerRR.map((p, i) => ({ label: tierLabels[i], price: `Rp ${fmt(p)} / RR` }))
+    }
+    if (Array.isArray(r.pricePerDivision)) {
+        return r.pricePerDivision.map((p, i) => ({ label: `${r.name} ${i + 1}`, price: `Rp ${fmt(p)} / divisi` }))
+    }
+    return [{ label: `${r.name} (semua divisi)`, price: `Rp ${fmt(r.pricePerDivision)} / divisi` }]
+})
+
+const duoRows = duoBoostRanks.flatMap((r) => {
+    if (Array.isArray(r.pricePerWin)) {
+        return r.pricePerWin.map((p, i) => ({ label: `${r.name} ${i + 1}`, price: `Rp ${fmt(p)} / win` }))
+    }
+    return [{ label: r.name, price: `Rp ${fmt(r.pricePerWin)} / win` }]
+})
+
+const SITE = 'https://bengkelvalo.com'
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': `${SITE}/harga-joki-valorant/#webpage`,
+        name: 'Harga Joki Valorant 2026 - Tabel per Rank',
+        url: `${SITE}/harga-joki-valorant/`,
+        inLanguage: 'id',
+        isPartOf: { '@id': `${SITE}/#website` },
+    },
+]
+---
+<Base lang={lang} title="Harga Joki Valorant 2026 - Tabel per Rank | BengkelValo"
+    description="Tabel harga joki Valorant terbaru 2026: Joki Reguler mulai Rp 10.000/divisi, Joki Gendong mulai Rp 10.000/win. Iron sampai Radiant, diskon hingga 10%."
+    path="/harga-joki-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Tabel Harga 2026</span>
+                <h1 class="section-title">Harga <span class="gradient-text">Joki Valorant</span> per Rank</h1>
+                <p class="section-description">
+                    Daftar harga lengkap jasa joki Valorant BengkelValo — transparan, tanpa biaya tersembunyi.
+                    Joki Reguler dihitung per divisi (Immortal/Radiant per RR), Joki Gendong dihitung per win.
+                    Untuk total pastinya dari rank kamu ke rank tujuan, pakai <a href="/#calculator">kalkulator harga</a>.
+                </p>
+            </div>
+
+            <div class="pricing-page-grid">
+                <div>
+                    <h2 class="pricing-page-subtitle">Joki Reguler (per Divisi / RR)</h2>
+                    <div class="price-table-wrapper">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {regularRows.map((row) => (
+                                    <tr>
+                                        <td class="price-table-rank">{row.label}</td>
+                                        <td>{row.price}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="pricing-page-subtitle">Joki Gendong / Duo Carry (per Win)</h2>
+                    <div class="price-table-wrapper">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {duoRows.map((row) => (
+                                    <tr>
+                                        <td class="price-table-rank">{row.label}</td>
+                                        <td>{row.price}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="price-table-note">
+                        Joki Gendong juga tersedia per rank dengan harga 2x Joki Reguler — kamu tetap main di akun
+                        sendiri, didampingi booster sampai rank tujuan tercapai.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Diskon & Add-on</h2>
+            <ul class="pricing-page-list">
+                <li>Diskon otomatis <strong>5%</strong> untuk total order di atas Rp {fmt(DISCOUNT_TIERS[1].minPrice)}</li>
+                <li>Diskon otomatis <strong>10%</strong> untuk total order di atas Rp {fmt(DISCOUNT_TIERS[0].minPrice)}</li>
+                <li>Offline Mode (akun tidak terlihat online): <strong>+Rp {fmt(OFFLINE_MODE_PRICE)}</strong></li>
+                <li>Request Agent: <strong>gratis</strong> (Immortal/Radiant: +25%)</li>
+                <li>Prioritas (order dikerjakan lebih dulu): <strong>+25%</strong></li>
+            </ul>
+
+            <h2 class="pricing-page-subtitle">Contoh Perhitungan</h2>
+            <p class="pricing-page-example">
+                Joki Reguler dari <strong>Iron 1</strong> ke <strong>Gold 1</strong>: Iron (3 divisi × Rp 10.000) +
+                Bronze (3 × Rp 20.000) + Silver (3 × Rp 30.000) = Rp 180.000, dapat diskon 5% menjadi
+                <strong>Rp 171.000</strong>. Hitung rute rank kamu sendiri di
+                <a href="/#calculator">kalkulator</a> — hasilnya langsung bisa di-order via WhatsApp.
+            </p>
+
+            <div class="pricing-page-cta">
+                <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga di Kalkulator</a>
+            </div>
+
+            <p class="price-table-note">Harga dapat berubah sewaktu-waktu mengikuti kondisi season dan antrian.
+                Terakhir diperbarui: Juli 2026.</p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+
+    <script src="../scripts/main.js"></script>
+</Base>

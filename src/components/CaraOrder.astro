@@ -1,0 +1,43 @@
+---
+const { lang = 'id' } = Astro.props
+
+const s = lang === 'id' ? {
+    badge: 'Cara Order',
+    title: 'Cara Order <span class="gradient-text">Joki Valorant</span>',
+    desc: 'Empat langkah, tanpa ribet. Dari hitung harga sampai rank naik.',
+    steps: [
+        { title: 'Hitung Harga', desc: 'Pilih rank sekarang dan rank tujuan di kalkulator. Harga langsung muncul, transparan tanpa biaya tersembunyi.' },
+        { title: 'Chat WhatsApp', desc: 'Klik tombol order — detail pesananmu otomatis terkirim ke WhatsApp kami. Konfirmasi dan lakukan pembayaran (QRIS, DANA, GoPay, OVO, atau transfer bank).' },
+        { title: 'Proses Pengerjaan', desc: 'Joki Reguler: kirim detail akun, booster mulai bekerja (bisa mode offline). Joki Gendong: atur jadwal main bareng booster.' },
+        { title: 'Selesai & Aman', desc: 'Rank tercapai sesuai target. Pantau progres kapan saja via WhatsApp/Discord. Setelah selesai, disarankan ganti password.' },
+    ],
+} : {
+    badge: 'How to Order',
+    title: 'How to Order a <span class="gradient-text">Valorant Boost</span>',
+    desc: 'Four steps, zero hassle. From price check to rank up.',
+    steps: [
+        { title: 'Calculate Price', desc: 'Pick your current and target rank in the calculator. The price shows instantly — transparent, no hidden fees.' },
+        { title: 'Chat on WhatsApp', desc: 'Hit the order button — your order details are sent to our WhatsApp automatically. Confirm and pay (QRIS, DANA, GoPay, OVO, or bank transfer).' },
+        { title: 'Boosting in Progress', desc: 'Regular Boost: send your account details and the booster gets to work (offline mode available). Duo Carry: schedule sessions with your booster.' },
+        { title: 'Done & Secure', desc: 'Target rank reached. Track progress anytime via WhatsApp/Discord. We recommend changing your password afterwards.' },
+    ],
+}
+---
+<section class="steps-section" id="cara-order">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">{s.badge}</span>
+            <h2 class="section-title" set:html={s.title} />
+            <p class="section-description">{s.desc}</p>
+        </div>
+        <ol class="steps-grid">
+            {s.steps.map((step, i) => (
+                <li class="step-card">
+                    <span class="step-number">{String(i + 1).padStart(2, '0')}</span>
+                    <h3 class="step-title">{step.title}</h3>
+                    <p class="step-desc">{step.desc}</p>
+                </li>
+            ))}
+        </ol>
+    </div>
+</section>
