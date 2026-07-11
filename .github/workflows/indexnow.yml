@@ -1,0 +1,30 @@
+name: IndexNow
+
+# Submit sitemap URLs ke IndexNow (Bing, Yandex, Naver, Seznam, dll).
+# Catatan: API key IndexNow memang PUBLIK by design — kepemilikan dibuktikan
+# oleh file key yang di-host di https://bengkelvalo.com/<key>.txt, jadi aman
+# ditulis langsung di sini tanpa secret.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 3 * * 1' # tiap Senin 03:00 UTC sebagai backstop
+  workflow_dispatch:
+
+jobs:
+  submit-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tunggu deploy Vercel selesai
+        if: github.event_name == 'push'
+        run: sleep 120
+
+      - name: Submit sitemap URLs ke IndexNow
+        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1
+        with:
+          host: bengkelvalo.com
+          api_key: 819f9dc208b9007f91ada8aae0157df9
+          api_key_location: https://bengkelvalo.com/819f9dc208b9007f91ada8aae0157df9.txt
+          endpoint: indexnow
+          sitemap_locations: https://bengkelvalo.com/sitemap-0.xml

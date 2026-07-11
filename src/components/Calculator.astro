@@ -11,6 +11,9 @@ const { lang = 'id' } = Astro.props
             <p class="section-description">{t('calc.description', lang)}</p>
         </div>
 
+        <!-- Anchor target for service-card links; JS also switches the tab -->
+        <span id="calculator-mabar" aria-hidden="true"></span>
+
         <!-- Tab Toggle -->
         <div class="calc-tabs" role="tablist">
             <button type="button" class="calc-tab active" data-tab="reguler" id="tab-reguler" role="tab"

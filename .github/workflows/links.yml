@@ -1,0 +1,30 @@
+name: Link Check
+
+# Cek link mati di situs LIVE tiap minggu (link eksternal bisa membusuk
+# kapan saja tanpa ada perubahan kode — wa.me, discord, dll).
+
+on:
+  schedule:
+    - cron: '30 3 * * 1' # tiap Senin 03:30 UTC
+  workflow_dispatch:
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cek semua link di halaman live
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --include-fragments
+            --exclude 'instagram\.com'
+            --accept '100..=103,200..=299,301,302,307,308'
+            https://bengkelvalo.com/
+            https://bengkelvalo.com/en/
+            https://bengkelvalo.com/harga-joki-valorant/
+            https://bengkelvalo.com/blog/cara-naik-rank-valorant/
+            https://bengkelvalo.com/cek-pesanan/
+            https://bengkelvalo.com/tos/
+            https://bengkelvalo.com/privacy/
+          fail: true
