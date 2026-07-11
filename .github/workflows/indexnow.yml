@@ -21,7 +21,7 @@ jobs:
         run: sleep 120
 
       - name: Submit sitemap URLs ke IndexNow
-        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1
+        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1.0.23
         with:
           host: bengkelvalo.com
           api_key: 819f9dc208b9007f91ada8aae0157df9
