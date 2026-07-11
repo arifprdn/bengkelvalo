@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "promo": "node scripts/make-promo.mjs"
+    "promo": "node scripts/make-promo.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "linkcheck": "node scripts/linkcheck.mjs"
   },
   "dependencies": {
     "@astrojs/partytown": "^2.1.4",
