@@ -3482,3 +3482,32 @@ ul {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ==========================================
+   DEFENSIVE MOBILE HARDENING
+   Menjaga layout tetap utuh di bawah zoom browser /
+   skala font aksesibilitas / viewport tidak standar.
+   ========================================== */
+.hero-badge,
+.hero-title,
+.hero-description {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+
+  .rank-preview-bar {
+    flex-wrap: wrap;
+  }
+
+  .hero-buttons .btn {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
