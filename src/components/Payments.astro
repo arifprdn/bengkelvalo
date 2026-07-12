@@ -2,14 +2,15 @@
 import { t } from '../data/i18n.js'
 const { lang = 'id' } = Astro.props
 
+// width dihitung dari rasio asli tiap file pada tinggi tampil 36px
 const logos = [
-    { src: '/payments/qris.svg', alt: 'QRIS' },
-    { src: '/payments/dana.webp', alt: 'DANA' },
-    { src: '/payments/gopay.webp', alt: 'GoPay' },
-    { src: '/payments/ovo.webp', alt: 'OVO' },
-    { src: '/payments/mandiri.webp', alt: 'Bank Mandiri' },
-    { src: '/payments/crypto1.webp', alt: 'Crypto' },
-    { src: '/payments/crypto2.svg', alt: 'Crypto' },
+    { src: '/payments/qris.svg', alt: 'QRIS', w: 95 },
+    { src: '/payments/dana.webp', alt: 'DANA', w: 126 },
+    { src: '/payments/gopay.webp', alt: 'GoPay', w: 37 },
+    { src: '/payments/ovo.webp', alt: 'OVO', w: 116 },
+    { src: '/payments/mandiri.webp', alt: 'Bank Mandiri', w: 123 },
+    { src: '/payments/crypto1.webp', alt: 'Crypto', w: 36 },
+    { src: '/payments/crypto2.svg', alt: 'Crypto', w: 36 },
 ]
 ---
 <section class="payment-section">
@@ -23,7 +24,8 @@ const logos = [
             <div class="payment-track" id="payment-track">
                 {logos.map((logo) => (
                     <div class="payment-logo-item">
-                        <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" height="36" />
+                        <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" width={logo.w}
+                            height="36" />
                     </div>
                 ))}
             </div>

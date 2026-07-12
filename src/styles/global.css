@@ -715,7 +715,8 @@ ul {
 }
 
 .showcase-rank {
-  width: 350px;
+  /* 200px = ukuran asli file — tampil 1:1 supaya tajam (upscale bikin buram) */
+  width: 200px;
   height: auto;
   animation: floatRank 4s ease-in-out infinite;
   filter: drop-shadow(0 20px 40px rgba(255, 70, 85, 0.3));

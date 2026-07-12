@@ -8,7 +8,9 @@ const a = (hash) => (onHome ? hash : `${home}${hash}`)
 <nav class="navbar" id="navbar">
     <div class="container nav-container">
         <a href={home} class="logo">
-            <img src="/assets/logoheader.webp" alt="BengkelValo" class="logo-header-img" width="254" height="70" />
+            <img src="/assets/logoheader-254.webp"
+                srcset="/assets/logoheader-254.webp 1x, /assets/logoheader.webp 2x" alt="BengkelValo"
+                class="logo-header-img" width="254" height="70" />
         </a>
         <ul class="nav-links">
             <li><a href={a('#home')}>Home</a></li>

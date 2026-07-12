@@ -5,6 +5,13 @@ import '@fontsource/barlow-condensed/latin-600.css'
 import '@fontsource/barlow-condensed/latin-700.css'
 import '../styles/global.css'
 
+// Preload font supaya siap sebelum first paint — menghilangkan layout shift
+// saat font web menggantikan fallback (penyebab CLS 0.143 di desktop)
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url'
+import inter600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url'
+import barlow600 from '@fontsource/barlow-condensed/files/barlow-condensed-latin-600-normal.woff2?url'
+import barlow700 from '@fontsource/barlow-condensed/files/barlow-condensed-latin-700-normal.woff2?url'
+
 const SITE = 'https://bengkelvalo.com'
 
 const {
@@ -31,6 +38,11 @@ gtag('config', 'G-7SL63XWHB6');`
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={barlow700} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={barlow600} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={inter400} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={inter600} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
