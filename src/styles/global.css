@@ -3512,3 +3512,39 @@ ul {
     white-space: normal;
   }
 }
+
+/* ==========================================
+   BLOG LIST
+   ========================================== */
+.blog-list {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 720px;
+}
+
+.blog-list-item {
+  display: block;
+  background: var(--color-dark-light);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary);
+  padding: 1.5rem 1.75rem;
+  transition: var(--transition-base);
+}
+
+.blog-list-item:hover {
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.blog-list-item .step-title {
+  margin: 0.35rem 0 0.5rem;
+}
+
+.price-table-rank-link {
+  color: inherit;
+}
+
+.price-table-rank-link:hover {
+  color: var(--color-primary-light);
+  text-decoration: underline;
+}

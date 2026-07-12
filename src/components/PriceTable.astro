@@ -55,7 +55,11 @@ const s = lang === 'id' ? {
                 <tbody>
                     {rows.map((row) => (
                         <tr>
-                            <td class="price-table-rank">{row.name}</td>
+                            <td class="price-table-rank">
+                                {lang === 'id'
+                                    ? <a href={`/joki-valorant-${row.name.toLowerCase()}/`} class="price-table-rank-link">{row.name}</a>
+                                    : row.name}
+                            </td>
                             <td>{row.regular} <span class="price-table-unit">{row.unit}</span></td>
                             <td>{row.duoWin}</td>
                         </tr>

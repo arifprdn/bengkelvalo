@@ -1,0 +1,144 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+import { ranks, duoBoostRanks, DISCOUNT_TIERS } from '../data/pricing.js'
+import { rankContent } from '../data/rankContent.js'
+
+export function getStaticPaths() {
+    return rankContent.map((rc) => ({ params: { slug: rc.slug }, props: { rc } }))
+}
+
+const { rc } = Astro.props
+const rank = ranks.find((r) => r.id === rc.rankId)
+const duo = duoBoostRanks.find((d) => d.id === rc.rankId)
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+const path = `/joki-valorant-${rc.slug}/`
+const fmt = (n) => n.toLocaleString('id-ID')
+
+// Baris harga untuk rank INI saja — selalu sinkron dengan pricing.js
+const regularRows = rank.usesRR
+    ? (rank.isRadiant
+        ? ['Radiant 300–499 RR', 'Radiant 500–799 RR', 'Radiant 800+ RR']
+        : ['Immortal 1 (0–99 RR)', 'Immortal 2 (100–199 RR)', 'Immortal 3 (200–299 RR)']
+    ).map((label, i) => ({ label, price: `Rp ${fmt(rank.pricePerRR[i])} / RR` }))
+    : (Array.isArray(rank.pricePerDivision)
+        ? rank.pricePerDivision.map((p, i) => ({ label: `${rank.name} ${i + 1}`, price: `Rp ${fmt(p)} / divisi` }))
+        : [{ label: `${rank.name} (semua divisi)`, price: `Rp ${fmt(rank.pricePerDivision)} / divisi` }])
+
+const duoRows = Array.isArray(duo.pricePerWin)
+    ? duo.pricePerWin.map((p, i) => ({ label: `${rank.name} ${i + 1}`, price: `Rp ${fmt(p)} / win` }))
+    : [{ label: rank.name, price: `Rp ${fmt(duo.pricePerWin)} / win` }]
+
+const startPrice = rank.usesRR ? Math.min(...rank.pricePerRR) : (Array.isArray(rank.pricePerDivision) ? Math.min(...rank.pricePerDivision) : rank.pricePerDivision)
+const unit = rank.usesRR ? 'RR' : 'divisi'
+
+const title = `Joki Valorant ${rank.name} — Rp ${fmt(startPrice)}/${unit} | BengkelValo`
+const description = `Jasa joki rank ${rank.name} Valorant: mulai Rp ${fmt(startPrice)} per ${unit}, estimasi ${rc.duration}, garansi rank, aman tanpa cheat. Bisa joki gendong per win.`
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': `${SITE}${path}#webpage`,
+        name: `Joki Valorant ${rank.name}`,
+        url: `${SITE}${path}`,
+        inLanguage: 'id',
+        isPartOf: { '@id': `${SITE}/#website` },
+    },
+]
+
+const others = rankContent.filter((r) => r.slug !== rc.slug)
+---
+<Base lang={lang} title={title} description={description} path={path} jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Joki per Rank</span>
+                <h1 class="section-title">Joki Valorant <span class="gradient-text">{rank.name}</span></h1>
+                <p class="section-description">{rc.intro}</p>
+            </div>
+
+            <div class="pricing-page-grid">
+                <div>
+                    <h2 class="pricing-page-subtitle">Harga Joki Reguler {rank.name}</h2>
+                    <div class="price-table-wrapper">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Tier</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {regularRows.map((row) => (
+                                    <tr>
+                                        <td class="price-table-rank">{row.label}</td>
+                                        <td>{row.price}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="price-table-note">Estimasi pengerjaan: <strong>{rc.duration}</strong> per order (tergantung
+                        jarak rank). Diskon otomatis 5% di atas Rp {fmt(DISCOUNT_TIERS[1].minPrice)}, 10% di atas
+                        Rp {fmt(DISCOUNT_TIERS[0].minPrice)}.</p>
+                </div>
+
+                <div>
+                    <h2 class="pricing-page-subtitle">Joki Gendong {rank.name} (per Win)</h2>
+                    <div class="price-table-wrapper">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Tier</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {duoRows.map((row) => (
+                                    <tr>
+                                        <td class="price-table-rank">{row.label}</td>
+                                        <td>{row.price}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="price-table-note">Main di akunmu sendiri, duo bareng booster — tanpa berbagi akun.
+                        Detail di halaman <a href="/joki-gendong-valorant/">joki gendong</a>.</p>
+                </div>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Tips Naik dari {rank.name} (Kalau Mau Grinding Sendiri)</h2>
+            <p class="pricing-page-example">{rc.tips} Kalau waktumu lebih berharga dari grinding-nya, hitung rute
+                pastimu di <a href="/#calculator">kalkulator harga</a> — hasilnya langsung bisa di-order via WhatsApp,
+                dengan garansi rank dan opsi mode offline supaya akun tidak terlihat online.</p>
+
+            <div class="pricing-page-cta">
+                <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Joki {rank.name}</a>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Rank Lainnya</h2>
+            <p class="pricing-page-example">
+                {others.map((o, i) => (
+                    <>
+                        <a href={`/joki-valorant-${o.slug}/`}>{o.slug.charAt(0).toUpperCase() + o.slug.slice(1)}</a>{i < others.length - 1 ? ' · ' : ''}
+                    </>
+                ))}
+                {' '}· <a href="/harga-joki-valorant/">Tabel harga lengkap</a>
+            </p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/main.js"></script>
+</Base>

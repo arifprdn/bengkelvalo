@@ -1,0 +1,106 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/apakah-joki-valorant-aman/#article`,
+        headline: 'Apakah Joki Valorant Aman? Risiko Sebenarnya & Cara Kami Menjaganya',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/apakah-joki-valorant-aman/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Apakah Joki Valorant Aman? Risiko & Cara Menjaganya | BengkelValo"
+    description="Jawaban jujur: risiko ban joki Valorant, apa yang membuatnya kecil, ciri joki penipu yang harus dihindari, dan checklist keamanan sebelum menyerahkan akun."
+    path="/blog/apakah-joki-valorant-aman/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Keamanan Akun</p>
+                <h1 class="section-title">Apakah Joki Valorant <span class="gradient-text">Aman?</span></h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Ini pertanyaan pertama hampir setiap calon pelanggan kami — dan memang seharusnya begitu, karena
+                    kamu akan mempercayakan akun yang berisi skin, progres, dan riwayat bertahun-tahun. Jawaban
+                    jujurnya bukan "100% aman, dijamin!" seperti yang diteriakkan iklan-iklan joki abal-abal. Jawaban
+                    jujurnya: <strong>risikonya nyata tapi kecil, bisa ditekan hingga hampir nol dengan cara kerja yang
+                    benar, dan bahaya terbesarnya justru bukan dari Riot</strong> — melainkan dari memilih joki yang
+                    salah.
+                </p>
+
+                <h3>Risiko dari sisi Riot Games</h3>
+                <p>
+                    Jasa joki melanggar Terms of Service Riot — itu fakta yang tidak kami sembunyikan (tertulis juga di
+                    <a href="/tos/">syarat &amp; ketentuan</a> kami). Namun dalam praktiknya, deteksi Riot menargetkan
+                    dua hal: <strong>cheat/script</strong> dan <strong>pola akun mencurigakan</strong> (login dari
+                    banyak negara, MMR melonjak tidak wajar dalam semalam, akun yang dipakai bergiliran banyak orang).
+                    Joki manual oleh satu pemain berpengalaman, dengan pola main wajar, secara statistik sangat jarang
+                    kena sanksi. Yang sering kena ban adalah akun yang dijoki pakai cheat — dan itulah kenapa aturan
+                    pertama kami mutlak: <strong>tanpa cheat, tanpa script, apa pun alasannya</strong>.
+                </p>
+
+                <h3>Risiko yang lebih besar: joki penipu</h3>
+                <p>
+                    Kerugian paling umum di dunia joki Indonesia bukan ban — tapi penipuan. Ciri-cirinya hampir selalu
+                    sama: harga jauh di bawah pasar ("Iron ke Immortal 50 ribu!"), tidak punya situs atau jejak
+                    testimoni yang bisa diverifikasi, minta pembayaran ke rekening pribadi tanpa identitas jelas, dan
+                    menghilang setelah dibayar — atau lebih buruk: mengganti email akunmu dan memerasmu. Sebelum
+                    memakai jasa joki mana pun (termasuk kami), cek tiga hal: harga masuk akal dibanding pasar,
+                    testimoni yang bisa ditelusuri, dan kejelasan siapa yang kamu ajak bicara.
+                </p>
+
+                <h3>Cara kami menekan risiko ke titik terendah</h3>
+                <p>
+                    <strong>Mode offline</strong> — akunmu tidak terlihat online oleh teman selama proses, tanpa jejak
+                    sosial. <strong>Satu booster per order</strong> — bukan akun yang dioper-oper. <strong>Tanpa
+                    menyentuh apa pun selain ranked</strong> — skin, VP, dan pengaturanmu tidak disentuh. <strong>Data
+                    login tidak disimpan</strong> setelah order selesai, dan kami selalu menyarankan ganti password
+                    begitu selesai. Checklist lengkapnya ada di <a href="/#keamanan">bagian keamanan</a> halaman utama.
+                </p>
+
+                <h3>Opsi tanpa risiko akun sama sekali: joki gendong</h3>
+                <p>
+                    Kalau menyerahkan akun tetap terasa berat, ada jalan yang menghapus risiko itu sepenuhnya:
+                    <a href="/joki-gendong-valorant/">joki gendong (duo carry)</a>. Kamu main di akunmu sendiri,
+                    booster masuk party dan membawa permainan. Tidak ada login, tidak ada berbagi data, semua win
+                    tercatat dari permainanmu — akunmu bahkan tidak pernah keluar dari tanganmu. Harganya per win,
+                    mulai Rp 10.000, dengan garansi kalah diganti sampai menang.
+                </p>
+
+                <h3>Kesimpulan</h3>
+                <p>
+                    Aman atau tidaknya joki Valorant hampir sepenuhnya ditentukan oleh <em>siapa</em> yang
+                    mengerjakannya dan <em>bagaimana</em> caranya. Joki manual, satu booster, mode offline, tanpa
+                    cheat = risiko sangat kecil. Joki murah misterius dengan cheat = cepat atau lambat akunmu yang
+                    membayar harganya. Kalau mau menghitung dulu tanpa komitmen, semua harga kami terbuka di
+                    <a href="/harga-joki-valorant/">tabel harga</a> dan <a href="/#calculator">kalkulator</a> —
+                    tanya-tanya dulu via WhatsApp juga boleh, gratis.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Joki Kamu</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

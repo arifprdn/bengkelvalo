@@ -5,7 +5,9 @@
 ## Layanan
 
 - [Joki Reguler](https://bengkelvalo.com/#calculator): booster bermain di akunmu, harga per rank/divisi.
-- [Joki Gendong / Duo Carry](https://bengkelvalo.com/#calculator): main bareng booster di akun sendiri, harga per win atau per rank (2x reguler).
+- [Joki Gendong / Duo Carry](https://bengkelvalo.com/joki-gendong-valorant/): main bareng booster di akun sendiri, harga per win atau per rank (2x reguler).
+- [Tabel harga lengkap](https://bengkelvalo.com/harga-joki-valorant/) dan halaman per rank: /joki-valorant-iron/ sampai /joki-valorant-radiant/.
+- [Blog & panduan](https://bengkelvalo.com/blog/): cara naik rank, keamanan joki.
 - Add-ons: Offline Mode (+Rp 15.000), Request Agent (gratis), Prioritas (+25%).
 
 ## Pemesanan & Pembayaran

@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+import { duoBoostRanks } from '../data/pricing.js'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+const fmt = (n) => n.toLocaleString('id-ID')
+const range = (v) => Array.isArray(v) ? `Rp ${fmt(Math.min(...v))} – Rp ${fmt(Math.max(...v))}` : `Rp ${fmt(v)}`
+
+const rows = duoBoostRanks.map((r) => ({ name: r.name, price: range(r.pricePerWin) }))
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${SITE}/joki-gendong-valorant/#service`,
+        serviceType: 'Joki Gendong Valorant (Duo Carry)',
+        name: 'Joki Gendong Valorant BengkelValo',
+        provider: { '@id': `${SITE}/#org` },
+        areaServed: { '@type': 'Country', name: 'Indonesia' },
+        inLanguage: 'id',
+        offers: { '@type': 'Offer', price: '10000', priceCurrency: 'IDR' },
+    },
+]
+---
+<Base lang={lang} title="Joki Gendong Valorant — Duo Bareng Pro per Win | BengkelValo"
+    description="Joki gendong Valorant: main di akunmu sendiri, duo bareng booster Immortal–Radiant. Mulai Rp 10.000/win, kalah diganti sampai menang. Tanpa berbagi akun."
+    path="/joki-gendong-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Duo Carry</span>
+                <h1 class="section-title">Joki Gendong <span class="gradient-text">Valorant</span></h1>
+                <p class="section-description">
+                    Cara paling aman menaikkan rank: kamu tetap main di akunmu sendiri, booster kami masuk party dan
+                    "menggendong" permainan sampai menang. Tanpa berbagi password, tanpa berbagi akun — dan kamu bisa
+                    mencuri ilmu langsung dari cara pemain Immortal–Radiant membaca game.
+                </p>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Cara Kerjanya</h2>
+            <ul class="pricing-page-list">
+                <li><strong>1. Pilih jumlah win</strong> di <a href="/#calculator">kalkulator</a> (tab Joki Gendong) — harga per win, transparan.</li>
+                <li><strong>2. Atur jadwal</strong> main bareng via WhatsApp — fleksibel, sesuai waktumu.</li>
+                <li><strong>3. Duo queue</strong> — booster carry, kamu main santai di akun sendiri.</li>
+                <li><strong>4. Garansi win</strong> — kalah satu game? Diganti game baru sampai dapat win, gratis.</li>
+            </ul>
+
+            <h2 class="pricing-page-subtitle">Harga per Win</h2>
+            <div class="price-table-wrapper" style="max-width: 560px;">
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Rank Kamu</th>
+                            <th>Harga / Win</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map((row) => (
+                            <tr>
+                                <td class="price-table-rank">{row.name}</td>
+                                <td>{row.price}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <p class="price-table-note">Mau langsung sampai rank tujuan? Ada juga <strong>gendong per rank</strong> —
+                harga 2x joki reguler, dihitung otomatis di kalkulator.</p>
+
+            <h2 class="pricing-page-subtitle">Kenapa Gendong Lebih Aman daripada Joki Biasa?</h2>
+            <p class="pricing-page-example">
+                Pada joki reguler, booster login ke akunmu — kami menjaganya dengan mode offline dan tanpa cheat, tapi
+                bagi sebagian orang menyerahkan akun tetap terasa berat. Joki gendong menghapus kekhawatiran itu
+                sepenuhnya: <strong>tidak ada login, tidak ada berbagi data apa pun</strong>. Semua win tercatat dari
+                permainanmu sendiri, jadi riwayat akunmu bersih dan wajar. Ini juga satu-satunya jenis joki di mana
+                kamu ikut jadi lebih jago — perhatikan bagaimana booster mengatur ekonomi, timing rotasi, dan
+                komunikasi, lalu tiru.
+            </p>
+
+            <div class="pricing-page-cta">
+                <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Gendong</a>
+            </div>
+
+            <p class="price-table-note">Lihat juga: <a href="/harga-joki-valorant/">tabel harga lengkap</a> ·
+                <a href="/blog/apakah-joki-valorant-aman/">apakah joki Valorant aman?</a></p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/main.js"></script>
+</Base>

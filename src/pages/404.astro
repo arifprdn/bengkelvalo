@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+---
+<Base lang="id" title="Halaman Tidak Ditemukan | BengkelValo"
+    description="Halaman yang kamu cari tidak ada. Kembali ke beranda BengkelValo — jasa joki Valorant terpercaya."
+    path="/404/">
+
+    <Nav lang="id" onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Error 404</span>
+                <h1 class="section-title">Halaman <span class="gradient-text">Tidak Ditemukan</span></h1>
+                <p class="section-description">
+                    Sepertinya kamu whiff — halaman ini tidak ada (atau sudah pindah). Yang pasti masih ada:
+                </p>
+            </div>
+            <ul class="pricing-page-list">
+                <li><a href="/">Beranda &amp; kalkulator harga</a></li>
+                <li><a href="/harga-joki-valorant/">Tabel harga joki Valorant</a></li>
+                <li><a href="/joki-gendong-valorant/">Joki gendong (duo carry)</a></li>
+                <li><a href="/blog/">Blog &amp; panduan rank</a></li>
+                <li><a href="/cek-pesanan/">Cek status pesanan</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <FloatingWa lang="id" />
+
+    <script src="../scripts/main.js"></script>
+</Base>

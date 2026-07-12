@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+
+const posts = [
+    {
+        href: '/blog/apakah-joki-valorant-aman/',
+        title: 'Apakah Joki Valorant Aman? Risiko Sebenarnya & Cara Kami Menjaganya',
+        desc: 'Jawaban jujur soal risiko ban, ciri joki penipu yang wajib dihindari, dan checklist keamanan sebelum menyerahkan akun.',
+        date: 'Juli 2026',
+    },
+    {
+        href: '/blog/cara-naik-rank-valorant/',
+        title: 'Cara Naik Rank Valorant dengan Cepat (Panduan 2026)',
+        desc: 'Cara kerja RR, 5 kesalahan yang bikin hardstuck, estimasi waktu per rank, dan kapan jasa joki masuk akal.',
+        date: 'Juli 2026',
+    },
+]
+---
+<Base lang={lang} title="Blog & Panduan Valorant | BengkelValo"
+    description="Panduan rank, tips naik rank, dan info seputar joki Valorant dari tim BengkelValo — jasa joki Valorant terpercaya di Indonesia."
+    path="/blog/">
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Blog</span>
+                <h1 class="section-title">Panduan &amp; <span class="gradient-text">Tips Valorant</span></h1>
+                <p class="section-description">Panduan naik rank dan info seputar dunia joki — ditulis tim yang
+                    mengerjakan ribuan game ranked.</p>
+            </div>
+
+            <div class="blog-list">
+                {posts.map((p) => (
+                    <a href={p.href} class="blog-list-item">
+                        <p class="testimonial-meta">{p.date}</p>
+                        <h2 class="step-title">{p.title}</h2>
+                        <p class="step-desc">{p.desc}</p>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

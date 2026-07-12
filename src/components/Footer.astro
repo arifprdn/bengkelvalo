@@ -42,6 +42,7 @@ const a = (hash) => (onHome ? hash : `${home}${hash}`)
                     <h3>{t('footer.services', lang)}</h3>
                     <ul>
                         <li><a href={a('#services')}>{t('footer.rankUp', lang)}</a></li>
+                        <li><a href="/joki-gendong-valorant/">{lang === 'id' ? 'Joki Gendong' : 'Duo Carry'}</a></li>
                         <li><a href={a('#calculator')}>{t('footer.priceCalc', lang)}</a></li>
                         <li><a href="/harga-joki-valorant/">{lang === 'id' ? 'Tabel Harga' : 'Price Table'}</a></li>
                     </ul>
@@ -52,7 +53,7 @@ const a = (hash) => (onHome ? hash : `${home}${hash}`)
                         <li><a href={a('#home')}>Home</a></li>
                         <li><a href={a('#cara-order')}>{lang === 'id' ? 'Cara Order' : 'How to Order'}</a></li>
                         <li><a href="/cek-pesanan/">{lang === 'id' ? 'Cek Pesanan' : 'Track Order'}</a></li>
-                        <li><a href="/blog/cara-naik-rank-valorant/">{lang === 'id' ? 'Tips Naik Rank' : 'Rank Up Tips'}</a></li>
+                        <li><a href="/blog/">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
