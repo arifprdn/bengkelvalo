@@ -1,15 +1,13 @@
 // Cek link mati di semua halaman live bengkelvalo.com.
 // Jalankan: npm run linkcheck  — rutin tiap Senin, atau setelah mengubah link.
+// Daftar halaman diambil otomatis dari sitemap — halaman baru langsung ikut tercek.
 
-const PAGES = [
-    'https://bengkelvalo.com/',
-    'https://bengkelvalo.com/en/',
-    'https://bengkelvalo.com/harga-joki-valorant/',
-    'https://bengkelvalo.com/blog/cara-naik-rank-valorant/',
-    'https://bengkelvalo.com/cek-pesanan/',
-    'https://bengkelvalo.com/tos/',
-    'https://bengkelvalo.com/privacy/',
-]
+const sitemapRes = await fetch('https://bengkelvalo.com/sitemap-0.xml')
+if (!sitemapRes.ok) {
+    console.error(`Gagal ambil sitemap (HTTP ${sitemapRes.status})`)
+    process.exit(1)
+}
+const PAGES = [...(await sitemapRes.text()).matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1].trim())
 
 // Domain yang memblokir bot/curl — dilewati (cek manual sesekali di browser)
 const SKIP = [/^mailto:/, /^tel:/, /^javascript:/, /^data:/, /^#/, /instagram\.com/]
