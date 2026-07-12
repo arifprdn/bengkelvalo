@@ -2,5 +2,30 @@
 User-agent: *
 Allow: /
 
+# AI/answer-engine crawlers dipersilakan secara eksplisit
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 # Sitemap location
 Sitemap: https://bengkelvalo.com/sitemap-index.xml

@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+// Data survei pasar Juli 2026 — dari riset harga 6 penyedia joki + listing
+// marketplace (itemku, Fastwork) yang dilakukan tim BengkelValo.
+const marketRows = [
+    { tier: 'Iron', pasar: 'Rp 7.000 – 19.000', kami: 'Rp 10.000' },
+    { tier: 'Bronze', pasar: 'Rp 10.000 – 21.000', kami: 'Rp 20.000' },
+    { tier: 'Silver', pasar: 'Rp 15.000 – 32.000', kami: 'Rp 30.000' },
+    { tier: 'Gold', pasar: 'Rp 29.000 – 42.000', kami: 'Rp 40.000' },
+    { tier: 'Platinum', pasar: 'Rp 40.000 – 72.000', kami: 'Rp 55.000' },
+    { tier: 'Diamond', pasar: 'Rp 65.000 – 106.000', kami: 'Rp 70.000 – 90.000' },
+    { tier: 'Ascendant', pasar: 'Rp 115.000 – 200.000', kami: 'Rp 120.000 – 160.000' },
+    { tier: 'Immortal (per rank/tier)', pasar: 'Rp 165.000 – 828.000', kami: 'Rp 5.000 – 7.500 / RR' },
+    { tier: 'Immortal → Radiant (paket)', pasar: 'Rp 1.275.000 – 3.530.000', kami: '± Rp 1.9jt (per RR, transparan)' },
+]
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/harga-pasaran-joki-valorant/#article`,
+        headline: 'Harga Pasaran Joki Valorant 2026: Hasil Survei 6 Penyedia + Marketplace',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/harga-pasaran-joki-valorant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Harga Pasaran Joki Valorant 2026 (Survei Pasar) | BengkelValo"
+    description="Berapa harga wajar joki Valorant? Hasil survei Juli 2026 terhadap 6 penyedia + listing marketplace: rentang harga per divisi Iron–Radiant, dan cara mengenali harga scam."
+    path="/blog/harga-pasaran-joki-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Survei Pasar</p>
+                <h1 class="section-title">Harga Pasaran <span class="gradient-text">Joki Valorant</span> 2026</h1>
+                <p class="last-updated">Survei: Juli 2026 · 6 penyedia jasa + listing marketplace (itemku, Fastwork) ·
+                    oleh tim BengkelValo</p>
+
+                <p>
+                    Berapa harga yang wajar untuk joki Valorant? Karena tidak ada standar resmi, jawabannya berserakan
+                    di ratusan listing marketplace dan bio Instagram. Kami merangkumnya jadi satu: hasil survei harga
+                    Juli 2026 terhadap enam penyedia jasa joki Indonesia dan listing aktif di marketplace gaming.
+                    Gunakan tabel ini sebagai patokan sebelum membayar siapa pun — termasuk kami.
+                </p>
+
+                <h3>Tabel rentang harga pasar (per divisi)</h3>
+                <div class="price-table-wrapper">
+                    <table class="price-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Rentang Pasar</th>
+                                <th>BengkelValo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {marketRows.map((r) => (
+                                <tr>
+                                    <td class="price-table-rank">{r.tier}</td>
+                                    <td>{r.pasar}</td>
+                                    <td>{r.kami}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <p class="price-table-note">Metodologi: harga per divisi diambil dari daftar harga publik penyedia
+                    joki dan listing marketplace aktif per Juli 2026; untuk listing paket, harga dikonversi ke
+                    per-divisi. Rentang menggambarkan termurah–termahal yang benar-benar dijual, bukan rata-rata.</p>
+
+                <h3>Cara membaca angka-angka ini</h3>
+                <p>
+                    <strong>Rank rendah (Iron–Gold)</strong>: pasarnya padat dan murah — seller termurah ada di
+                    marketplace, tapi menariknya listing yang paling laku justru bukan yang termurah, melainkan yang
+                    punya review dan garansi. <strong>Rank menengah (Platinum–Ascendant)</strong>: selisih antar
+                    penyedia melebar; di sinilah membandingkan harga paling menghemat. <strong>Rank tinggi
+                    (Immortal–Radiant)</strong>: paling berbahaya untuk pembeli — banyak penyedia menjual "paket gelap"
+                    jutaan rupiah tanpa rincian, dengan selisih antar penyedia sampai hampir 3x lipat untuk rute yang
+                    sama. Model per-RR (bayar persis sejauh RR yang ditempuh) hampir tidak dipakai siapa pun selain
+                    kami — dan itu bukan kebetulan: paket gelap lebih menguntungkan penjual.
+                </p>
+
+                <h3>Harga yang terlalu murah = lampu merah</h3>
+                <p>
+                    Kalau ada yang menawarkan jauh di bawah rentang pasar di atas — misalnya "Iron ke Immortal 50
+                    ribu" — hampir pasti salah satu dari dua: penipuan (hilang setelah dibayar) atau joki cheat yang
+                    mempertaruhkan akunmu. Booster manusia yang bermain manual punya biaya waktu yang nyata; tidak ada
+                    keajaiban yang membuat 9 divisi bisa dihargai secangkir kopi. Ciri-ciri lengkap joki penipu kami
+                    tulis di artikel <a href="/blog/apakah-joki-valorant-aman/">apakah joki Valorant aman</a>.
+                </p>
+
+                <h3>Posisi kami, jujur saja</h3>
+                <p>
+                    Dari tabel di atas kelihatan: BengkelValo bukan yang termurah di rank bawah — kami di tengah pasar,
+                    dengan garansi rank dan mode offline. Di Diamond ke atas kami termasuk yang termurah, dan di
+                    Immortal–Radiant kami satu-satunya yang harganya bisa kamu hitung sendiri sebelum chat siapa pun:
+                    semua angka terbuka di <a href="/harga-joki-valorant/">tabel harga</a> dan
+                    <a href="/#calculator">kalkulator</a>. Bandingkan dulu ke mana pun — angka kami tidak berubah
+                    setelah kamu masuk DM.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/harga-joki-valorant/" class="btn btn-primary btn-lg">Lihat Tabel Harga Lengkap</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

@@ -1,48 +1,9 @@
 ---
 import { t } from '../data/i18n.js'
+import { getFaqs } from '../data/faqs.js'
 const { lang = 'id' } = Astro.props
 
-// 7 original questions from the shared dictionary + 4 new high-intent questions
-const extra = lang === 'id' ? [
-    {
-        q: 'Berapa harga joki Valorant?',
-        a: 'Harga joki Valorant di BengkelValo mulai dari Rp 10.000 per divisi (Iron) hingga Rp 160.000 per divisi (Ascendant 3). Immortal dan Radiant dihitung per RR, mulai Rp 5.000/RR. Joki Gendong mulai Rp 10.000 per win. Ada diskon otomatis 5% untuk order di atas Rp 100.000 dan 10% di atas Rp 500.000 — cek tabel harga atau hitung persisnya di kalkulator.',
-    },
-    {
-        q: 'Apakah joki Valorant bisa kena ban?',
-        a: 'Risiko ban dari joki manual (tanpa cheat) sangat kecil karena booster kami bermain murni dengan skill, tanpa program ilegal. Namun perlu jujur: jasa joki melanggar Terms of Service Riot Games, sehingga risiko tidak pernah nol. Kami meminimalkannya dengan permainan wajar dan mode offline.',
-    },
-    {
-        q: 'Apakah ada garansi?',
-        a: 'Ada. Joki Reguler bergaransi rank tercapai sesuai target order. Joki Gendong bergaransi win: jika kalah dalam satu game, game diganti sampai menang. Jika target tidak tercapai karena kesalahan kami, uang kembali.',
-    },
-    {
-        q: 'Apa itu joki gendong?',
-        a: 'Joki gendong (duo carry) adalah layanan di mana kamu main di akunmu sendiri, satu party dengan booster yang "menggendong" permainan. Tidak perlu berbagi akun sama sekali — paling aman. Biaya dihitung per win, atau per rank dengan harga 2x joki reguler.',
-    },
-] : [
-    {
-        q: 'How much does Valorant boosting cost?',
-        a: 'BengkelValo prices start from Rp 10,000 per division (Iron) up to Rp 160,000 per division (Ascendant 3). Immortal and Radiant are charged per RR, from Rp 5,000/RR. Duo Carry starts at Rp 10,000 per win. Automatic discounts: 5% above Rp 100,000 and 10% above Rp 500,000 — see the price table or get an exact quote in the calculator.',
-    },
-    {
-        q: 'Can my account get banned for boosting?',
-        a: 'The ban risk from manual boosting (no cheats) is very small because our boosters play purely on skill with no illegal programs. To be honest though: boosting violates Riot Games’ Terms of Service, so the risk is never zero. We minimize it with natural play patterns and offline mode.',
-    },
-    {
-        q: 'Is there a guarantee?',
-        a: 'Yes. Regular Boost is guaranteed to reach your target rank. Duo Carry guarantees wins: a lost game is replayed until you win. If we fail to deliver through our own fault, you get your money back.',
-    },
-    {
-        q: 'What is duo carry (joki gendong)?',
-        a: 'Duo carry means you play on your own account, queued with a booster who carries the games. No account sharing at all — the safest option. Priced per win, or per rank at 2x the regular boost price.',
-    },
-]
-
-const faqs = [
-    ...[1, 2, 3, 4, 5, 6, 7].map((i) => ({ q: t(`faq.q${i}`, lang), a: t(`faq.a${i}`, lang) })),
-    ...extra,
-]
+const faqs = getFaqs(lang)
 ---
 <section class="faq-section" id="faq">
     <div class="container">
@@ -67,5 +28,9 @@ const faqs = [
                 </div>
             ))}
         </div>
+        {lang === 'id' && (
+            <p class="price-table-note faq-more-link">Versi lengkap dengan jawaban terbuka:
+                <a href="/faq/">halaman FAQ</a>.</p>
+        )}
     </div>
 </section>

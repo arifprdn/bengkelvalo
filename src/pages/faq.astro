@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+import { getFaqs } from '../data/faqs.js'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+const faqs = getFaqs(lang)
+
+// FAQPage JSON-LD: Google tidak lagi menampilkan rich result FAQ, tapi
+// Bing/Copilot dan answer engine lain masih memakainya untuk memahami konten.
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${SITE}/faq/#faqpage`,
+        inLanguage: 'id',
+        mainEntity: faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+    },
+]
+---
+<Base lang={lang} title="FAQ Joki Valorant — Harga, Keamanan, Garansi | BengkelValo"
+    description="Jawaban lengkap seputar joki Valorant: berapa harganya, apakah aman dan legal, berapa lama prosesnya, garansi, cara bayar, dan bedanya joki reguler vs gendong."
+    path="/faq/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">FAQ</span>
+                <h1 class="section-title">Tanya Jawab <span class="gradient-text">Joki Valorant</span></h1>
+                <p class="section-description">Semua yang biasa ditanyakan sebelum order — dijawab langsung, tanpa
+                    basa-basi. Masih ada pertanyaan lain? Chat kami via tombol WhatsApp di pojok kanan.</p>
+            </div>
+
+            <div class="faq-open-list">
+                {faqs.map((faq) => (
+                    <section class="faq-open-item">
+                        <h2 class="pricing-page-subtitle">{faq.q}</h2>
+                        <p class="pricing-page-example">{faq.a}</p>
+                    </section>
+                ))}
+            </div>
+
+            <div class="pricing-page-cta">
+                <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Joki Kamu</a>
+            </div>
+
+            <p class="price-table-note">Terkait: <a href="/harga-joki-valorant/">tabel harga</a> ·
+                <a href="/joki-gendong-valorant/">joki gendong</a> ·
+                <a href="/blog/apakah-joki-valorant-aman/">apakah joki Valorant aman?</a> ·
+                <a href="/kamus-valorant/">kamus istilah Valorant</a></p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/main.js"></script>
+</Base>

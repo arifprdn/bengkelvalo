@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const terms = [
+    {
+        t: 'RR (Rank Rating)',
+        d: 'RR adalah poin peringkat kompetitif Valorant. Menang menambah RR (umumnya 10–25 poin), kalah menguranginya; mengumpulkan 100 RR menaikkan satu divisi. Mulai rank Immortal, sistem divisi hilang dan progres dihitung murni dari total RR (0–299 untuk Immortal, 300+ untuk Radiant).',
+    },
+    {
+        t: 'MMR (Matchmaking Rating)',
+        d: 'MMR adalah skor tersembunyi yang dipakai Valorant untuk menilai skill aslimu dan menentukan lawan yang seimbang. Kalau MMR-mu lebih tinggi dari rank tampilanmu, kamu mendapat RR besar tiap menang — itulah kenapa pemain yang win streak bisa naik rank sangat cepat.',
+    },
+    {
+        t: 'Elo Hell',
+        d: 'Elo hell adalah istilah untuk kondisi "terjebak" di rank rendah karena kualitas teammate yang acak, sehingga kemenangan terasa di luar kendali. Secara statistik pemain yang konsisten akan tetap naik, tapi prosesnya bisa memakan ratusan game — alasan paling umum orang memakai jasa joki.',
+    },
+    {
+        t: 'Hardstuck',
+        d: 'Hardstuck menggambarkan pemain yang bertahan di rank yang sama selama berbulan-bulan meski rutin bermain. Penyebab tersering bukan aim, melainkan pola keputusan yang berulang: peek tanpa tujuan, ekonomi buruk, dan bermain saat tilt.',
+    },
+    {
+        t: 'Joki / Boosting',
+        d: 'Joki (di luar negeri: rank boosting) adalah jasa menaikkan rank kompetitif oleh pemain yang lebih mahir. Ada dua model: joki reguler (booster login ke akunmu) dan joki gendong alias duo carry (kamu main sendiri, booster satu party denganmu).',
+    },
+    {
+        t: 'Joki Gendong / Duo Carry',
+        d: 'Joki gendong adalah jasa naik rank di mana booster bermain bersamamu dalam satu party sementara kamu tetap di akunmu sendiri — tanpa berbagi password sama sekali. Harganya per win, dan di BengkelValo kalah diganti sampai menang.',
+    },
+    {
+        t: 'Smurf',
+        d: 'Smurf adalah akun kedua milik pemain berskill tinggi yang bermain di rank rendah. Kehadiran smurf membuat lobby terasa tidak seimbang — dan menjadi salah satu alasan pemain kasual sulit keluar dari rank bawah.',
+    },
+    {
+        t: 'Derank',
+        d: 'Derank adalah tindakan menurunkan rank dengan sengaja, biasanya agar bisa bermain bersama teman yang ranknya lebih rendah (batas party ranked Valorant maksimal terpaut beberapa tier). Beberapa jasa joki menyediakan layanan ini.',
+    },
+    {
+        t: 'Placement / Penempatan',
+        d: 'Placement adalah 5 match penentu rank awal setiap Episode baru. Hasil placement sangat memengaruhi titik mulai grinding season itu — makanya banyak pemain memakai joki khusus placement di awal Act.',
+    },
+    {
+        t: 'Act & Episode',
+        d: 'Kalender kompetitif Valorant terbagi menjadi Episode (±6 bulan) yang berisi 3 Act (±2 bulan). Tiap Act ada reset ringan dan reward (gun buddy sesuai peak rank Act itu); tiap Episode ada soft-reset rank yang lebih besar.',
+    },
+    {
+        t: 'Peak Rank',
+        d: 'Peak rank adalah rank tertinggi yang pernah dicapai sebuah akun. Reward akhir Act dihitung dari peak rank — alasan paling umum order joki menjelang akhir season adalah mengejar peak sebelum reset.',
+    },
+    {
+        t: 'Offline Mode / Appear Offline',
+        d: 'Mode offline membuat status akunmu tidak terlihat online oleh teman selama proses joki berlangsung. Di BengkelValo ini tersedia sebagai add-on (+Rp 15.000) dan menjadi lapisan privasi utama layanan joki reguler.',
+    },
+    {
+        t: 'Win Trading',
+        d: 'Win trading adalah kecurangan berupa pengaturan hasil match antara dua pihak untuk menaikkan rank secara ilegal. Praktik ini dideteksi keras oleh Riot dan berujung ban permanen — BengkelValo tidak pernah memakai metode ini; semua win diperoleh dari permainan nyata.',
+    },
+    {
+        t: 'Radiant Leaderboard',
+        d: 'Radiant adalah rank tertinggi Valorant, dibatasi untuk 500 pemain teratas per region berdasarkan total RR (minimal 300+). Posisinya diperingkat di leaderboard publik — karena itulah harga joki Radiant selalu paling premium.',
+    },
+]
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'DefinedTermSet',
+        '@id': `${SITE}/kamus-valorant/#terms`,
+        name: 'Kamus Istilah Rank & Joki Valorant',
+        inLanguage: 'id',
+        hasDefinedTerm: terms.map((x) => ({
+            '@type': 'DefinedTerm',
+            name: x.t,
+            description: x.d,
+        })),
+    },
+]
+---
+<Base lang={lang} title="Kamus Istilah Valorant: RR, MMR, Derank, Smurf | BengkelValo"
+    description="Arti istilah rank Valorant dijelaskan singkat: RR, MMR, elo hell, hardstuck, smurf, derank, placement, peak rank, joki gendong, win trading, dan lainnya."
+    path="/kamus-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Kamus</span>
+                <h1 class="section-title">Kamus Istilah <span class="gradient-text">Valorant</span></h1>
+                <p class="section-description">Istilah rank dan dunia joki yang sering muncul — dijelaskan singkat dan
+                    akurat. Berguna sebelum kamu order, atau sekadar biar tidak bingung di lobby.</p>
+            </div>
+
+            <div class="faq-open-list">
+                {terms.map((x) => (
+                    <section class="faq-open-item">
+                        <h2 class="pricing-page-subtitle">{x.t}</h2>
+                        <p class="pricing-page-example">{x.d}</p>
+                    </section>
+                ))}
+            </div>
+
+            <p class="price-table-note">Terkait: <a href="/blog/cara-naik-rank-valorant/">cara naik rank Valorant</a> ·
+                <a href="/faq/">FAQ joki</a> · <a href="/harga-joki-valorant/">tabel harga joki</a></p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/main.js"></script>
+</Base>
