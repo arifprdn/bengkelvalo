@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/tips-placement-match-valorant/#article`,
         headline: '7 Tips Menang Placement Match Valorant (Mulai Season Lebih Tinggi)',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/tips-placement-match-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/tips-placement-match-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/tips-placement-match-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: '7 Tips Menang Placement Match Valorant (Mulai Season Lebih Tinggi)', item: `${SITE}/blog/tips-placement-match-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="7 Tips Menang Placement Match Valorant | BengkelValo"
     description="Cara menang placement match Valorant: kapan main, agent apa, ekonomi round, dan kesalahan umum yang bikin hasil placement jelek. Panduan eksekusi 5 match."
-    path="/blog/tips-placement-match-valorant/" jsonLd={jsonLd}>
+    path="/blog/tips-placement-match-valorant/" ogImage={'/assets/og/tips-placement-match-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

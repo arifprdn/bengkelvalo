@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/solo-queue-vs-5-stack/#article`,
         headline: 'Solo Queue vs 5-Stack Valorant: Kenapa RR-mu Dipotong?',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/solo-queue-vs-5-stack/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/solo-queue-vs-5-stack.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/solo-queue-vs-5-stack/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Solo Queue vs 5-Stack Valorant: Kenapa RR-mu Dipotong?', item: `${SITE}/blog/solo-queue-vs-5-stack/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Solo Queue vs 5-Stack: Kenapa RR-mu Dipotong? | BengkelValo"
     description="Kenapa RR turun drastis saat main 5-stack beda rank di Valorant? Ini aturan party ranked, penalti RR, dan cara push rank bareng teman tanpa rugi."
-    path="/blog/solo-queue-vs-5-stack/" jsonLd={jsonLd}>
+    path="/blog/solo-queue-vs-5-stack/" ogImage={'/assets/og/solo-queue-vs-5-stack.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

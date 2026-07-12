@@ -27,16 +27,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/berapa-lama-joki-valorant/#article`,
         headline: 'Berapa Lama Joki Valorant? Estimasi Durasi per Rank',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/berapa-lama-joki-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/berapa-lama-joki-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/berapa-lama-joki-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Berapa Lama Joki Valorant? Estimasi Durasi per Rank', item: `${SITE}/blog/berapa-lama-joki-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Berapa Lama Joki Valorant? Estimasi Durasi per Rank | BengkelValo"
     description="Estimasi durasi joki Valorant per rank: di bawah Gold ±24 jam, Gold–Ascendant ±3 hari, Immortal–Radiant sampai 14 hari — beserta faktor yang mempercepat/memperlambatnya."
-    path="/blog/berapa-lama-joki-valorant/" jsonLd={jsonLd}>
+    path="/blog/berapa-lama-joki-valorant/" ogImage={'/assets/og/berapa-lama-joki-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/rr-naik-sedikit-turun-banyak/#article`,
         headline: 'Kenapa RR Naik Sedikit tapi Turun Banyak?',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/rr-naik-sedikit-turun-banyak/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/rr-naik-sedikit-turun-banyak.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/rr-naik-sedikit-turun-banyak/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Kenapa RR Naik Sedikit tapi Turun Banyak?', item: `${SITE}/blog/rr-naik-sedikit-turun-banyak/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Kenapa RR Naik Sedikit Turun Banyak? Penjelasan MMR | BengkelValo"
     description="RR naik sedikit tapi turun banyak di Valorant? Ini penjelasan soal MMR tersembunyi, tanda-tanda rank kamu di atas MMR, dan cara memperbaikinya."
-    path="/blog/rr-naik-sedikit-turun-banyak/" jsonLd={jsonLd}>
+    path="/blog/rr-naik-sedikit-turun-banyak/" ogImage={'/assets/og/rr-naik-sedikit-turun-banyak.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

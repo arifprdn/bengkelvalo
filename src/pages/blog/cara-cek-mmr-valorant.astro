@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/cara-cek-mmr-valorant/#article`,
         headline: 'Cara Cek MMR Valorant (Riot Tidak Menampilkannya — Ini Solusinya)',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/cara-cek-mmr-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/cara-cek-mmr-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/cara-cek-mmr-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Cara Cek MMR Valorant (Riot Tidak Menampilkannya — Ini Solusinya)', item: `${SITE}/blog/cara-cek-mmr-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Cara Cek MMR Valorant: Bisa Nggak & Gimana Caranya | BengkelValo"
     description="Riot tidak menampilkan MMR Valorant secara resmi. Ini cara memperkirakannya lewat pola RR dan tracker pihak ketiga, plus tanda MMR-mu di bawah rank."
-    path="/blog/cara-cek-mmr-valorant/" jsonLd={jsonLd}>
+    path="/blog/cara-cek-mmr-valorant/" ogImage={'/assets/og/cara-cek-mmr-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

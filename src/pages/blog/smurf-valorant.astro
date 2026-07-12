@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/smurf-valorant/#article`,
         headline: 'Kenapa Banyak Smurf di Rank Rendah Valorant? Cara Menghadapinya',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/smurf-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/smurf-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/smurf-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Kenapa Banyak Smurf di Rank Rendah Valorant? Cara Menghadapinya', item: `${SITE}/blog/smurf-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Kenapa Banyak Smurf di Rank Rendah Valorant? | BengkelValo"
     description="Kenapa smurf menumpuk di Iron–Gold, cara mengenali smurf saat main, upaya deteksi Riot, dan cara realistis menghadapinya tanpa harus tilt tiap match."
-    path="/blog/smurf-valorant/" jsonLd={jsonLd}>
+    path="/blog/smurf-valorant/" ogImage={'/assets/og/smurf-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/reset-rank-valorant/#article`,
         headline: 'Reset Rank Valorant: Cara Kerja Episode, Act, dan Placement',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/reset-rank-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/reset-rank-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/reset-rank-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Reset Rank Valorant: Cara Kerja Episode, Act, dan Placement', item: `${SITE}/blog/reset-rank-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Reset Rank Valorant: Cara Kerja Episode, Act & Placement | BengkelValo"
     description="Kapan rank Valorant di-reset, apa bedanya reset Episode vs Act, berapa banyak rank turun, dan cara memulai season baru dari posisi setinggi mungkin."
-    path="/blog/reset-rank-valorant/" jsonLd={jsonLd}>
+    path="/blog/reset-rank-valorant/" ogImage={'/assets/og/reset-rank-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

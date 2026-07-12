@@ -28,16 +28,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/harga-pasaran-joki-valorant/#article`,
         headline: 'Harga Pasaran Joki Valorant 2026: Hasil Survei 6 Penyedia + Marketplace',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/harga-pasaran-joki-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/harga-pasaran-joki-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/harga-pasaran-joki-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Harga Pasaran Joki Valorant 2026: Hasil Survei 6 Penyedia + Marketplace', item: `${SITE}/blog/harga-pasaran-joki-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Harga Pasaran Joki Valorant 2026 (Survei Pasar) | BengkelValo"
     description="Berapa harga wajar joki Valorant? Hasil survei Juli 2026 terhadap 6 penyedia + listing marketplace: rentang harga per divisi Iron–Radiant, dan cara mengenali harga scam."
-    path="/blog/harga-pasaran-joki-valorant/" jsonLd={jsonLd}>
+    path="/blog/harga-pasaran-joki-valorant/" ogImage={'/assets/og/harga-pasaran-joki-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

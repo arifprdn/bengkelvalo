@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/immortal-ke-radiant/#article`,
         headline: 'Immortal ke Radiant: Kenapa Sesusah Itu?',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/immortal-ke-radiant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/immortal-ke-radiant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/immortal-ke-radiant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Immortal ke Radiant: Kenapa Sesusah Itu?', item: `${SITE}/blog/immortal-ke-radiant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Immortal ke Radiant: Kenapa Susah & Solusinya | BengkelValo"
     description="Radiant bukan tier berikutnya dari Immortal, tapi kuota leaderboard regional yang sangat kecil. Ini alasan sebenarnya dan cara realistis mengejarnya."
-    path="/blog/immortal-ke-radiant/" jsonLd={jsonLd}>
+    path="/blog/immortal-ke-radiant/" ogImage={'/assets/og/immortal-ke-radiant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

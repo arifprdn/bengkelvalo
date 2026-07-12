@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/hardstuck-valorant/#article`,
         headline: 'Hardstuck Valorant: 5 Penyebab & Cara Keluar dari Rank yang Sama',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/hardstuck-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/hardstuck-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/hardstuck-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Hardstuck Valorant: 5 Penyebab & Cara Keluar dari Rank yang Sama', item: `${SITE}/blog/hardstuck-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Hardstuck Valorant: 5 Penyebab & Cara Keluar | BengkelValo"
     description="Hardstuck bukan cuma soal rank rendah — ini pola kebiasaan yang berulang. Kenali 5 penyebab utamanya dan cara mendiagnosis kekalahanmu sendiri di sini."
-    path="/blog/hardstuck-valorant/" jsonLd={jsonLd}>
+    path="/blog/hardstuck-valorant/" ogImage={'/assets/og/hardstuck-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

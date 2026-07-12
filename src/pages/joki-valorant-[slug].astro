@@ -52,6 +52,18 @@ const jsonLd = [
 ]
 
 const others = rankContent.filter((r) => r.slug !== rc.slug)
+
+// Artikel terkait: rank Immortal/Radiant dapat bacaan soal RR & leaderboard,
+// rank lain dapat bacaan soal distribusi rank & hardstuck.
+const relatedArticles = (rc.slug === 'immortal' || rc.slug === 'radiant')
+    ? [
+        { href: '/blog/immortal-ke-radiant/', label: 'kenapa Radiant itu kuota leaderboard, bukan sekadar RR' },
+        { href: '/blog/rr-naik-sedikit-turun-banyak/', label: 'kenapa RR naik sedikit turun banyak' },
+    ]
+    : [
+        { href: '/blog/distribusi-rank-valorant/', label: 'distribusi rank Valorant — di mana posisimu' },
+        { href: '/blog/hardstuck-valorant/', label: 'kenapa pemain bisa hardstuck' },
+    ]
 ---
 <Base lang={lang} title={title} description={description} path={path} jsonLd={jsonLd}>
 
@@ -120,6 +132,12 @@ const others = rankContent.filter((r) => r.slug !== rc.slug)
             <p class="pricing-page-example">{rc.tips} Kalau waktumu lebih berharga dari grinding-nya, hitung rute
                 pastimu di <a href="/#calculator">kalkulator harga</a> — hasilnya langsung bisa di-order via WhatsApp,
                 dengan garansi rank dan opsi mode offline supaya akun tidak terlihat online.</p>
+
+            <p class="price-table-note">Baca juga: {relatedArticles.map((a, i) => (
+                <>
+                    <a href={a.href}>{a.label}</a>{i < relatedArticles.length - 1 ? ' · ' : ''}
+                </>
+            ))}</p>
 
             <div class="pricing-page-cta">
                 <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Joki {rank.name}</a>

@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/apakah-joki-valorant-aman/#article`,
         headline: 'Apakah Joki Valorant Aman? Risiko Sebenarnya & Cara Kami Menjaganya',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/apakah-joki-valorant-aman/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/apakah-joki-valorant-aman.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/apakah-joki-valorant-aman/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Apakah Joki Valorant Aman? Risiko Sebenarnya & Cara Kami Menjaganya', item: `${SITE}/blog/apakah-joki-valorant-aman/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Apakah Joki Valorant Aman? Risiko & Cara Menjaganya | BengkelValo"
     description="Jawaban jujur: risiko ban joki Valorant, apa yang membuatnya kecil, ciri joki penipu yang harus dihindari, dan checklist keamanan sebelum menyerahkan akun."
-    path="/blog/apakah-joki-valorant-aman/" jsonLd={jsonLd}>
+    path="/blog/apakah-joki-valorant-aman/" ogImage={'/assets/og/apakah-joki-valorant-aman.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

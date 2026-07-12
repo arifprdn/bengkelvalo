@@ -15,6 +15,8 @@ const terms = [
     {
         t: 'MMR (Matchmaking Rating)',
         d: 'MMR adalah skor tersembunyi yang dipakai Valorant untuk menilai skill aslimu dan menentukan lawan yang seimbang. Kalau MMR-mu lebih tinggi dari rank tampilanmu, kamu mendapat RR besar tiap menang — itulah kenapa pemain yang win streak bisa naik rank sangat cepat.',
+        linkHref: '/blog/cara-cek-mmr-valorant/',
+        linkText: 'cara cek MMR Valorant',
     },
     {
         t: 'Elo Hell',
@@ -41,6 +43,12 @@ const terms = [
         d: 'Derank adalah tindakan menurunkan rank dengan sengaja, biasanya agar bisa bermain bersama teman yang ranknya lebih rendah (batas party ranked Valorant maksimal terpaut beberapa tier). Beberapa jasa joki menyediakan layanan ini.',
     },
     {
+        t: '5-Stack',
+        d: '5-stack adalah party berisi lima pemain penuh. Bermain 5-stack membuka batas selisih rank antaranggota yang lebih longgar dibanding solo/duo queue, tapi ada pengurangan RR kalau selisih rank di dalam party terlalu jauh.',
+        linkHref: '/blog/solo-queue-vs-5-stack/',
+        linkText: 'solo queue vs 5-stack',
+    },
+    {
         t: 'Placement / Penempatan',
         d: 'Placement adalah 5 match penentu rank awal setiap Episode baru. Hasil placement sangat memengaruhi titik mulai grinding season itu — makanya banyak pemain memakai joki khusus placement di awal Act.',
     },
@@ -63,6 +71,12 @@ const terms = [
     {
         t: 'Radiant Leaderboard',
         d: 'Radiant adalah rank tertinggi Valorant, dibatasi untuk 500 pemain teratas per region berdasarkan total RR (minimal 300+). Posisinya diperingkat di leaderboard publik — karena itulah harga joki Radiant selalu paling premium.',
+    },
+    {
+        t: 'Distribusi Rank',
+        d: 'Distribusi rank adalah persebaran persentase pemain Valorant di tiap tier peringkat. Mayoritas populasi menumpuk di sekitar Silver–Gold, jadi rank di atas itu sebenarnya sudah di atas rata-rata pemain.',
+        linkHref: '/blog/distribusi-rank-valorant/',
+        linkText: 'distribusi rank Valorant',
     },
 ]
 
@@ -100,7 +114,7 @@ const jsonLd = [
                 {terms.map((x) => (
                     <section class="faq-open-item">
                         <h2 class="pricing-page-subtitle">{x.t}</h2>
-                        <p class="pricing-page-example">{x.d}</p>
+                        <p class="pricing-page-example">{x.d}{x.linkHref && <> Baca juga: <a href={x.linkHref}>{x.linkText}</a>.</>}</p>
                     </section>
                 ))}
             </div>

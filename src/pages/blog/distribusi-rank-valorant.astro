@@ -14,16 +14,28 @@ const jsonLd = [
         '@id': `${SITE}/blog/distribusi-rank-valorant/#article`,
         headline: 'Distribusi Rank Valorant 2026: Kamu di Persentil Berapa?',
         inLanguage: 'id',
+        datePublished: '2026-07-12',
+        dateModified: '2026-07-12',
         author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
         publisher: { '@id': `${SITE}/#org` },
         mainEntityOfPage: `${SITE}/blog/distribusi-rank-valorant/`,
-        image: `${SITE}/og-image.png`,
+        image: `${SITE}/assets/og/distribusi-rank-valorant.png`,
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE}/blog/distribusi-rank-valorant/#breadcrumb`,
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+            { '@type': 'ListItem', position: 3, name: 'Distribusi Rank Valorant 2026: Kamu di Persentil Berapa?', item: `${SITE}/blog/distribusi-rank-valorant/` },
+        ],
     },
 ]
 ---
 <Base lang={lang} title="Distribusi Rank Valorant 2026: Kamu di Persentil Berapa? | BengkelValo"
     description="Distribusi rank Valorant 2026: persentase pemain di tiap tier dari Iron sampai Radiant, median rank, dan cara mengetahui posisimu di antara pemain lain."
-    path="/blog/distribusi-rank-valorant/" jsonLd={jsonLd}>
+    path="/blog/distribusi-rank-valorant/" ogImage={'/assets/og/distribusi-rank-valorant.png'} jsonLd={jsonLd}>
 
     <Nav lang={lang} onHome={false} />
 

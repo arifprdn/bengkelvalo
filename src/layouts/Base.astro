@@ -25,6 +25,9 @@ const {
 } = Astro.props
 
 const canonical = `${SITE}${path}`
+// Allow callers to pass either a site-relative path (e.g. /assets/og/slug.png)
+// or an already-absolute URL — og:image/twitter:image must be absolute.
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${SITE}${ogImage}`
 
 const gaInline = `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -60,13 +63,14 @@ gtag('config', 'G-7SL63XWHB6');`
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo192.png" />
     <meta name="theme-color" content="#0f1923" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="BengkelValo Blog" href="/rss.xml" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageAbs} />
     <meta property="og:site_name" content="BengkelValo" />
     <meta property="og:locale" content={lang === 'id' ? 'id_ID' : 'en_US'} />
 
@@ -74,7 +78,7 @@ gtag('config', 'G-7SL63XWHB6');`
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageAbs} />
 
     {jsonLd.map((block) => (
         <script type="application/ld+json" set:html={JSON.stringify(block)} />
