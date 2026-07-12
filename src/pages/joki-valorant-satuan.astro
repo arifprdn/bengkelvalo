@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+import { ranks, duoBoostRanks } from '../data/pricing.js'
+
+const lang = 'id'
+const fmt = (n) => n.toLocaleString('id-ID')
+
+// Harga satuan = beli per 1 divisi / per 1 win, tanpa paket rank-ke-rank
+const rows = ranks.filter((r) => !r.usesRR).map((r) => {
+    const duo = duoBoostRanks.find((d) => d.id === r.id)
+    const div = Array.isArray(r.pricePerDivision) ? Math.min(...r.pricePerDivision) : r.pricePerDivision
+    const win = Array.isArray(duo.pricePerWin) ? Math.min(...duo.pricePerWin) : duo.pricePerWin
+    return { name: r.name, div: `mulai Rp ${fmt(div)}`, win: `mulai Rp ${fmt(win)}` }
+})
+---
+<Base lang={lang} title="Joki Valorant Satuan — per Divisi & per Win | BengkelValo"
+    description="Joki Valorant satuan tanpa paket: beli per 1 divisi (mulai Rp 10.000) atau per 1 win (mulai Rp 10.000). Cocok untuk yang kurang sedikit lagi naik rank. Garansi & aman."
+    path="/joki-valorant-satuan/">
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Joki Satuan</span>
+                <h1 class="section-title">Joki Valorant <span class="gradient-text">Satuan</span></h1>
+                <p class="section-description">
+                    Tidak butuh paket besar? Joki satuan untukmu: beli <strong>per 1 divisi</strong> (mulai
+                    Rp 10.000) atau <strong>per 1 win</strong> (mulai Rp 10.000) — pas untuk yang tinggal
+                    kurang sedikit lagi naik rank, mengejar sisa RR di akhir season, atau mau coba layanan kami
+                    dulu sebelum order besar.
+                </p>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Harga Satuan per Rank</h2>
+            <div class="price-table-wrapper" style="max-width: 640px;">
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Per 1 Divisi</th>
+                            <th>Per 1 Win (gendong)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map((r) => (
+                            <tr>
+                                <td class="price-table-rank">{r.name}</td>
+                                <td>{r.div}</td>
+                                <td>{r.win}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <p class="price-table-note">Immortal &amp; Radiant dihitung per RR (mulai Rp 5.000/RR) — satuan paling
+                fleksibel di pasar: bayar persis sejauh RR yang kamu butuh. Detail di
+                <a href="/joki-valorant-immortal/">halaman Immortal</a> dan
+                <a href="/joki-valorant-radiant/">Radiant</a>.</p>
+
+            <h2 class="pricing-page-subtitle">Kapan Joki Satuan Paling Masuk Akal?</h2>
+            <ul class="pricing-page-list">
+                <li><strong>Kurang 1 divisi lagi</strong> untuk reward akhir Act — daripada grinding panik di hari terakhir.</li>
+                <li><strong>Stuck di promosi</strong> — butuh beberapa win bersih untuk melewati ambang RR.</li>
+                <li><strong>Tes layanan dulu</strong> — order kecil dulu, lihat cara kerja kami, baru order rute panjang.</li>
+            </ul>
+
+            <p class="pricing-page-example">
+                Semua ketentuan sama dengan joki reguler: tanpa cheat, bisa mode offline, dan garansi.
+                Untuk rute lebih dari satu divisi, <a href="/#calculator">kalkulator</a> otomatis menghitung
+                harga terbaik (termasuk diskon 5–10% untuk order besar).
+            </p>
+
+            <div class="pricing-page-cta">
+                <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga Satuan Kamu</a>
+            </div>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/main.js"></script>
+</Base>

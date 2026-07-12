@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWa from '../components/FloatingWa.astro'
+
+const lang = 'id'
+const waHref = 'https://wa.me/6289524150075?text=' + encodeURIComponent('Halo BengkelValo, saya mau tanya joki placement/kalibrasi')
+---
+<Base lang={lang} title="Joki Placement Valorant — Kalibrasi 5 Match Awal | BengkelValo"
+    description="Joki placement (kalibrasi) Valorant: 5 match penentu rank awal Episode dikerjakan booster Immortal–Radiant, supaya kamu mulai season dari rank setinggi mungkin."
+    path="/joki-placement-valorant/">
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Placement / Kalibrasi</span>
+                <h1 class="section-title">Joki Placement <span class="gradient-text">Valorant</span></h1>
+                <p class="section-description">
+                    Lima match placement di awal Episode menentukan dari mana kamu mulai grinding satu season penuh.
+                    Placement yang buruk bisa melempar akunmu 3–6 divisi di bawah kemampuan aslimu — dan mengejarnya
+                    kembali memakan puluhan game. Joki placement kami memastikan 5 match itu dimainkan booster peak
+                    Immortal–Radiant.
+                </p>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Kenapa Placement Sepenting Itu?</h2>
+            <p class="pricing-page-example">
+                Setelah reset rank tiap Episode, Valorant menilai ulang posisimu lewat 5 match penempatan — hasilnya
+                sangat dipengaruhi performa dan win-loss di match tersebut. Menang 4–5 dari 5 match dengan performa
+                bagus bisa menempatkanmu beberapa divisi lebih tinggi daripada kalah beruntun, yang artinya
+                menghemat ratusan ribu rupiah biaya joki (atau puluhan jam grinding) untuk sampai ke rank yang sama.
+                Detail cara kerja reset ada di artikel <a href="/blog/reset-rank-valorant/">reset rank Episode &amp;
+                Act</a>.
+            </p>
+
+            <h2 class="pricing-page-subtitle">Cara Order &amp; Harga</h2>
+            <ul class="pricing-page-list">
+                <li><strong>Paket placement = 5 match</strong>, dikerjakan penuh oleh booster (joki reguler) atau duo bareng kamu (gendong).</li>
+                <li><strong>Harga menyesuaikan peak rank</strong> season sebelumnya (menentukan lobby placement-mu) — chat WhatsApp dengan menyebut peak rank-mu, langsung kami beri penawaran pasti sebelum bayar.</li>
+                <li>Ketentuan sama seperti layanan lain: tanpa cheat, bisa mode offline, pembayaran di muka.</li>
+            </ul>
+
+            <p class="pricing-page-example">
+                Setelah placement selesai dan rank awal terkunci, lanjutan naik rank bisa dihitung transparan di
+                <a href="/#calculator">kalkulator</a> — atau lihat <a href="/harga-joki-valorant/">tabel harga per
+                rank</a>.
+            </p>
+
+            <div class="pricing-page-cta">
+                <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary btn-lg">Tanya Harga Placement
+                    via WhatsApp</a>
+            </div>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../scripts/main.js"></script>
+</Base>

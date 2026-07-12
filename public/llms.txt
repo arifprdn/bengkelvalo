@@ -6,7 +6,8 @@
 
 - [Joki Reguler](https://bengkelvalo.com/#calculator): booster bermain di akunmu, harga per rank/divisi.
 - [Joki Gendong / Duo Carry](https://bengkelvalo.com/joki-gendong-valorant/): main bareng booster di akun sendiri, harga per win atau per rank (2x reguler).
-- [Tabel harga lengkap](https://bengkelvalo.com/harga-joki-valorant/) dan halaman per rank: /joki-valorant-iron/ sampai /joki-valorant-radiant/.
+- [Tabel harga lengkap](https://bengkelvalo.com/harga-joki-valorant/) dan halaman per rank: /joki-valorant-iron/ sampai /joki-valorant-radiant/. Juga: [joki satuan](https://bengkelvalo.com/joki-valorant-satuan/) dan [joki placement](https://bengkelvalo.com/joki-placement-valorant/).
+- [Data terbuka: Survei Harga Joki Valorant Indonesia 2026](https://bengkelvalo.com/riset/harga-joki-valorant-2026/) — CC BY 4.0, boleh dikutip dengan atribusi, CSV tersedia.
 - [Blog & panduan](https://bengkelvalo.com/blog/): cara naik rank, keamanan joki, survei harga pasar joki 2026.
 - [FAQ lengkap](https://bengkelvalo.com/faq/) dan [kamus istilah Valorant](https://bengkelvalo.com/kamus-valorant/) (RR, MMR, derank, joki gendong, dll).
 - Add-ons: Offline Mode (+Rp 15.000), Request Agent (gratis), Prioritas (+25%).

@@ -1,0 +1,10 @@
+rank,harga_pasar_terendah_idr,harga_pasar_tertinggi_idr,satuan
+Iron,7000,19000,per divisi
+Bronze,10000,21000,per divisi
+Silver,15000,32000,per divisi
+Gold,29000,42000,per divisi
+Platinum,40000,72000,per divisi
+Diamond,65000,106000,per divisi
+Ascendant,115000,200000,per divisi
+Immortal,165000,828000,per rank/tier
+Immortal ke Radiant (paket),1275000,3530000,per paket

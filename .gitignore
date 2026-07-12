@@ -27,3 +27,6 @@ npm-debug.log*
 
 # Private ops playbook (local only, never commit)
 PLAYBOOK.md
+
+# Media pitch drafts (local only)
+MEDIA-PITCH.md

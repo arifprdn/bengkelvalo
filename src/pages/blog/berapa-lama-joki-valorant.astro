@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+// Estimasi berbasis metodologi (jam kerja booster per tier & ketentuan layanan),
+// BUKAN data order — dilabeli jujur di halaman. Diganti data riil begitu
+// pipeline pencatatan order terkumpul cukup.
+const rows = [
+    { route: 'Iron → Silver (per divisi)', games: '±2–3 game', time: '1–2 hari / order' },
+    { route: 'Silver → Gold (per divisi)', games: '±3–4 game', time: '1–2 hari / order' },
+    { route: 'Gold → Platinum (per divisi)', games: '±3–5 game', time: '2–4 hari / order' },
+    { route: 'Platinum → Diamond (per divisi)', games: '±4–6 game', time: '2–4 hari / order' },
+    { route: 'Diamond → Ascendant (per divisi)', games: '±5–7 game', time: '3–7 hari / order' },
+    { route: 'Ascendant → Immortal (per divisi)', games: '±6–8 game', time: '3–7 hari / order' },
+    { route: 'Immortal → Radiant (per 100 RR)', games: '±6–10 game', time: '5–14 hari / order' },
+]
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/berapa-lama-joki-valorant/#article`,
+        headline: 'Berapa Lama Joki Valorant? Estimasi Durasi per Rank',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/berapa-lama-joki-valorant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Berapa Lama Joki Valorant? Estimasi Durasi per Rank | BengkelValo"
+    description="Estimasi durasi joki Valorant per rank: di bawah Gold ±24 jam, Gold–Ascendant ±3 hari, Immortal–Radiant sampai 14 hari — beserta faktor yang mempercepat/memperlambatnya."
+    path="/blog/berapa-lama-joki-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Estimasi Durasi</p>
+                <h1 class="section-title">Berapa Lama <span class="gradient-text">Joki Valorant?</span></h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Jawaban langsungnya: <strong>order di bawah Gold biasanya selesai dalam 24 jam, Gold sampai
+                    Ascendant sekitar 3 hari, dan Immortal–Radiant 5–14 hari</strong> — dengan variasi tergantung
+                    jarak rank, antrian, dan kondisi matchmaking. Di bawah ini rinciannya per tier, beserta faktor
+                    yang membuatnya lebih cepat atau lebih lambat.
+                </p>
+
+                <h3>Tabel estimasi per tier</h3>
+                <div class="price-table-wrapper">
+                    <table class="price-table">
+                        <thead>
+                            <tr>
+                                <th>Rute</th>
+                                <th>Game per Divisi</th>
+                                <th>Estimasi Selesai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map((r) => (
+                                <tr>
+                                    <td class="price-table-rank">{r.route}</td>
+                                    <td>{r.games}</td>
+                                    <td>{r.time}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <p class="price-table-note">Metodologi: estimasi dihitung dari kebutuhan game per divisi bagi pemain
+                    peak Immortal–Radiant (winrate tinggi + RR besar per menang) dikali durasi rata-rata match
+                    kompetitif (±35–45 menit), disesuaikan ketentuan estimasi layanan kami. Ini estimasi wajar, bukan
+                    janji pasti — matchmaking tetap punya variansi.</p>
+
+                <h3>Apa yang membuat lebih cepat?</h3>
+                <p>
+                    <strong>Add-on Prioritas</strong> (order dikerjakan lebih dulu, +25%), jarak rank yang pendek, dan
+                    order di awal season (antrian lebih longgar). Booster dengan MMR jauh di atas lobby juga mendapat
+                    RR lebih besar per kemenangan — itulah kenapa rank rendah bergerak sangat cepat.
+                </p>
+
+                <h3>Apa yang membuat lebih lambat?</h3>
+                <p>
+                    Rank tinggi (RR per menang menyusut, lawan makin ketat), antrian akhir Act (semua orang mengejar
+                    reward di saat yang sama), dan mode gendong (menyesuaikan jadwal main bersamamu). Kalau tenggatmu
+                    ketat — misalnya reward Act berakhir minggu ini — sebutkan di WhatsApp sejak awal supaya kami bisa
+                    jujur apakah masih terkejar.
+                </p>
+
+                <p class="pricing-page-example">
+                    Hitung rute dan harga pastimu di <a href="/#calculator">kalkulator</a>, lalu pantau pengerjaannya
+                    di <a href="/cek-pesanan/">Cek Pesanan</a>. Estimasi durasi untuk tiap rank juga tercantum di
+                    masing-masing <a href="/harga-joki-valorant/">halaman rank</a>.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/#calculator" class="btn btn-primary btn-lg">Hitung Harga &amp; Durasi Rutemu</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

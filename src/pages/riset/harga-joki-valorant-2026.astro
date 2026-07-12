@@ -1,0 +1,125 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+// Halaman riset NETRAL — tanpa kolom harga BengkelValo dan tanpa promosi,
+// dirancang sebagai sumber kutipan untuk media/penulis (lihat catatan lisensi).
+const rows = [
+    { tier: 'Iron', low: 'Rp 7.000', high: 'Rp 19.000', unit: 'per divisi' },
+    { tier: 'Bronze', low: 'Rp 10.000', high: 'Rp 21.000', unit: 'per divisi' },
+    { tier: 'Silver', low: 'Rp 15.000', high: 'Rp 32.000', unit: 'per divisi' },
+    { tier: 'Gold', low: 'Rp 29.000', high: 'Rp 42.000', unit: 'per divisi' },
+    { tier: 'Platinum', low: 'Rp 40.000', high: 'Rp 72.000', unit: 'per divisi' },
+    { tier: 'Diamond', low: 'Rp 65.000', high: 'Rp 106.000', unit: 'per divisi' },
+    { tier: 'Ascendant', low: 'Rp 115.000', high: 'Rp 200.000', unit: 'per divisi' },
+    { tier: 'Immortal', low: 'Rp 165.000', high: 'Rp 828.000', unit: 'per rank/tier' },
+    { tier: 'Immortal → Radiant (paket)', low: 'Rp 1.275.000', high: 'Rp 3.530.000', unit: 'per paket' },
+]
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Dataset',
+        '@id': `${SITE}/riset/harga-joki-valorant-2026/#dataset`,
+        name: 'Survei Harga Jasa Joki Valorant Indonesia — Juli 2026',
+        description: 'Rentang harga jasa joki rank Valorant per divisi (Iron–Radiant) dari survei daftar harga publik 6 penyedia jasa dan listing marketplace gaming Indonesia, Juli 2026.',
+        url: `${SITE}/riset/harga-joki-valorant-2026/`,
+        inLanguage: 'id',
+        license: 'https://creativecommons.org/licenses/by/4.0/',
+        creator: { '@id': `${SITE}/#org` },
+        temporalCoverage: '2026-07',
+        spatialCoverage: 'Indonesia',
+        distribution: [
+            {
+                '@type': 'DataDownload',
+                encodingFormat: 'text/csv',
+                contentUrl: `${SITE}/data/survei-harga-joki-valorant-2026.csv`,
+            },
+        ],
+    },
+]
+---
+<Base lang={lang} title="Survei Harga Joki Valorant Indonesia — Juli 2026 (Data Terbuka)"
+    description="Data rentang harga jasa joki Valorant per divisi Iron–Radiant dari survei 6 penyedia + marketplace, Juli 2026. Terbuka untuk dikutip media dengan atribusi (CC BY 4.0), CSV tersedia."
+    path="/riset/harga-joki-valorant-2026/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <div class="section-header pricing-page-header">
+                <span class="section-badge">Riset · Data Terbuka</span>
+                <h1 class="section-title">Survei Harga Joki Valorant <span class="gradient-text">Indonesia 2026</span>
+                </h1>
+                <p class="section-description">
+                    Rentang harga jasa joki rank Valorant di pasar Indonesia, dikumpulkan Juli 2026 dari daftar harga
+                    publik enam penyedia jasa dan listing aktif marketplace gaming. Data ini bebas dikutip media dan
+                    penulis dengan atribusi (lisensi CC BY 4.0).
+                </p>
+            </div>
+
+            <h2 class="pricing-page-subtitle">Hasil: Rentang Harga per Rank</h2>
+            <div class="price-table-wrapper" style="max-width: 640px;">
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Terendah</th>
+                            <th>Tertinggi</th>
+                            <th>Satuan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map((r) => (
+                            <tr>
+                                <td class="price-table-rank">{r.tier}</td>
+                                <td>{r.low}</td>
+                                <td>{r.high}</td>
+                                <td>{r.unit}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <p class="price-table-note">
+                <a href="/data/survei-harga-joki-valorant-2026.csv" download>⬇ Unduh data (CSV)</a>
+            </p>
+
+            <h2 class="pricing-page-subtitle">Temuan Utama</h2>
+            <ul class="pricing-page-list">
+                <li>Selisih harga antar penyedia melebar drastis di rank tinggi: untuk rute Immortal → Radiant yang sama, harga paket termahal mencapai <strong>hampir 3x lipat</strong> yang termurah.</li>
+                <li>Di rank rendah (Iron–Gold), listing marketplace yang paling laku <strong>bukan yang termurah</strong> — melainkan yang memiliki review dan garansi.</li>
+                <li>Mayoritas penyedia menjual rank tinggi sebagai paket tanpa rincian per-poin; transparansi harga per-RR masih sangat jarang di pasar Indonesia.</li>
+                <li>Konteks pasar: survei Populix (Juli 2024, n=1.912) mencatat 19% pengguna internet Indonesia pernah memakai jasa joki game.</li>
+            </ul>
+
+            <h2 class="pricing-page-subtitle">Metodologi</h2>
+            <p class="pricing-page-example">
+                Data dikumpulkan pada Juli 2026 dari daftar harga yang dipublikasikan enam penyedia jasa joki Valorant
+                Indonesia dan listing aktif di marketplace gaming (di antaranya itemku dan Fastwork). Harga paket
+                dikonversi ke satuan per-divisi bila rinciannya tersedia. Rentang menggambarkan harga termurah dan
+                termahal yang benar-benar ditawarkan, bukan rata-rata. Listing tidak aktif dan penawaran tanpa harga
+                publik dikecualikan. Survei ini diperbarui per kuartal; koreksi atau data tambahan dapat disampaikan
+                melalui kontak di bawah.
+            </p>
+
+            <h2 class="pricing-page-subtitle">Sitasi &amp; Kontak</h2>
+            <p class="pricing-page-example">
+                Sitasi yang disarankan: <em>"Survei Harga Joki Valorant Indonesia, BengkelValo, Juli 2026"</em> dengan
+                tautan ke halaman ini. Untuk pertanyaan metodologi atau permintaan data: via
+                <a href="https://wa.me/6289524150075" rel="noopener" target="_blank">WhatsApp</a>. Analisis lengkap
+                beserta pembahasan tersedia di <a href="/blog/harga-pasaran-joki-valorant/">artikel survei harga</a>.
+            </p>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

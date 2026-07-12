@@ -12,7 +12,7 @@ const translations = {
     // --- Hero Section ---
     'hero.badge': { id: 'Jasa Joki Valorant No.1 Indonesia', en: '#1 Valorant Boosting Service in Indonesia' },
     'hero.title': { id: 'Naikan <span class="gradient-text">Rank Valorant</span> Kamu Sekarang', en: 'Boost Your <span class="gradient-text">Valorant Rank</span> Now' },
-    'hero.description': { id: 'Serahkan akunmu ke bengkel. Joki aman, cepat, dan profesional oleh expert player — garansi rank tercapai.', en: 'Bring your account to the workshop. Safe, fast, professional boosting by expert players — rank guaranteed.' },
+    'hero.description': { id: 'Serahkan akunmu ke bengkel. Joki aman, cepat, dan bergaransi oleh expert player — mulai Rp 10.000 per divisi.', en: 'Bring your account to the workshop. Safe, fast, guaranteed boosting by expert players — from Rp 10,000 per division.' },
     'hero.cta': { id: 'Hitung Harga', en: 'Calculate Price' },
     'hero.cta2': { id: 'Lihat Layanan', en: 'View Services' },
     'hero.stat.orders': { id: 'Order Selesai', en: 'Orders Done' },

@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/reset-rank-valorant/#article`,
+        headline: 'Reset Rank Valorant: Cara Kerja Episode, Act, dan Placement',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/reset-rank-valorant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Reset Rank Valorant: Cara Kerja Episode, Act & Placement | BengkelValo"
+    description="Kapan rank Valorant di-reset, apa bedanya reset Episode vs Act, berapa banyak rank turun, dan cara memulai season baru dari posisi setinggi mungkin."
+    path="/blog/reset-rank-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Panduan Season</p>
+                <h1 class="section-title">Reset Rank <span class="gradient-text">Valorant</span>: Episode, Act &amp;
+                    Placement</h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Setiap pergantian season, pertanyaan yang sama muncul di komunitas: "rank-ku turun berapa?" Jawaban
+                    singkatnya: <strong>reset besar terjadi tiap Episode (±6 bulan), reset ringan tiap Act (±2
+                    bulan)</strong> — dan lima match placement sesudahnya menentukan dari mana kamu memulai. Ini
+                    penjelasan lengkapnya, plus cara memanfaatkannya.
+                </p>
+
+                <h3>Struktur season: Episode dan Act</h3>
+                <p>
+                    Kalender kompetitif Valorant terbagi menjadi <strong>Episode</strong> yang masing-masing berisi
+                    tiga <strong>Act</strong>. Di akhir tiap Act kamu menerima reward sesuai <em>peak rank</em> Act
+                    tersebut (gun buddy kompetitif), lalu rank tampilan di-reset ringan. Di pergantian
+                    <strong>Episode</strong>, resetnya jauh lebih dalam: semua pemain turun beberapa tier dan wajib
+                    memainkan ulang match penempatan.
+                </p>
+
+                <h3>Berapa banyak rank turun saat reset Episode?</h3>
+                <p>
+                    Umumnya pemain memulai Episode baru <strong>3–6 divisi di bawah</strong> posisi akhirnya, dengan
+                    penurunan lebih besar untuk rank tinggi (Ascendant ke atas bisa turun satu tier penuh atau lebih).
+                    MMR tersembunyimu tidak ikut di-reset total — itulah kenapa pemain yang placement-nya bagus bisa
+                    kembali ke rank lamanya jauh lebih cepat daripada yang placement-nya berantakan.
+                </p>
+
+                <h3>Placement: 5 match yang menentukan satu season</h3>
+                <p>
+                    Setelah reset Episode, lima match pertama menjadi kalibrasi. Menang mayoritas dengan performa baik
+                    = mulai lebih tinggi; kalah beruntun = mulai dari lubang yang butuh puluhan game untuk keluar.
+                    Karena selisih posisi awal ini setara ratusan ribu rupiah biaya joki (atau puluhan jam grinding),
+                    banyak pemain memilih mengamankan lima match ini lewat
+                    <a href="/joki-placement-valorant/">joki placement</a> — dikerjakan booster, atau duo bareng
+                    (gendong) supaya kamu tetap ikut main.
+                </p>
+
+                <h3>Strategi awal season yang masuk akal</h3>
+                <p>
+                    <strong>1.</strong> Jangan buru-buru ranked di hari pertama — lobby awal season penuh smurf dan
+                    pemain rank tinggi yang belum terkalibrasi. <strong>2.</strong> Panaskan aim dulu beberapa game
+                    unrated. <strong>3.</strong> Mainkan placement saat kondisimu terbaik, bukan tengah malam.
+                    <strong>4.</strong> Kalau target season-mu jelas (misal reward Gold), hitung rutenya sejak awal di
+                    <a href="/#calculator">kalkulator</a> — mengejar rank di minggu-minggu awal selalu lebih murah dan
+                    cepat daripada panik di minggu terakhir Act.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/joki-placement-valorant/" class="btn btn-primary btn-lg">Lihat Joki Placement</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>
