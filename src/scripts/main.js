@@ -87,7 +87,7 @@ function renderRankOptions() {
     const createOptions = (container, type) => {
         container.innerHTML = ranks.map(rank => `
       <div class="rank-option ${state[type + 'Rank'] === rank.id ? 'active' : ''}" data-rank="${rank.id}" role="button" tabindex="0">
-        <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
+        <img src="${rank.image}" alt="${rank.name}" class="rank-option-img" width="40" height="40">
         <span class="rank-option-name">${rank.name}</span>
       </div>
     `).join('')
@@ -809,7 +809,7 @@ function initDuoBoost() {
     function renderDuoOptions() {
         duoOptions.innerHTML = duoBoostRanks.map((rank, index) => `
             <div class="rank-option ${duoState.selectedRank === index ? 'active' : ''}" data-rank="${index}" role="button" tabindex="0">
-                <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
+                <img src="${rank.image}" alt="${rank.name}" class="rank-option-img" width="40" height="40">
                 <span class="rank-option-name">${rank.name}</span>
             </div>
         `).join('')
@@ -1011,7 +1011,7 @@ function initDuoPerRank() {
             const selectedId = i === 0 ? dprState.fromRank : dprState.toRank
             container.innerHTML = ranks.map(rank => `
                 <div class="rank-option ${rank.id === selectedId ? 'active' : ''}" data-rank="${rank.id}" role="button" tabindex="0">
-                    <img src="${rank.image}" alt="${rank.name}" class="rank-option-img">
+                    <img src="${rank.image}" alt="${rank.name}" class="rank-option-img" width="40" height="40">
                     <span class="rank-option-name">${rank.name}</span>
                 </div>
             `).join('')
@@ -1397,7 +1397,7 @@ function updateRankPreview() {
 
     previewBar.innerHTML = `
         <div class="rank-preview-item">
-            <img src="${fromRank.image}" alt="${fromRank.name}" class="rank-preview-icon" />
+            <img src="${fromRank.image}" alt="${fromRank.name}" class="rank-preview-icon" width="44" height="44" />
             <div class="rank-preview-info">
                 <span class="rank-preview-name">${fromRank.name}</span>
                 <span class="rank-preview-detail">${fromDetail}</span>
@@ -1407,7 +1407,7 @@ function updateRankPreview() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
         <div class="rank-preview-item">
-            <img src="${toRank.image}" alt="${toRank.name}" class="rank-preview-icon" />
+            <img src="${toRank.image}" alt="${toRank.name}" class="rank-preview-icon" width="44" height="44" />
             <div class="rank-preview-info">
                 <span class="rank-preview-name">${toRank.name}</span>
                 <span class="rank-preview-detail">${toDetail}</span>

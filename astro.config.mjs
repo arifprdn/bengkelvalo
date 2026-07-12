@@ -5,6 +5,11 @@ import partytown from '@astrojs/partytown'
 export default defineConfig({
     site: 'https://bengkelvalo.com',
     trailingSlash: 'ignore',
+    build: {
+        // CSS di-inline ke tiap halaman: menghapus request render-blocking
+        // (nilai tukar: HTML sedikit lebih besar, tapi paint pertama lebih cepat)
+        inlineStylesheets: 'always',
+    },
     i18n: {
         defaultLocale: 'id',
         locales: ['id', 'en'],
