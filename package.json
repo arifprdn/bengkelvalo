@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "promo": "node scripts/make-promo.mjs",
     "og": "node scripts/make-og.mjs",
+    "chart": "node scripts/make-chart.mjs",
     "indexnow": "node scripts/indexnow.mjs",
     "linkcheck": "node scripts/linkcheck.mjs"
   },
