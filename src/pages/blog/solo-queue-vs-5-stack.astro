@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/solo-queue-vs-5-stack/#article`,
+        headline: 'Solo Queue vs 5-Stack Valorant: Kenapa RR-mu Dipotong?',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/solo-queue-vs-5-stack/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Solo Queue vs 5-Stack: Kenapa RR-mu Dipotong? | BengkelValo"
+    description="Kenapa RR turun drastis saat main 5-stack beda rank di Valorant? Ini aturan party ranked, penalti RR, dan cara push rank bareng teman tanpa rugi."
+    path="/blog/solo-queue-vs-5-stack/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Panduan Ranked</p>
+                <h1 class="section-title">Solo Queue vs <span class="gradient-text">5-Stack</span> Valorant: Kenapa
+                    RR-mu Dipotong?</h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    RR-mu dipotong saat main 5-stack karena <strong>Riot membatasi selisih rank untuk party kecil
+                    (duo/trio), tapi melonggarkan aturan itu untuk 5-stack — dengan syarat: kalau selisih rank
+                    party-mu jauh, RR kemenangan dikurangi signifikan</strong> supaya pemain rank tinggi tidak numpang
+                    menang mudah lewat teman rank rendah. Solo queue tidak kena potongan ini karena matchmaking
+                    otomatis menyeimbangkan lawan berdasarkan MMR individumu. Berikut penjelasan lengkap dan cara
+                    menyiasatinya.
+                </p>
+
+                <h3>Aturan dasar party ranked: batas selisih rank</h3>
+                <p>
+                    Untuk party berisi <strong>2–4 orang (duo, trio, quad)</strong>, Valorant menerapkan batas selisih
+                    rank yang cukup ketat — biasanya beberapa tier saja, dan makin ketat lagi di rank tinggi
+                    (Immortal ke atas nyaris harus setara). Tujuannya jelas: mencegah pemain tinggi "numpang gendong"
+                    teman rendah lewat matchmaking normal, sekaligus menjaga lawan yang dihadapi tetap kompetitif buat
+                    kedua belah pihak. Begitu party-mu berisi <strong>5 orang (5-stack)</strong>, batas itu dibuka —
+                    kamu bisa main bareng teman dengan selisih rank jauh lebih lebar, bahkan dari rank rendah sampai
+                    tinggi dalam satu tim, karena seluruh slot lobby memang sudah diisi kelompokmu sendiri.
+                </p>
+                <p>
+                    Logikanya sederhana: kalau cuma dua atau tiga orang berbeda jauh rank yang party, sistem masih
+                    harus mencarikan tiga sampai empat pemain acak lain untuk melengkapi lobby, dan itu bikin
+                    matchmaking sulit adil. Tapi kalau semua lima slot sudah terisi grup yang sama, tidak ada pemain
+                    acak lain yang dirugikan oleh ketimpangan itu — makanya Riot melonggarkan batas rank-nya, dengan
+                    kompensasi di sisi RR.
+                </p>
+
+                <h3>Trade-off 5-stack timpang: boleh main bareng, tapi RR dipotong besar</h3>
+                <p>
+                    Kelonggaran itu ada harganya. Kalau selisih rank dalam 5-stack-mu besar, sistem akan
+                    <strong>memotong RR yang didapat saat menang</strong> — kisarannya bisa dari sebagian kecil sampai
+                    mayoritas RR normal hilang, tergantung seberapa timpang party-nya. Sebaliknya, RR yang hilang saat
+                    kalah biasanya tetap normal atau bahkan terasa lebih berat. Karena mekanisme ini sering berubah
+                    tiap patch, jangan jadikan angka pasti sebagai patokan — <strong>selalu cek patch notes terbaru</strong>
+                    di klien atau situs resmi Valorant sebelum menghitung strategi rank-mu.
+                </p>
+                <p>
+                    Ada juga sisi teknis yang sering luput: potongan RR ini biasanya dihitung per pemain berdasarkan
+                    seberapa jauh rank-nya dari rata-rata party, bukan dipukul rata untuk seluruh tim. Jadi pemain
+                    dengan rank tertinggi di 5-stack yang timpang biasanya kena potongan paling besar, sementara
+                    pemain rank terendah relatif lebih diuntungkan. Ini konsisten dengan tujuan sistemnya: mencegah
+                    rank tinggi "titip menang" lewat teman-teman rank rendah.
+                </p>
+
+                <h3>Kapan main bareng teman justru merugikan progres rank</h3>
+                <p>
+                    Kalau tujuanmu murni push rank secepat mungkin, 5-stack timpang sering jadi jebakan. Rank tinggi
+                    di tim harus <em>carry</em> lebih keras dari biasanya untuk menang — musuh yang dihadapi tetap
+                    setara MMR gabungan party, bukan cuma disesuaikan dengan pemain terlemah — sementara RR yang
+                    didapat dari kemenangan itu dipangkas. Hasilnya: effort naik, reward turun. Ini beda jauh dengan
+                    <a href="/blog/rr-naik-sedikit-turun-banyak/">kasus RR naik sedikit turun banyak</a> akibat MMR
+                    tersembunyi — di sini penyebabnya murni komposisi party, bukan performa individu.
+                </p>
+                <p>
+                    Bandingkan dengan solo queue: karena kamu main sendirian, matchmaking otomatis mencarikan lawan
+                    yang setara MMR-mu — tidak ada potongan RR sama sekali karena tidak ada party yang perlu
+                    dikompensasi. Buat pemain yang serius mengejar rank tertentu dalam waktu terbatas, solo queue
+                    justru sering lebih efisien secara RR per jam dibanding 5-stack timpang, meskipun kurang seru
+                    karena main sama orang asing.
+                </p>
+
+                <h3>Cara push rank bareng tanpa rugi</h3>
+                <p>
+                    Ada dua opsi yang tetap efisien. <strong>Pertama</strong>, ajak party dengan selisih rank kecil —
+                    kalau semua pemain dalam rentang yang diizinkan untuk duo/trio, tidak ada potongan RR sama sekali
+                    dan kalian tetap dapat manfaat komunikasi tim. <strong>Kedua</strong>, kalau memang mau main
+                    dengan satu teman berpengalaman yang levelnya jauh di atas, batasi jadi <strong>duo</strong> (bukan
+                    5-stack) dan pastikan selisih rank keduanya masih dalam batas yang diizinkan sistem. Kombinasi ini
+                    yang paling sering dipakai pemain untuk push rank tanpa kena penalti.
+                </p>
+
+                <h3>Joki gendong: versi teroptimasi dari duo tersebut</h3>
+                <p>
+                    Masalahnya, tidak semua orang punya teman rank Immortal–Radiant yang mau duo rutin dan sabar
+                    menyesuaikan jadwal. Di sinilah <a href="/joki-gendong-valorant/">joki gendong</a> jadi jalan
+                    pintas yang jujur: kamu duo dengan booster berpengalaman, main di akunmu sendiri, RR naik wajar
+                    tanpa drama selisih rank timpang ala 5-stack acak. Kalau justru ingin didorong ke rank target
+                    tanpa perlu ikut main tiap match, bandingkan dulu opsinya di
+                    <a href="/harga-joki-valorant/">daftar harga joki Valorant</a> — lalu putuskan mana yang cocok
+                    dengan waktu dan budgetmu. Untuk strategi umum naik rank di luar soal party, baca juga
+                    <a href="/blog/cara-naik-rank-valorant/">cara naik rank Valorant</a>.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/joki-gendong-valorant/" class="btn btn-primary btn-lg">Lihat Joki Gendong</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

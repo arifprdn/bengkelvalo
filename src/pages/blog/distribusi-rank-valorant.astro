@@ -1,0 +1,153 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/distribusi-rank-valorant/#article`,
+        headline: 'Distribusi Rank Valorant 2026: Kamu di Persentil Berapa?',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/distribusi-rank-valorant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Distribusi Rank Valorant 2026: Kamu di Persentil Berapa? | BengkelValo"
+    description="Distribusi rank Valorant 2026: persentase pemain di tiap tier dari Iron sampai Radiant, median rank, dan cara mengetahui posisimu di antara pemain lain."
+    path="/blog/distribusi-rank-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Data & Statistik</p>
+                <h1 class="section-title">Distribusi Rank <span class="gradient-text">Valorant</span> 2026: Kamu di
+                    Persentil Berapa?</h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Distribusi rank Valorant tidak merata — mayoritas pemain menumpuk di tengah papan.
+                    <strong>Menurut data agregat tracker pihak ketiga seperti Esports Tales dan Tracker.gg per
+                    pertengahan 2026, sekitar 60% pemain berada di Silver, Gold, atau Platinum</strong>, sementara
+                    <strong>Immortal ke atas hanya diisi kurang dari 1% populasi</strong>. Median rank ada di sekitar
+                    perbatasan Silver–Gold, bukan di Platinum seperti yang sering dikira kebanyakan orang.
+                </p>
+
+                <h3>Apa itu distribusi rank & kenapa penting</h3>
+                <p>
+                    Distribusi rank adalah gambaran berapa persen pemain Valorant berada di tiap tier kompetitif,
+                    dari Iron sampai Radiant. Angka ini penting karena rank di Valorant sifatnya relatif — sistem
+                    matchmaking menempatkanmu berdasarkan skill dibanding populasi pemain lain, bukan skor absolut.
+                    Kalau kamu tahu di persentil berapa posisimu sekarang, kamu bisa menilai lebih realistis: apakah
+                    memang "tinggal grinding dikit lagi", atau kamu sedang berusaha keluar dari kerumunan paling padat
+                    di seluruh player base.
+                </p>
+                <p>
+                    Riot Games tidak pernah mempublikasikan data distribusi rank resmi secara lengkap, jadi angka
+                    yang beredar di komunitas — termasuk yang dipakai di artikel ini — berasal dari agregasi tracker
+                    pihak ketiga yang mengumpulkan data dari jutaan akun publik. Untuk konteks tambahan soal tren
+                    harga joki terkait rank, kamu bisa cek <a href="/riset/harga-joki-valorant-2026/">riset harga
+                    joki Valorant 2026</a> yang pernah kami susun.
+                </p>
+
+                <h3>Data aproksimasi per tier: dari Iron sampai Radiant</h3>
+                <p>
+                    Berikut estimasi persentase populasi pemain per tier, disusun dari data agregat tracker pihak
+                    ketiga seperti Esports Tales dan Tracker.gg per pertengahan 2026. Karena tiap tracker punya
+                    sample base berbeda (region, platform, tingkat aktivitas akun), angka di bawah ini adalah
+                    aproksimasi dengan margin ± beberapa poin persen — bukan sensus resmi Riot.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Perkiraan Populasi (±)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Iron</td><td>±7%</td></tr>
+                        <tr><td>Bronze</td><td>±15%</td></tr>
+                        <tr><td>Silver</td><td>±22%</td></tr>
+                        <tr><td>Gold</td><td>±21%</td></tr>
+                        <tr><td>Platinum</td><td>±17%</td></tr>
+                        <tr><td>Diamond</td><td>±11%</td></tr>
+                        <tr><td>Ascendant</td><td>±5%</td></tr>
+                        <tr><td>Immortal</td><td>±1,5%</td></tr>
+                        <tr><td>Radiant</td><td>±0,1%</td></tr>
+                    </tbody>
+                </table>
+                <p>
+                    Dua poin kunci dari tabel ini: <strong>Silver, Gold, dan Platinum digabung mengisi sekitar 60%
+                    populasi</strong>, sementara <strong>Immortal ke atas secara gabungan kurang dari 1%</strong>.
+                    Artinya median (titik tengah populasi) jatuh di sekitar perbatasan Silver–Gold — bukan Platinum
+                    seperti anggapan banyak pemain yang menilai posisinya dari feeling, bukan data.
+                </p>
+
+                <h3>Kenapa mayoritas pemain nyangkut di Silver–Platinum</h3>
+                <p>
+                    Ada beberapa alasan struktural, bukan cuma soal skill individu. <strong>1.</strong> Karena
+                    populasi paling padat ada di rentang ini, sistem matchmaking otomatis mengarahkan winrate-mu
+                    mendekati 50% — makin ramai kerumunan, makin sulit RR yang didapat tiap menang terasa signifikan.
+                    <strong>2.</strong> Rank decay dan reset musiman (lihat juga pembahasan soal reset rank) membuat
+                    pemain yang sempat naik tinggi turun lagi dan bertumpuk ulang di rentang tengah. <strong>3.</strong>
+                    Variasi skill antar role — aim bagus tapi game sense pas-pasan, atau sebaliknya — membuat banyak
+                    pemain stabil di satu titik equilibrium selama bertahun-tahun tanpa benar-benar mengubah cara
+                    main. Silver–Platinum pada dasarnya adalah "kolam besar" tempat sebagian besar pemain casual dan
+                    semi-serius berkumpul dan saling menjaga winrate satu sama lain tetap di kisaran 50%.
+                </p>
+
+                <h3>Cara membaca posisimu (persentil) dan menentukan target realistis</h3>
+                <p>
+                    Kalau rank-mu Gold, artinya kamu sudah mengalahkan mayoritas populasi — tapi kamu juga masih ada
+                    di tengah gelombang 60% pemain Silver–Platinum, jadi jarak ke Diamond terasa berat karena lawan
+                    di level itu juga sama-sama berjuang keluar dari kerumunan. Sebaliknya, kalau kamu di Diamond,
+                    kamu sudah berada di atas sekitar 80–85% populasi — target naik ke Ascendant atau Immortal jauh
+                    lebih masuk akal secara bertahap dibanding lompat langsung ke Radiant. Sebelum menentukan target,
+                    pastikan kamu paham istilah-istilah dasar rank dan sistem RR di <a href="/kamus-valorant/">kamus
+                    Valorant</a> kami supaya perhitungan progresmu tidak salah asumsi.
+                </p>
+                <p>
+                    Cara paling jujur menilai posisi: bandingkan rank sekarang dengan tabel di atas, lalu tanya
+                    "apakah target rank-ku realistis untuk 1 Act ke depan, atau butuh beberapa Episode?" Target yang
+                    realistis biasanya satu-dua tier di atas posisi sekarang, bukan lompat drastis dalam waktu
+                    singkat.
+                </p>
+
+                <h3>Cara keluar dari rank mayoritas</h3>
+                <p>
+                    Ada dua jalur utama. Jalur pertama, organik: perbaiki fundamental lewat latihan aim rutin,
+                    evaluasi VOD, dan penyesuaian agent pool — langkah-langkahnya kami bahas lengkap di
+                    <a href="/blog/cara-naik-rank-valorant/">panduan cara naik rank Valorant</a>. Jalur ini paling
+                    sehat untuk jangka panjang karena skill yang naik benar-benar melekat, meski butuh waktu dan
+                    konsistensi.
+                </p>
+                <p>
+                    Jalur kedua, untuk yang waktunya terbatas atau ingin lompat keluar dari kerumunan Silver–Platinum
+                    lebih cepat: joki rank. Ini bukan solusi wajib — sekadar opsi mempercepat, dikerjakan booster
+                    berpengalaman per divisi, dengan harga <strong>mulai Rp 10.000 per divisi</strong>. Kalau kamu
+                    penasaran berapa biaya dari posisimu sekarang sampai target, cek rincian lengkapnya di
+                    <a href="/harga-joki-valorant/">halaman harga joki Valorant</a>.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/harga-joki-valorant/" class="btn btn-primary btn-lg">Lihat Harga Joki Valorant</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

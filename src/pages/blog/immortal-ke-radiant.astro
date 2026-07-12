@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/immortal-ke-radiant/#article`,
+        headline: 'Immortal ke Radiant: Kenapa Sesusah Itu?',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/immortal-ke-radiant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Immortal ke Radiant: Kenapa Susah & Solusinya | BengkelValo"
+    description="Radiant bukan tier berikutnya dari Immortal, tapi kuota leaderboard regional yang sangat kecil. Ini alasan sebenarnya dan cara realistis mengejarnya."
+    path="/blog/immortal-ke-radiant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Panduan Rank Tinggi</p>
+                <h1 class="section-title">Immortal ke <span class="gradient-text">Radiant</span>: Kenapa Sesusah
+                    Itu?</h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Kalau kamu sudah Immortal dan ngerasa main sudah sebagus mungkin tapi rank tetap jalan di tempat,
+                    itu bukan cuma perasaan. <strong>Radiant bukan tier berikutnya dalam skala rank biasa — Radiant
+                    adalah kuota leaderboard regional yang jumlahnya sangat terbatas, ditambah ambang RR minimum yang
+                    harus kamu lewati sambil bersaing dengan ribuan pemain top lain</strong>. Karena itu, effort yang
+                    dulu cukup buat naik dari Diamond ke Immortal sering kali jauh dari cukup buat menembus Radiant.
+                </p>
+
+                <h3>Radiant bukan tier biasa — kuota leaderboard, bukan sekadar rank</h3>
+                <p>
+                    Di bawah Immortal, sistem rank Valorant relatif sederhana: kumpulkan cukup RR, naik divisi.
+                    Radiant beda mekanismenya. Alih-alih "divisi berikutnya", Riot menempatkan sejumlah pemain
+                    <strong>terbaik di leaderboard regional</strong> ke Radiant, dan jumlah slot itu ditentukan
+                    proporsional terhadap populasi pemain di region-mu — bukan angka tetap yang sama tiap patch atau
+                    tiap region. Di atas itu masih ada ambang RR minimum yang harus kamu penuhi. Karena kuota dan
+                    ambang ini bisa bergeser tiap Act atau patch, jangan berpegang pada angka pasti yang beredar di
+                    forum — cara paling akurat untuk tahu posisimu adalah cek langsung <strong>leaderboard kompetitif
+                    resmi in-game</strong> di region-mu, lihat berapa RR pemain di posisi terakhir yang masih masuk
+                    Radiant, dan pakai itu sebagai target bergerak, bukan angka statis.
+                </p>
+
+                <h3>Kenapa kompetisi di Immortal beda kelas</h3>
+                <p>
+                    Lobby Immortal bukan lagi kumpulan pemain kasual yang kebetulan jago. Di sinilah kamu ketemu
+                    <strong>semi-pro, mantan pemain tim pro, dan grinder full-time</strong> yang main ribuan jam
+                    dengan rutinitas aim training, VOD review, dan pemahaman meta yang di-update tiap patch. Mekanik
+                    aim mereka nyaris tanpa celah, komunikasi tim rapi dan efisien, dan mereka jarang membuat
+                    kesalahan positioning yang bisa kamu eksploitasi. Selisih skill antar individu di Immortal jauh
+                    lebih tipis dibanding tier di bawahnya, jadi satu keunggulan kecil — reaksi sepersekian detik,
+                    line-up yang lebih presisi — bisa jadi penentu menang-kalah. Ini bukan lagi soal "lebih jago dari
+                    rata-rata", tapi soal konsisten unggul dari pemain yang semuanya sudah di atas rata-rata.
+                </p>
+
+                <h3>Matematika RR di Immortal: kenapa progresnya terasa lambat</h3>
+                <p>
+                    Sistem RR bekerja berbasis MMR relatif terhadap lawan, dan di rank tinggi marginnya jauh lebih
+                    ketat. Menang dengan performa biasa saja sering cuma menghasilkan gain RR kecil, sementara kalah —
+                    apalagi kalah telak — bisa memotong RR dalam jumlah yang lebih besar. Efeknya, winrate 50–52%
+                    yang dulu cukup buat naik pelan-pelan di Diamond bisa terasa stagnan di Immortal, dan dibutuhkan
+                    <strong>jumlah game yang jauh lebih banyak serta winrate yang lebih konsisten di atas 50%</strong>
+                    untuk melihat progres RR yang berarti. Angka pastinya tergantung MMR individu dan kualitas
+                    matchmaking saat itu, jadi anggap ini sebagai pola umum, bukan janji jumlah game tertentu.
+                </p>
+
+                <h3>Kesalahan pemain Immortal yang bikin mentok</h3>
+                <p>
+                    Ada beberapa pola yang sering bikin pemain Immortal stuck lama. <strong>Pertama</strong>, main
+                    terlalu sedikit atau nge-queue di jam yang matchmaking-nya buruk (dini hari, lobby sepi) sehingga
+                    kualitas game jadi tidak stabil. <strong>Kedua</strong>, duo dengan teman yang MMR-nya jauh di
+                    bawah — niatnya seru-seruan, tapi efeknya menyeret winrate turun karena tim jadi timpang.
+                    <strong>Ketiga</strong>, tidak konsisten: main ngebut beberapa hari lalu absen berminggu-minggu,
+                    sehingga rhythm dan feel aim harus dibangun ulang tiap kali balik main. Kalau kamu ngerasa
+                    familiar dengan pola-pola ini, dasar-dasarnya sudah pernah kami bahas di
+                    <a href="/blog/cara-naik-rank-valorant/">panduan naik rank Valorant</a> — sebagian besar berlaku
+                    juga di level Immortal, hanya dengan margin kesalahan yang jauh lebih kecil.
+                </p>
+
+                <h3>Realita waktu &amp; usaha — kapan joki per-RR masuk akal</h3>
+                <p>
+                    Jujur saja: menembus Radiant butuh komitmen waktu yang besar, dan tidak semua orang dengan
+                    jadwal kerja atau kuliah punya jam segitu untuk grinding konsisten. Di level ini, kalkulasi
+                    joki juga berbeda dari tier bawah — karena progres dihitung RR, bukan divisi, harga
+                    <strong>joki di tier Immortal ke atas dihitung per RR yang berhasil dinaikkan</strong>, jadi kamu
+                    cuma bayar sesuai progres nyata, bukan paket flat yang belum tentu selesai. Ini masuk akal buat
+                    pemain yang mekanik dan game sense-nya sudah solid tapi kehabisan jam untuk grinding sebanyak
+                    yang dibutuhkan menuju leaderboard. Detail cara kerja dan estimasi harganya ada di halaman
+                    <a href="/joki-valorant-immortal/">joki Valorant Immortal</a>, dan kalau mau lihat rentang harga
+                    per RR di semua tier sebagai perbandingan, cek <a href="/harga-joki-valorant/">daftar harga joki
+                    Valorant</a>. Kalau kamu sudah yakin Radiant adalah tujuan akhir, opsi paling langsung tetap ada
+                    di bawah ini.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/joki-valorant-radiant/" class="btn btn-primary btn-lg">Lihat Joki Valorant Radiant</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

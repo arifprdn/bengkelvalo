@@ -1,0 +1,148 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/tips-placement-match-valorant/#article`,
+        headline: '7 Tips Menang Placement Match Valorant (Mulai Season Lebih Tinggi)',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/tips-placement-match-valorant/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="7 Tips Menang Placement Match Valorant | BengkelValo"
+    description="Cara menang placement match Valorant: kapan main, agent apa, ekonomi round, dan kesalahan umum yang bikin hasil placement jelek. Panduan eksekusi 5 match."
+    path="/blog/tips-placement-match-valorant/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Panduan Season</p>
+                <h1 class="section-title">7 Tips Menang <span class="gradient-text">Placement Match</span> Valorant
+                </h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Cara menang placement match Valorant intinya ada di persiapan, bukan cuma skill mekanik:
+                    <strong>panaskan aim sebelum main, pakai agent yang paling kamu kuasai, hindari hari pertama
+                    season, dan jaga ekonomi tim tetap rapi tiap round</strong>. Lima match ini menentukan rank
+                    awalmu, jadi caramu main lima match itu jauh lebih penting daripada jumlah jam yang kamu habiskan
+                    grinding sesudahnya.
+                </p>
+
+                <h3>Kenapa 5 match placement menentukan satu season</h3>
+                <p>
+                    Placement bukan sekadar formalitas pembuka season. Sistem memakai lima match ini untuk
+                    mengalibrasi MMR tersembunyimu terhadap rank tampilan yang baru — sudah dibahas detailnya di
+                    <a href="/blog/reset-rank-valorant/">artikel reset rank Valorant</a>. Yang perlu kamu tahu di sini:
+                    performa di lima match ini (menang-kalah, plus indikator performa individu) langsung menentukan
+                    kamu start dari rank berapa. Placement yang bagus bisa menghemat puluhan match grinding di
+                    minggu-minggu berikutnya; placement yang berantakan bikin kamu terjebak di rank lebih rendah dari
+                    kemampuan aslimu untuk waktu yang lama.
+                </p>
+
+                <h3>Warm-up dulu — jangan jadikan placement game pertama hari itu</h3>
+                <p>
+                    Kesalahan paling sering: langsung queue placement begitu buka game. Aim dan game sense butuh
+                    pemanasan. Mainkan 2–3 match unrated atau beberapa menit deathmatch dulu sampai crosshair
+                    placement dan reaksi terasa stabil, baru masuk placement. Selisih performa antara "cold start"
+                    dan sudah panas bisa terasa signifikan di duel-duel awal round, apalagi di round-round pembuka
+                    yang biasanya menentukan momentum satu match.
+                </p>
+                <p>
+                    Warm-up juga bukan cuma soal aim. Pakai sesi ini untuk mengecek sensitivity dan crosshair belum
+                    berubah setelah update, memastikan koneksi internet stabil, dan menyingkirkan gangguan di sekitar
+                    — notifikasi, tab lain, apa pun yang bisa memecah fokus di tengah round penting. Lima match
+                    placement idealnya dimainkan berurutan dalam satu sesi supaya ritme dan fokusmu konsisten dari
+                    match pertama sampai kelima.
+                </p>
+
+                <h3>Main agent yang paling kamu kuasai, bukan eksperimen meta</h3>
+                <p>
+                    Placement bukan waktunya coba-coba agent baru atau ikut-ikutan meta yang lagi ramai dibahas.
+                    Pakai agent yang line-nya, utility-nya, dan timing-nya sudah kamu hapal luar kepala. Konsistensi
+                    lebih berharga daripada pick yang secara teori lebih kuat tapi belum kamu kuasai. Kalau kamu main
+                    role support, fokus ke eksekusi utility yang rapi dan komunikasi — bukan buru-buru jadi entry
+                    fragger.
+                </p>
+                <p>
+                    Kalau kamu memang bisa main lebih dari satu role dengan nyaman, sesuaikan pilihan agent dengan
+                    apa yang dibutuhkan tim di lobby, bukan agent favorit semata. Tapi kalau ragu, aturan sederhananya:
+                    pilih agent yang sudah ratusan jam kamu mainkan, bukan yang baru kamu coba minggu ini. Detail
+                    mekanik agent memang berubah tiap patch, jadi cek catatan patch terbaru kalau ada perubahan besar
+                    pada agent andalanmu sebelum placement dimulai.
+                </p>
+
+                <h3>Jangan placement di hari pertama season</h3>
+                <p>
+                    Lobby di hari-hari pertama season baru biasanya kacau: banyak smurf, banyak pemain rank tinggi
+                    yang MMR-nya belum terkalibrasi ulang, dan matchmaking cenderung kurang stabil karena data masih
+                    "segar". Tunggu beberapa hari sampai seminggu supaya pool pemain lebih settle, lalu mulai
+                    placement-mu. Detail kenapa awal season selalu berantak sudah dijelaskan di
+                    <a href="/blog/reset-rank-valorant/">artikel reset rank</a> — intinya, kesabaran di sini
+                    langsung berdampak ke kualitas lobby yang kamu masuki.
+                </p>
+
+                <h3>Manajemen ekonomi &amp; komunikasi minimum yang menang round</h3>
+                <p>
+                    Kamu tidak perlu jadi IGL untuk menang placement, tapi ada beberapa hal dasar yang wajib jalan:
+                    <strong>1.</strong> Selalu buy sesuai kondisi ekonomi tim, jangan force buy sendirian.
+                    <strong>2.</strong> Callout posisi musuh secepat dan sesingkat mungkin — arah dan jumlah sudah
+                    cukup. <strong>3.</strong> Beritahu status utility (sudah pakai / masih ada) supaya tim bisa
+                    ambil keputusan eksekusi. Tim yang komunikasinya minim tapi konsisten biasanya lebih rapi
+                    daripada tim yang ribut tapi infonya berantakan.
+                </p>
+                <p>
+                    Untuk ekonomi, pola paling aman di rank mana pun adalah menghindari eco setengah-setengah —
+                    kalau memang eco, eco total supaya round berikutnya seluruh tim bisa full buy dengan nyaman.
+                    Force buy hanya masuk akal kalau seluruh tim sepakat dan situasinya memang mendesak, misalnya
+                    menahan match point lawan. Placement bukan tempat untuk buy individual yang tidak dikoordinasikan
+                    — satu orang yang salah langkah bisa merusak ekonomi seluruh tim untuk dua-tiga round berikutnya.
+                </p>
+
+                <h3>Kesalahan umum yang membuat hasil placement jelek</h3>
+                <p>
+                    Beberapa pola yang sering merusak placement: <strong>main saat tilt</strong> setelah kalah beruntun
+                    (istirahat dulu, jangan langsung queue lagi), <strong>main tengah malam</strong> saat fokus dan
+                    reaksi sudah menurun, dan <strong>solo queue melawan 5-stack</strong> yang koordinasinya jauh
+                    lebih rapi — kalau bisa, ajak minimal satu teman untuk duo supaya ada komunikasi yang lebih bisa
+                    diandalkan. Kombinasi ketiganya adalah resep paling umum untuk placement yang berakhir di bawah
+                    rank sebenarnya. Pelajari juga kebiasaan naik rank jangka panjang di
+                    <a href="/blog/cara-naik-rank-valorant/">artikel cara naik rank Valorant</a>.
+                </p>
+
+                <h3>Kalau tidak sempat atau tidak pede main 5 match sendiri</h3>
+                <p>
+                    Tidak semua orang punya waktu atau kondisi mental yang pas untuk main lima match penting secara
+                    beruntun. Kalau situasinya begitu, ada dua opsi yang jujur dan umum dipakai: <strong>joki
+                    placement</strong> — booster memainkan lima match itu untuk kamu — atau <strong>joki gendong</strong>
+                    (duo boost) supaya kamu tetap ikut main tapi ditemani pemain berpengalaman. Cek juga
+                    <a href="/harga-joki-valorant/">kisaran harga joki Valorant</a> sebelum memutuskan mana yang
+                    paling cocok dengan waktu dan budgetmu.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/joki-placement-valorant/" class="btn btn-primary btn-lg">Lihat Joki Placement</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>

@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWa from '../../components/FloatingWa.astro'
+
+const lang = 'id'
+const SITE = 'https://bengkelvalo.com'
+
+const jsonLd = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${SITE}/blog/rr-naik-sedikit-turun-banyak/#article`,
+        headline: 'Kenapa RR Naik Sedikit tapi Turun Banyak?',
+        inLanguage: 'id',
+        author: { '@type': 'Organization', name: 'BengkelValo', url: `${SITE}/` },
+        publisher: { '@id': `${SITE}/#org` },
+        mainEntityOfPage: `${SITE}/blog/rr-naik-sedikit-turun-banyak/`,
+        image: `${SITE}/og-image.png`,
+    },
+]
+---
+<Base lang={lang} title="Kenapa RR Naik Sedikit Turun Banyak? Penjelasan MMR | BengkelValo"
+    description="RR naik sedikit tapi turun banyak di Valorant? Ini penjelasan soal MMR tersembunyi, tanda-tanda rank kamu di atas MMR, dan cara memperbaikinya."
+    path="/blog/rr-naik-sedikit-turun-banyak/" jsonLd={jsonLd}>
+
+    <Nav lang={lang} onHome={false} />
+
+    <main class="pricing-page">
+        <div class="container">
+            <article class="article-content blog-article">
+                <p class="hero-badge">Panduan MMR</p>
+                <h1 class="section-title">Kenapa <span class="gradient-text">RR</span> Naik Sedikit tapi Turun Banyak?</h1>
+                <p class="last-updated">Diperbarui: Juli 2026 · oleh tim BengkelValo</p>
+
+                <p>
+                    Kalau menang cuma nambah RR 8–12 tapi sekali kalah bisa hilang 20 lebih, itu bukan bug atau kamu
+                    lagi apes. <strong>Penyebabnya: MMR (rating tersembunyi) kamu lebih rendah daripada rank yang
+                    tampil di layar, jadi sistem sedang menarik rank-mu turun supaya mendekati MMR aslinya</strong>.
+                    Selama gap itu belum ketutup, pola RR naik sedikit-turun banyak akan terus terasa sampai beberapa
+                    season ke depan.
+                </p>
+
+                <h3>Beda RR dan MMR</h3>
+                <p>
+                    <strong>RR (Rank Rating)</strong> adalah angka 0–100 yang kamu lihat langsung di profil — ini
+                    representasi publik dari posisimu, dan inilah yang menentukan kapan kamu naik atau turun divisi.
+                    <strong>MMR</strong> adalah rating tersembunyi yang dipakai Riot untuk mencari lawan dan rekan
+                    setim seimbang; angkanya tidak pernah ditampilkan ke pemain, dan tidak ada halaman resmi di mana
+                    kamu bisa mengeceknya secara pasti. Idealnya dua angka ini berjalan beriringan — menang bikin
+                    keduanya naik, kalah bikin keduanya turun, dengan laju yang mirip. Tapi keduanya bisa terpisah
+                    cukup jauh karena beberapa sebab umum: reset season yang menurunkan rank tampilan tapi tidak
+                    menyentuh MMR secara penuh, win streak yang membawamu naik divisi lebih cepat dari performa
+                    aslinya, carry dari teammate saat duo/full party, atau smurf run di awal akun yang membuat rank
+                    tampilan melompat jauh di depan MMR. Istilah-istilah semacam ini dan mekanik rank lain bisa kamu
+                    cek lebih lengkap di <a href="/kamus-valorant/">kamus Valorant</a>.
+                </p>
+
+                <h3>Kenapa RR yang didapat kecil padahal menang</h3>
+                <p>
+                    Sistem Valorant menghitung RR per match dengan membandingkan rank tampilanmu terhadap MMR-mu.
+                    Kalau MMR-mu lebih rendah dari rank yang kamu pegang sekarang, sistem menganggap kamu "belum
+                    pantas" berada di situ — jadi tiap kemenangan cuma dihargai sedikit (sistem ragu kamu benar-benar
+                    sekuat rank itu), sementara tiap kekalahan dihukum lebih besar (sistem menganggap itu bukti kamu
+                    memang belum layak). Ini bukan hukuman, melainkan mekanisme konvergensi: rank tampilan sedang
+                    ditarik pelan-pelan mendekati MMR sebenarnya, entah lewat gain kecil yang menumpuk pelan atau
+                    lewat loss besar yang mempercepat penurunan.
+                </p>
+
+                <h3>Tanda-tanda MMR kamu di bawah rank</h3>
+                <p>
+                    Beberapa gejala yang umum dikenali pemain saat mengalami situasi ini: <strong>RR yang didapat
+                    dari kemenangan konsisten kecil</strong> (di bawah 15) meski scoreboard-mu bagus, <strong>RR yang
+                    hilang saat kalah jauh lebih besar</strong> (20 ke atas) dibanding gain-nya, dan <strong>lawan di
+                    lobby terasa lebih santai atau bahkan sering ketemu pemain rank di bawahmu</strong> — indikasi
+                    matchmaking sedang menyesuaikan dengan MMR yang lebih rendah, bukan rank yang kamu pegang. Kalau
+                    ketiga tanda ini muncul bersamaan beberapa match berturut-turut, kemungkinan besar kamu sedang di
+                    fase konvergensi ini.
+                </p>
+
+                <h3>Cara memperbaiki MMR biar RR naik normal lagi</h3>
+                <p>
+                    Cara paling efektif adalah menaikkan MMR itu sendiri, bukan sekadar mengejar kemenangan tipis.
+                    Fokuskan energi ke <strong>performa individu yang konsisten</strong> — kill/death ratio, damage
+                    per round, dan kontribusi ke objektif — karena sistem MMR mempertimbangkan performa personal, tidak
+                    cuma menang-kalah tim. <strong>Win streak juga membantu lebih cepat</strong> daripada menang-kalah
+                    bergantian, karena tren kemenangan berturut-turut adalah sinyal kuat bagi sistem bahwa MMR-mu
+                    memang layak naik. Kalau kamu butuh panduan menyeluruh soal kebiasaan yang mempercepat naik rank,
+                    ada breakdown lengkapnya di <a href="/blog/cara-naik-rank-valorant/">cara naik rank Valorant</a>.
+                </p>
+                <p>
+                    Situasi ini juga sering muncul persis setelah reset season, saat rank tampilan turun tapi MMR
+                    tidak ikut ter-reset total — penjelasan lengkap soal mekanismenya ada di
+                    <a href="/blog/reset-rank-valorant/">reset rank Valorant</a>.
+                </p>
+
+                <h3>Kapan gap-nya terlalu besar untuk digrind sendiri</h3>
+                <p>
+                    Fase konvergensi ini wajar dan biasanya selesai sendiri dalam beberapa puluh match kalau gap-nya
+                    kecil. Masalahnya muncul saat gap-nya besar — misalnya rank tampilan naik cepat karena carry
+                    teammate lalu MMR tertinggal jauh di belakang. Di situasi ini, grinding solo bisa terasa seperti
+                    jalan di tempat: menang tetap RR-nya kecil, kalah sekali langsung mundur banyak, dan siklusnya
+                    berulang tanpa progres yang terasa selama berminggu-minggu meski performa personalmu sudah bagus.
+                </p>
+                <p>
+                    Kalau kamu sudah mencoba fokus performa individu dan win streak tapi progresnya tetap lambat,
+                    opsi paling realistis adalah melewati fase konvergensi lewat booster yang bisa mempertahankan
+                    win rate tinggi secara konsisten — bukan cuma menang sesekali. Kamu bisa cek dulu estimasi
+                    seberapa jauh gap-mu di <a href="/#calculator">kalkulator</a>, lalu bandingkan dengan opsi
+                    <a href="/joki-gendong-valorant/">joki gendong</a> kalau kamu masih mau ikut push bareng booster,
+                    bukan full-serahkan akun. Harga joki reguler <strong>mulai Rp 10.000 per divisi</strong> — jauh
+                    lebih murah daripada waktu berbulan-bulan yang habis untuk grinding manual keluar dari fase
+                    gain-kecil-loss-besar ini. Yang penting, joki di sini sifatnya opsional: kalau kamu masih punya
+                    waktu dan sabar buat grind sendiri, cara di atas cukup untuk memperbaiki MMR pelan-pelan tanpa
+                    biaya tambahan.
+                </p>
+
+                <div class="pricing-page-cta">
+                    <a href="/harga-joki-valorant/" class="btn btn-primary btn-lg">Lihat Harga Joki Valorant</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <Footer lang={lang} onHome={false} />
+    <FloatingWa lang={lang} />
+
+    <script src="../../scripts/main.js"></script>
+</Base>
